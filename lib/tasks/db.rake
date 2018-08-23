@@ -10,7 +10,7 @@ namespace :db do
     con = ActiveRecord::Base.connection
     con.execute('DROP SCHEMA IF EXISTS projects CASCADE;')
     con.execute('DROP SCHEMA IF EXISTS project1 CASCADE;')
-    con.execute("alter role ctti set search_path to ctgov, lookup, public;")
+    #con.execute("alter role ctti set search_path to ctgov, lookup, public;")
     con.reset!
   end
 
@@ -29,7 +29,7 @@ namespace :db do
     con.execute("grant usage on schema project1 to ctti;")
     con.execute("grant create on schema project1 to ctti;")
     con.execute("grant select on all tables in schema project1 to public;")
-    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    #con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
     con.reset!
   end
 
@@ -40,6 +40,17 @@ namespace :db do
     con.execute("alter role ctti set search_path to projects, project1;")
     con.reset!
     Rake::Task["db:migrate"].invoke
+    # now put ctgov & public schemas back in the searh path
+    con = ActiveRecord::Base.connection
+    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    con.reset!
+  end
+
+  task :seed do
+    con = ActiveRecord::Base.connection
+    con.execute("alter role ctti set search_path to projects, project1;")
+    con.reset!
+    Rake::Task["db:seed"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
     con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
