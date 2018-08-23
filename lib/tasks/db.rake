@@ -20,7 +20,7 @@ namespace :db do
     con = ActiveRecord::Base.connection
     con.execute('CREATE SCHEMA IF NOT EXISTS projects;')
     con.execute('CREATE SCHEMA IF NOT EXISTS project1;')
-    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    con.execute("alter role ctti set search_path to projects, project1;")
 
     con.execute("grant usage on schema projects to ctti;")
     con.execute("grant create on schema projects to ctti;")
@@ -29,6 +29,7 @@ namespace :db do
     con.execute("grant usage on schema project1 to ctti;")
     con.execute("grant create on schema project1 to ctti;")
     con.execute("grant select on all tables in schema project1 to public;")
+    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
     con.reset!
   end
 

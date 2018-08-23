@@ -1,7 +1,7 @@
 class UseCase < ActiveRecord::Base
-  has_many :use_case_attachments, :dependent => :destroy
-  has_many :use_case_publications, :dependent => :destroy
-  has_many :use_case_datasets, :dependent => :destroy
+  has_many :attachments, :dependent => :destroy
+  has_many :publications, :dependent => :destroy
+  has_many :datasets, :dependent => :destroy
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 
   def self.to_csv(options = {})
@@ -17,8 +17,8 @@ class UseCase < ActiveRecord::Base
     file = params.delete(:file)
     image_file = params.delete(:image_file)
     super
-    self.attachments << UseCaseAttachment.create_from(file) if file and attachment.nil?
-    self.attachments << UseCaseAttachment.create_from(image_file,'image') if image_file and image.nil?
+    self.attachments << Attachment.create_from(file) if file and attachment.nil?
+    self.attachments << Attachment.create_from(image_file,'image') if image_file and image.nil?
     self
   end
 
@@ -26,8 +26,8 @@ class UseCase < ActiveRecord::Base
     file = params.delete(:file)
     image_file = params.delete('image_file')
     self.use_case_attachments = []
-    self.attachments << UseCaseAttachment.create_from(file) if file
-    self.attachments << UseCaseAttachment.create_from(image_file,'image') if image_file
+    self.attachments << Attachment.create_from(file) if file
+    self.attachments << Attachment.create_from(image_file,'image') if image_file
     super
     self
   end
@@ -51,10 +51,6 @@ class UseCase < ActiveRecord::Base
     else
       "http://#{self.url}"
     end
-  end
-
-  def attachments
-    use_case_attachments
   end
 
   def attachment

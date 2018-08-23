@@ -5,6 +5,7 @@ class CreateProjectTables < ActiveRecord::Migration[5.2]
       t.string  'status'  # public or not?
       t.date    'start_date'
       t.date    'completion_date'
+      t.string  'schema_name'
       t.string  'name'
       t.integer 'year'
       t.string  'brief_summary'
@@ -22,12 +23,28 @@ class CreateProjectTables < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
-    create_table "projects.use_case_attachments" do |t|
+    create_table "projects.attachments" do |t|
       t.integer 'use_case_id'
       t.string 'file_name'
       t.string 'content_type'
       t.binary 'file_contents'
       t.boolean 'is_image'
+      t.timestamps null: false
+    end
+
+    create_table "projects.publications" do |t|
+      t.integer 'use_case_id'
+      t.string 'name'
+      t.string 'url'
+      t.text 'description'
+      t.timestamps null: false
+    end
+
+    create_table "projects.datasets" do |t|
+      t.integer 'use_case_id'
+      t.string 'name'
+      t.string 'url'
+      t.text 'description'
       t.timestamps null: false
     end
 

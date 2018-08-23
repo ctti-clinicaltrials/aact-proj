@@ -4,9 +4,10 @@ class CreateProject1Tables < ActiveRecord::Migration[5.2]
     create_table "project1.categorized_terms" do |t|
       t.integer 'project_id'
       t.string  'identifier'
-      t.string  'term_type'
       t.string  'category'
+      t.string  'term'
       t.string  'year'
+      t.string  'term_type'
     end
 
     create_table 'project1.analyzed_mesh_terms' do |t|

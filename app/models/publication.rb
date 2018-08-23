@@ -1,3 +1,3 @@
 class Publication < ActiveRecord::Base
-  belongs_to :project
+  belongs_to :use_case
 end
