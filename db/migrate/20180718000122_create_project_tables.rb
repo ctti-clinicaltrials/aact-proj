@@ -42,6 +42,7 @@ class CreateProjectTables < ActiveRecord::Migration[5.2]
 
     create_table "projects.datasets" do |t|
       t.integer 'use_case_id'
+      t.string 'dataset_type'
       t.string 'name'
       t.string 'url'
       t.text 'description'
