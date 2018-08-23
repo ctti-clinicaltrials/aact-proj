@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
 
   create_table "datasets", force: :cascade do |t|
     t.integer "use_case_id"
+    t.string "dataset_type"
     t.string "name"
     t.string "url"
     t.text "description"
