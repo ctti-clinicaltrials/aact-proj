@@ -1,7 +1,7 @@
-class CreateProjectTables < ActiveRecord::Migration[5.2]
+class CreateProjTables < ActiveRecord::Migration[5.2]
   def change
 
-    create_table "projects.use_cases" do |t|
+    create_table "proj.projects" do |t|
       t.string  'status'  # public or not?
       t.date    'start_date'
       t.date    'completion_date'
@@ -23,8 +23,8 @@ class CreateProjectTables < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
-    create_table "projects.attachments" do |t|
-      t.integer 'use_case_id'
+    create_table "proj.attachments" do |t|
+      t.integer 'project_id'
       t.string 'file_name'
       t.string 'content_type'
       t.binary 'file_contents'
@@ -32,28 +32,29 @@ class CreateProjectTables < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
-    create_table "projects.publications" do |t|
-      t.integer 'use_case_id'
+    create_table "proj.publications" do |t|
+      t.integer 'project_id'
       t.string 'name'
       t.string 'url'
       t.text 'description'
       t.timestamps null: false
     end
 
-    create_table "projects.datasets" do |t|
-      t.integer 'use_case_id'
+    create_table "proj.datasets" do |t|
+      t.integer 'project_id'
       t.string 'dataset_type'
       t.string 'name'
+      t.string 'table_name'
       t.string 'url'
       t.text 'description'
       t.timestamps null: false
     end
 
-    add_index "projects.use_cases", :investigators
-    add_index "projects.use_cases", :organizations
-    add_index "projects.use_cases", :start_date
-    add_index "projects.use_cases", :completion_date
-    add_index "projects.use_cases", :year
+    add_index "proj.projects", :investigators
+    add_index "proj.projects", :organizations
+    add_index "proj.projects", :start_date
+    add_index "proj.projects", :completion_date
+    add_index "proj.projects", :year
 
   end
 

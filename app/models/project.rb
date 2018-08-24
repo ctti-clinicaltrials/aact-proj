@@ -1,4 +1,4 @@
-class UseCase < ActiveRecord::Base
+class Project < ActiveRecord::Base
   has_many :attachments, :dependent => :destroy
   has_many :publications, :dependent => :destroy
   has_many :datasets, :dependent => :destroy
@@ -25,7 +25,7 @@ class UseCase < ActiveRecord::Base
   def update(params = {})
     file = params.delete(:file)
     image_file = params.delete('image_file')
-    self.use_case_attachments = []
+    self.attachments = []
     self.attachments << Attachment.create_from(file) if file
     self.attachments << Attachment.create_from(image_file,'image') if image_file
     super

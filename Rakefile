@@ -11,13 +11,13 @@ namespace :db do
   def set_search_path
     puts "Setting search path to ctgov..."
     con=ActiveRecord::Base.connection
-    con.execute("CREATE SCHEMA IF NOT EXISTS projects;")
-    con.execute("CREATE SCHEMA IF NOT EXISTS project1;")
-    con.execute("alter role #{ENV['AACT_DB_SUPER_USERNAME']} set search_path to projects, project1;")
-    con.execute("grant usage on schema projects to #{ENV['AACT_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema projects to #{ENV['AACT_DB_SUPER_USERNAME']};")
-    con.execute("grant usage on schema project1 to #{ENV['AACT_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema project1 to #{ENV['AACT_DB_SUPER_USERNAME']};")
+    con.execute("CREATE SCHEMA IF NOT EXISTS proj;")
+    con.execute("CREATE SCHEMA IF NOT EXISTS proj_tag;")
+    con.execute("alter role #{ENV['AACT_DB_SUPER_USERNAME']} set search_path to proj, proj_tag;")
+    con.execute("grant usage on schema proj to #{ENV['AACT_DB_SUPER_USERNAME']};")
+    con.execute("grant create on schema proj to #{ENV['AACT_DB_SUPER_USERNAME']};")
+    con.execute("grant usage on schema proj_tag to #{ENV['AACT_DB_SUPER_USERNAME']};")
+    con.execute("grant create on schema proj_tag to #{ENV['AACT_DB_SUPER_USERNAME']};")
     con.reset!
   end
 

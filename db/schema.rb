@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "identifier"
     t.string "term"
     t.string "downcase_term"
-    t.index ["downcase_term"], name: "index_project1.analyzed_free_text_terms_on_downcase_term"
-    t.index ["term"], name: "index_project1.analyzed_free_text_terms_on_term"
+    t.index ["downcase_term"], name: "index_proj_tag.analyzed_free_text_terms_on_downcase_term"
+    t.index ["term"], name: "index_proj_tag.analyzed_free_text_terms_on_term"
   end
 
   create_table "analyzed_mesh_terms", force: :cascade do |t|
@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "term"
     t.string "downcase_term"
     t.string "description"
-    t.index ["description"], name: "index_project1.analyzed_mesh_terms_on_description"
-    t.index ["downcase_term"], name: "index_project1.analyzed_mesh_terms_on_downcase_term"
-    t.index ["qualifier"], name: "index_project1.analyzed_mesh_terms_on_qualifier"
-    t.index ["term"], name: "index_project1.analyzed_mesh_terms_on_term"
+    t.index ["description"], name: "index_proj_tag.analyzed_mesh_terms_on_description"
+    t.index ["downcase_term"], name: "index_proj_tag.analyzed_mesh_terms_on_downcase_term"
+    t.index ["qualifier"], name: "index_proj_tag.analyzed_mesh_terms_on_qualifier"
+    t.index ["term"], name: "index_proj_tag.analyzed_mesh_terms_on_term"
   end
 
   create_table "attachments", force: :cascade do |t|
-    t.integer "use_case_id"
+    t.integer "project_id"
     t.string "file_name"
     t.string "content_type"
     t.binary "file_contents"
@@ -52,36 +52,23 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "term"
     t.string "year"
     t.string "term_type"
-    t.index ["category"], name: "index_project1.categorized_terms_on_category"
-    t.index ["identifier"], name: "index_project1.categorized_terms_on_identifier"
-    t.index ["term_type"], name: "index_project1.categorized_terms_on_term_type"
-  end
-
-  create_table "clinical_categories", force: :cascade do |t|
-    t.string "name"
-    t.string "downcase_name"
+    t.index ["category"], name: "index_proj_tag.categorized_terms_on_category"
+    t.index ["identifier"], name: "index_proj_tag.categorized_terms_on_identifier"
+    t.index ["term_type"], name: "index_proj_tag.categorized_terms_on_term_type"
   end
 
   create_table "datasets", force: :cascade do |t|
-    t.integer "use_case_id"
+    t.integer "project_id"
     t.string "dataset_type"
     t.string "name"
+    t.string "table_name"
     t.string "url"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "publications", force: :cascade do |t|
-    t.integer "use_case_id"
-    t.string "name"
-    t.string "url"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "use_cases", force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
     t.string "status"
     t.date "start_date"
     t.date "completion_date"
@@ -102,11 +89,20 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.binary "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["completion_date"], name: "index_projects.use_cases_on_completion_date"
-    t.index ["investigators"], name: "index_projects.use_cases_on_investigators"
-    t.index ["organizations"], name: "index_projects.use_cases_on_organizations"
-    t.index ["start_date"], name: "index_projects.use_cases_on_start_date"
-    t.index ["year"], name: "index_projects.use_cases_on_year"
+    t.index ["completion_date"], name: "index_proj.projects_on_completion_date"
+    t.index ["investigators"], name: "index_proj.projects_on_investigators"
+    t.index ["organizations"], name: "index_proj.projects_on_organizations"
+    t.index ["start_date"], name: "index_proj.projects_on_start_date"
+    t.index ["year"], name: "index_proj.projects_on_year"
+  end
+
+  create_table "publications", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "name"
+    t.string "url"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "y2010_mesh_terms", force: :cascade do |t|
@@ -115,17 +111,17 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "description"
     t.string "mesh_term"
     t.string "downcase_mesh_term"
-    t.index ["description"], name: "index_projects.y2010_mesh_terms_on_description"
-    t.index ["downcase_mesh_term"], name: "index_projects.y2010_mesh_terms_on_downcase_mesh_term"
-    t.index ["mesh_term"], name: "index_projects.y2010_mesh_terms_on_mesh_term"
-    t.index ["qualifier"], name: "index_projects.y2010_mesh_terms_on_qualifier"
+    t.index ["description"], name: "index_proj.y2010_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_proj.y2010_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_proj.y2010_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_proj.y2010_mesh_terms_on_qualifier"
   end
 
   create_table "y2016_mesh_headings", force: :cascade do |t|
     t.string "qualifier"
     t.string "heading"
     t.string "subcategory"
-    t.index ["qualifier"], name: "index_projects.y2016_mesh_headings_on_qualifier"
+    t.index ["qualifier"], name: "index_proj.y2016_mesh_headings_on_qualifier"
   end
 
   create_table "y2016_mesh_terms", force: :cascade do |t|
@@ -134,10 +130,10 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "description"
     t.string "mesh_term"
     t.string "downcase_mesh_term"
-    t.index ["description"], name: "index_projects.y2016_mesh_terms_on_description"
-    t.index ["downcase_mesh_term"], name: "index_projects.y2016_mesh_terms_on_downcase_mesh_term"
-    t.index ["mesh_term"], name: "index_projects.y2016_mesh_terms_on_mesh_term"
-    t.index ["qualifier"], name: "index_projects.y2016_mesh_terms_on_qualifier"
+    t.index ["description"], name: "index_proj.y2016_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_proj.y2016_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_proj.y2016_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_proj.y2016_mesh_terms_on_qualifier"
   end
 
 end

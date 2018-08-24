@@ -1,4 +1,4 @@
-module Project1
+module ProjTag
   class AnalyzedFreeTextTerm < ActiveRecord::Base
 
     def self.populate
@@ -12,7 +12,6 @@ module Project1
     end
 
     def self.populate_from_file(file_name)
-      puts "======= >> Populating from #{file_name}"
       data = Roo::Spreadsheet.open(file_name)
       year = file_name.split('/').last.split('_').first
       header = data.first.map(&:downcase)
@@ -30,7 +29,7 @@ module Project1
           end
 
           categories.each { |cat|
-            Project1::CategorizedTerm.create(
+            ProjTag::CategorizedTerm.create(
               :project_id   => '1',
               :identifier   => row['name'].downcase,
               :category     => cat,

@@ -1,4 +1,4 @@
-module Project1
+module ProjTag
   class AnalyzedMeshTerm < ActiveRecord::Base
 
     def self.populate
@@ -32,7 +32,7 @@ module Project1
             ).save
 
             categories.each{ |cat|
-                Project1::CategorizedTerm.create(
+                ProjTag::CategorizedTerm.create(
                   :project_id   => '1',
                   :identifier   => row['mesh_id'],
                   :category     => cat,

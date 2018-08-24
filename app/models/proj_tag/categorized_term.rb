@@ -1,4 +1,4 @@
-module Project1
+module ProjTag
   class CategorizedTerm < ActiveRecord::Base
   end
 end

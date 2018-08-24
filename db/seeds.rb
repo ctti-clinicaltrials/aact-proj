@@ -4,7 +4,7 @@
 
 # Clinwiki
 puts  "Clinwiki......"
-proj1 = UseCase.create(
+proj1 = Project.create(
   status: 'public',
   name: 'We are developing a crowd-source platform aimed at publicly highlighting well-designed studies.',
   investigators: 'Willy Hoos',
@@ -19,12 +19,12 @@ file_name="#{Rails.public_path}/attachments/clinwiki-image.png"
 file = Rack::Test::UploadedFile.new(file_name, 'image/png')
 proj1.attachments << Attachment.create_from(file)
 proj1.save!
-puts "Created #{UseCase.count} use cases."
+puts "Created #{Project.count} use cases."
 
 
 #  EEG-related Trials
 puts  "EEG-related......"
-proj2 = UseCase.create(
+proj2 = Project.create(
   status: 'public',
   name: 'Our goal was to create a map that shows the distribution of EEG-related clinical trials around the world. (As of March, 2017)',
   organizations: 'DCRI',
@@ -37,11 +37,11 @@ file_name="#{Rails.public_path}/attachments/eeg-related-trials.png"
 file = Rack::Test::UploadedFile.new(file_name, 'image/png')
 proj2.attachments << Attachment.create_from(file)
 proj2.save!
-puts "Created #{UseCase.count} use cases."
+puts "Created #{Project.count} use cases."
 
 #  Summaries and Trends
 puts  "Summary and Trends......"
-proj3 = UseCase.create(
+proj3 = Project.create(
   status: 'public',
   name: 'We were interested in examining how the characteristics of trials registered at ClinicalTrials.gov have changed over time',
   organizations: 'DCRI',
@@ -58,12 +58,12 @@ file2 = Rack::Test::UploadedFile.new(file_name2, 'application/vnd.openxmlformats
 proj3.attachments << Attachment.create_from(file1)
 proj3.attachments << Attachment.create_from(file2)
 proj3.save!
-puts "Created #{UseCase.count} use cases."
+puts "Created #{Project.count} use cases."
 
 #   New Test Projects
 
 puts  "Test #1......"
-proj4 = UseCase.new(
+proj4 = Project.new(
             name: 'Clinically Categorize - Cardiology',
             investigators: 'Karen Alexander, David Kong',
             organizations: 'Duke Clinical Research Institute',
@@ -79,11 +79,11 @@ proj4.datasets << Dataset.create(dataset_type: 'results',  name: 'analyzed_free_
 proj4.datasets << Dataset.create(dataset_type: 'results',  name: 'analyzed_mesh_terms', description: 'MeSH terms from ClinicalTrials.gov conditions that were analyzed by clinicians and assigned to one or more of 24 clinical categories.  Each row represent a free text term and each column represents a clinical category.')
 proj4.datasets << Dataset.create(dataset_type: 'summary',  name: 'categorized_terms', description: 'Table containing a list of all terms (MeSH & free) and the clinical category to which it has been assigned.  A row exists for each clinical category to which a term has been assigned, so there may be multiple rows in the table for the same term.')
 proj4.save!
-puts "Created #{UseCase.count} use cases."
+puts "Created #{Project.count} use cases."
 
 # other test case
 puts  "Test #2......"
-proj5 = UseCase.new(
+proj5 = Project.new(
             name: 'Clinically Categorize - Oncology',
             investigators: 'Amy Abernathy, Brad Hirsch',
             organizations: 'Duke Clinical Research Institute',
@@ -95,4 +95,4 @@ proj5 = UseCase.new(
             issues:  "100 conflicting MeSH id tags.Faculty decided to review ambiguous studies as opposed to adjudicating MeSH tags.  Same tags used as those in Rob Califf's manuscript.")
 proj5.publications << Publication.create(url: 'http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033677')
 proj5.save!
-puts "Created #{UseCase.count} use cases."
+puts "Created #{Project.count} use cases."

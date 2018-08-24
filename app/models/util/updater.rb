@@ -25,14 +25,14 @@ module Util
       con=ActiveRecord::Base.establish_connection.connection
       con.execute("truncate table analyzed_mesh_terms")
       con.execute("delete from categorized_terms where term_type='mesh'")
-      Project1::AnalyzedMeshTerm.populate
+      ProjTag::AnalyzedMeshTerm.populate
     end
 
     def populate_analyzed_free_text_tables
       con=ActiveRecord::Base.establish_connection.connection
       con.execute("truncate table analyzed_free_text_terms")
       con.execute("delete from categorized_terms where term_type='free'")
-      Project1::AnalyzedFreeTextTerm.populate
+      ProjTag::AnalyzedFreeTextTerm.populate
     end
 
     def dump_database
@@ -50,18 +50,18 @@ module Util
         revoke_db_privs
         terminate_db_sessions
         return nil if psql_file_name.nil?
-        pub_con.execute('DROP SCHEMA IF EXISTS projects CASCADE')
-        pub_con.execute('DROP SCHEMA IF EXISTS project1 CASCADE')
-        pub_con.execute('CREATE SCHEMA projects')
-        pub_con.execute('CREATE SCHEMA project1')
+        pub_con.execute('DROP SCHEMA IF EXISTS proj CASCADE')
+        pub_con.execute('DROP SCHEMA IF EXISTS proj_tag CASCADE')
+        pub_con.execute('CREATE SCHEMA proj')
+        pub_con.execute('CREATE SCHEMA proj_tag')
         cmd="psql -h aact-db.ctti-clinicaltrials.org #{public_db_name} < #{psql_file} > /dev/null"
         run_command_line(cmd)
 
         terminate_alt_db_sessions
-        pub_con.execute('DROP SCHEMA IF EXISTS projects CASCADE')
-        pub_con.execute('DROP SCHEMA IF EXISTS project1 CASCADE')
-        pub_con.execute('CREATE SCHEMA projects')
-        pub_con.execute('CREATE SCHEMA project1')
+        pub_con.execute('DROP SCHEMA IF EXISTS proj CASCADE')
+        pub_con.execute('DROP SCHEMA IF EXISTS proj_tag CASCADE')
+        pub_con.execute('CREATE SCHEMA proj')
+        pub_con.execute('CREATE SCHEMA proj_tag')
         cmd="psql -h aact-db.ctti-clinicaltrials.org #{public_db_name} < #{psql_file} > /dev/null"
         run_command_line(cmd)
 

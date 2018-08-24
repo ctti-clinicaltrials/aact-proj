@@ -6,30 +6,30 @@ namespace :db do
 
   desc 'Never drop the AACT database! (Only drop project-related schemas)'
   task drop: [:environment] do
-    puts "Dropping schema projects & project1..."
+    puts "Dropping schema proj & proj_tag..."
     con = ActiveRecord::Base.connection
-    con.execute('DROP SCHEMA IF EXISTS projects CASCADE;')
-    con.execute('DROP SCHEMA IF EXISTS project1 CASCADE;')
+    con.execute('DROP SCHEMA IF EXISTS proj CASCADE;')
+    con.execute('DROP SCHEMA IF EXISTS proj_tag CASCADE;')
     #con.execute("alter role ctti set search_path to ctgov, lookup, public;")
     con.reset!
   end
 
   desc 'Do not create the AACT database; create project-related schemas'
   task create: [:environment] do
-    puts "Creating schema projects & project1..."
+    puts "Creating schema proj & proj_tag..."
     con = ActiveRecord::Base.connection
-    con.execute('CREATE SCHEMA IF NOT EXISTS projects;')
-    con.execute('CREATE SCHEMA IF NOT EXISTS project1;')
-    con.execute("alter role ctti set search_path to projects, project1;")
+    con.execute('CREATE SCHEMA IF NOT EXISTS proj;')
+    con.execute('CREATE SCHEMA IF NOT EXISTS proj_tag;')
+    con.execute("alter role ctti set search_path to proj, proj_tag;")
 
-    con.execute("grant usage on schema projects to ctti;")
-    con.execute("grant create on schema projects to ctti;")
-    con.execute("grant select on all tables in schema projects to public;")
+    con.execute("grant usage on schema proj to ctti;")
+    con.execute("grant create on schema proj to ctti;")
+    con.execute("grant select on all tables in schema proj to public;")
 
-    con.execute("grant usage on schema project1 to ctti;")
-    con.execute("grant create on schema project1 to ctti;")
-    con.execute("grant select on all tables in schema project1 to public;")
-    #con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    con.execute("grant usage on schema proj_tag to ctti;")
+    con.execute("grant create on schema proj_tag to ctti;")
+    con.execute("grant select on all tables in schema proj_tag to public;")
+    #con.execute("alter role ctti set search_path to ctgov, proj, proj_tag, lookup, public;")
     con.reset!
   end
 
@@ -37,35 +37,35 @@ namespace :db do
     # make rails unaware of other schemas. If rails detects an existing schema_migrations table,
     # it will use it - but we need a proj-specific schema_migrations table in our proj schema
     con = ActiveRecord::Base.connection
-    con.execute("alter role ctti set search_path to projects, project1;")
+    con.execute("alter role ctti set search_path to proj, proj_tag;")
     con.reset!
     Rake::Task["db:migrate"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    con.execute("alter role ctti set search_path to ctgov, proj, proj_tag, lookup, public;")
     con.reset!
   end
 
   task :seed do
     con = ActiveRecord::Base.connection
-    con.execute("alter role ctti set search_path to projects, project1;")
+    con.execute("alter role ctti set search_path to proj, proj_tag;")
     con.reset!
     Rake::Task["db:seed"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    con.execute("alter role ctti set search_path to ctgov, proj, proj_tag, lookup, public;")
     con.reset!
   end
 
   task :rollback do
     # make rails unaware of any other schema in the database
     con=ActiveRecord::Base.connection
-    con.execute("alter role ctti set search_path to projects, project1;")
+    con.execute("alter role ctti set search_path to proj, proj_tag;")
     con.reset!
     Rake::Task["db:rollback"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("alter role ctti set search_path to ctgov, projects, project1, lookup, public;")
+    con.execute("alter role ctti set search_path to ctgov, proj, proj_tag, lookup, public;")
     con.reset!
   end
 
