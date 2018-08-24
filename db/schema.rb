@@ -15,26 +15,6 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "analyzed_free_text_terms", force: :cascade do |t|
-    t.string "identifier"
-    t.string "term"
-    t.string "downcase_term"
-    t.index ["downcase_term"], name: "index_proj_tag.analyzed_free_text_terms_on_downcase_term"
-    t.index ["term"], name: "index_proj_tag.analyzed_free_text_terms_on_term"
-  end
-
-  create_table "analyzed_mesh_terms", force: :cascade do |t|
-    t.string "qualifier"
-    t.string "identifier"
-    t.string "term"
-    t.string "downcase_term"
-    t.string "description"
-    t.index ["description"], name: "index_proj_tag.analyzed_mesh_terms_on_description"
-    t.index ["downcase_term"], name: "index_proj_tag.analyzed_mesh_terms_on_downcase_term"
-    t.index ["qualifier"], name: "index_proj_tag.analyzed_mesh_terms_on_qualifier"
-    t.index ["term"], name: "index_proj_tag.analyzed_mesh_terms_on_term"
-  end
-
   create_table "attachments", force: :cascade do |t|
     t.integer "project_id"
     t.string "file_name"
@@ -43,18 +23,6 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.boolean "is_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "categorized_terms", force: :cascade do |t|
-    t.integer "project_id"
-    t.string "identifier"
-    t.string "category"
-    t.string "term"
-    t.string "year"
-    t.string "term_type"
-    t.index ["category"], name: "index_proj_tag.categorized_terms_on_category"
-    t.index ["identifier"], name: "index_proj_tag.categorized_terms_on_identifier"
-    t.index ["term_type"], name: "index_proj_tag.categorized_terms_on_term_type"
   end
 
   create_table "datasets", force: :cascade do |t|
@@ -103,6 +71,19 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tagged_terms", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "identifier"
+    t.string "tag"
+    t.string "term"
+    t.string "year"
+    t.string "term_type"
+    t.index ["identifier"], name: "index_proj_tag.tagged_terms_on_identifier"
+    t.index ["tag"], name: "index_proj_tag.tagged_terms_on_tag"
+    t.index ["term"], name: "index_proj_tag.tagged_terms_on_term"
+    t.index ["term_type"], name: "index_proj_tag.tagged_terms_on_term_type"
   end
 
   create_table "y2010_mesh_terms", force: :cascade do |t|

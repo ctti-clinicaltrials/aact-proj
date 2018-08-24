@@ -5,8 +5,7 @@ module Util
 
     def run
       populate_mesh_tables
-      populate_analyzed_mesh_term_tables
-      populate_analyzed_free_text_tables
+      populate_tagged_terms
   #    SanityChecker.new.run
   #    dump_database
     end
@@ -21,18 +20,10 @@ module Util
       Y2016MeshHeading.populate_from_file
     end
 
-    def populate_analyzed_mesh_term_tables
-      con=ActiveRecord::Base.establish_connection.connection
-      con.execute("truncate table analyzed_mesh_terms")
-      con.execute("delete from categorized_terms where term_type='mesh'")
-      ProjTag::AnalyzedMeshTerm.populate
-    end
-
-    def populate_analyzed_free_text_tables
-      con=ActiveRecord::Base.establish_connection.connection
-      con.execute("truncate table analyzed_free_text_terms")
-      con.execute("delete from categorized_terms where term_type='free'")
-      ProjTag::AnalyzedFreeTextTerm.populate
+    def populate_tagged_terms
+      con = ActiveRecord::Base.establish_connection.connection
+      con.execute("truncate table tagged_terms")
+      ProjTag::TaggedTerm.populate
     end
 
     def dump_database
