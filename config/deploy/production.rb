@@ -38,8 +38,8 @@
 # http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
 #
 # Global options
-  set :repo_url, ENV['AACT_PROD_REPO_URL']
-  set :deploy_to, ENV['AACT_PROD_DEPLOY_TO']
+  set :repo_url, ENV['AACT_PROJ_REPO_URL']
+  set :deploy_to, ENV['AACT_PROJ_DEPLOY_TO']
 
   set :ssh_options, {
     keys: %w(/home/ctti-aact/.ssh/id_rsa),
