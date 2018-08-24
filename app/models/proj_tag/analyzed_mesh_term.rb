@@ -22,21 +22,21 @@ module ProjTag
 
       (2..data.last_row).each  {|i|
         row = Hash[[header, data.row(i)].transpose]
-        if !row['mesh_id'].blank? and !row['mesh_term'].blank?
+        if !row['identifier'].blank? and !row['term'].blank?
           categories= row.map{|key,value| key if ['y','x'].include? value.try(:downcase) }.reject(&:blank?)
           if !categories.empty?
-            new(:qualifier     => row['mesh_id'].split('.').first,
-                :identifier    => row['mesh_id'],
-                :term          => row['mesh_term'],
-                :downcase_term => row['mesh_term'].try(:downcase),
+            new(:qualifier     => row['identifier'].split('.').first,
+                :identifier    => row['identifier'],
+                :term          => row['term'],
+                :downcase_term => row['term'].try(:downcase),
             ).save
 
             categories.each{ |cat|
                 ProjTag::CategorizedTerm.create(
                   :project_id   => '1',
-                  :identifier   => row['mesh_id'],
+                  :identifier   => row['identifier'],
                   :category     => cat,
-                  :term         => row['mesh_term'].downcase,
+                  :term         => row['term'].downcase,
                   :year         => year,
                   :term_type    => 'mesh',
                 ).save!
