@@ -1,6 +1,6 @@
 class Y2010MeshTerm < ActiveRecord::Base
 
-  def self.populate_from_file(file_name=Rails.root.join('public','csv','2010_mesh_terms.csv'))
+  def self.populate_from_file(file_name=Rails.root.join('public','incoming','mesh','2010_mesh_terms.csv'))
     puts "about to populate table of mesh terms... filename: #{file_name}"
     destroy_all
     File.open(file_name).each_line{|line|
