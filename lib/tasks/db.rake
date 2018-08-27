@@ -8,8 +8,15 @@ namespace :db do
   task drop: [:environment] do
     puts "Dropping schema proj & proj_tag..."
     con = ActiveRecord::Base.connection
-    con.execute('DROP SCHEMA IF EXISTS proj CASCADE;')
-    con.execute('DROP SCHEMA IF EXISTS proj_tag CASCADE;')
+    begin
+      con.execute('DROP SCHEMA proj CASCADE;')
+    rescue
+      #  if error raised cuz proj doesn't exist, just proceed. (Seems 'IF EXISTS' doesn't work on version of postgres currently on dev
+    end
+    begin
+    con.execute('DROP SCHEMA proj_tag CASCADE;')
+    rescue
+    end
     #con.execute("alter role ctti set search_path to ctgov, lookup, public;")
     con.reset!
   end
@@ -18,8 +25,8 @@ namespace :db do
   task create: [:environment] do
     puts "Creating schema proj & proj_tag..."
     con = ActiveRecord::Base.connection
-    con.execute('CREATE SCHEMA IF NOT EXISTS proj;')
-    con.execute('CREATE SCHEMA IF NOT EXISTS proj_tag;')
+    con.execute('CREATE SCHEMA proj;')
+    con.execute('CREATE SCHEMA proj_tag;')
     con.execute("alter role ctti set search_path to proj, proj_tag;")
 
     con.execute("grant usage on schema proj to ctti;")

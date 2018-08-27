@@ -11,8 +11,17 @@ namespace :db do
   def set_search_path
     puts "Setting search path to ctgov..."
     con=ActiveRecord::Base.connection
-    con.execute("CREATE SCHEMA IF NOT EXISTS proj;")
-    con.execute("CREATE SCHEMA IF NOT EXISTS proj_tag;")
+    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj';")
+    if exists.first != nil
+      con.execute("DROP SCHEMA proj CASCADE;")
+    end
+    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag';")
+    if exists.first != nil
+      con.execute("DROP SCHEMA proj_tag CASCADE;")
+    end
+
+    con.execute("CREATE SCHEMA proj;")
+    con.execute("CREATE SCHEMA proj_tag;")
     con.execute("alter role #{ENV['AACT_DB_SUPER_USERNAME']} set search_path to proj, proj_tag;")
     con.execute("grant usage on schema proj to #{ENV['AACT_DB_SUPER_USERNAME']};")
     con.execute("grant create on schema proj to #{ENV['AACT_DB_SUPER_USERNAME']};")
