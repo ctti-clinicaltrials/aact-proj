@@ -34,8 +34,11 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
 
     create_table "proj.publications" do |t|
       t.integer 'project_id'
+      t.string 'pub_type'
       t.string 'name'
       t.string 'url'
+      t.string 'published_in'
+      t.date 'published_on'
       t.text 'description'
       t.timestamps null: false
     end
