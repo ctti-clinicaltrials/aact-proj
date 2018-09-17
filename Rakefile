@@ -8,40 +8,23 @@ task(:default).clear
 task default: [:spec]
 
 namespace :db do
-  def set_search_path
-    puts "Setting search path to ctgov..."
-    con=ActiveRecord::Base.connection
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj';")
-    if exists.first != nil
-      con.execute("DROP SCHEMA proj CASCADE;")
-    end
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag';")
-    if exists.first != nil
-      con.execute("DROP SCHEMA proj_tag CASCADE;")
-    end
 
-    con.execute("CREATE SCHEMA proj;")
-    con.execute("CREATE SCHEMA proj_tag;")
-    con.execute("alter role #{ENV['AACT_DB_SUPER_USERNAME']} set search_path to proj, proj_tag;")
-    con.execute("grant usage on schema proj to #{ENV['AACT_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema proj to #{ENV['AACT_DB_SUPER_USERNAME']};")
-    con.execute("grant usage on schema proj_tag to #{ENV['AACT_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema proj_tag to #{ENV['AACT_DB_SUPER_USERNAME']};")
+  def reset_search_path
+    # put back to normal so the PROJ super user can see tables in ctgov schema
+    puts "Resetting search path ..."
+    con = ActiveRecord::Base.connection
+    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to proj, proj_2015_compliance, proj_tag, ctgov;")
     con.reset!
   end
 
-  task :before_set_search_path do
-    before { set_search_path }
-  end
-
   task :after_set_search_path do
-    at_exit { set_search_path }
+    at_exit { reset_search_path }
   end
 
 end
 
 Rake::Task['db:create'].enhance(['db:after_set_search_path'])
-
+Rake::Task['db:migrate'].enhance(['db:after_set_search_path'])
 
 if Rails.env != 'production'
   begin
