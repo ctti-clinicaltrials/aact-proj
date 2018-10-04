@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.integer "project_id"
     t.string "dataset_type"
     t.string "name"
+    t.string "schema_name"
     t.string "table_name"
     t.string "url"
     t.text "description"

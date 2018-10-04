@@ -47,6 +47,7 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
       t.integer 'project_id'
       t.string 'dataset_type'
       t.string 'name'
+      t.string 'schema_name'
       t.string 'table_name'
       t.string 'url'
       t.text 'description'
