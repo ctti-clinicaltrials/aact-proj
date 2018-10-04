@@ -1,5 +1,6 @@
 module ProjM
   class AnalyzedStudy < ActiveRecord::Base
+    self.table_name = 'proj_2015_compliance.analyzed_studies'
 
     def self.populate
       file_name="#{Rails.public_path}/incoming/2015_compliance.xlsx"
