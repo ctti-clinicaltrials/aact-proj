@@ -12,8 +12,8 @@ namespace :db do
   def reset_search_path
     # put back to normal so the PROJ super user can see tables in ctgov schema
     puts "Resetting search path ..."
-    con = ActiveRecord::Base.connection
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to proj, proj_2015_compliance, proj_tag, ctgov;")
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag, ctgov;")
     con.reset!
   end
 
