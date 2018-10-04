@@ -14,7 +14,7 @@ namespace :db do
     con.execute('DROP SCHEMA proj_2015_compliance CASCADE;') if !exists.empty?
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag';").values
     con.execute('DROP SCHEMA proj_tag CASCADE;') if !exists.empty?
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO ctgov, public;")
     con.reset!
   end
 
@@ -44,7 +44,7 @@ namespace :db do
     con.execute("grant create on schema proj_tag to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
     con.execute("grant select on all tables in schema proj_tag to public;")
 
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to ctgov, proj, proj_2015_compliance, proj_tag, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag, ctgov, public;")
     con.reset!
   end
 
@@ -53,22 +53,23 @@ namespace :db do
     # it will use it - but we need a proj-specific schema_migrations table in our proj schema
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
     con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to proj, proj_2015_compliance, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag;")
     con.reset!
     Rake::Task["db:migrate"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to ctgov, proj, proj_2015_compliance, proj_tag, lookup, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag, ctgov, public;")
     con.reset!
   end
 
   task :seed do
     con = ActiveRecord::Base.connection
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to proj, proj_2015_compliance, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag;")
     con.reset!
     Rake::Task["db:seed"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to ctgov, proj, proj_2015_compliance, proj_tag, lookup, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag, ctgov, public;")
     con.reset!
   end
 
@@ -76,11 +77,12 @@ namespace :db do
     # make rails unaware of any other schema in the database
     con=ActiveRecord::Base.connection
     con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to proj, proj_2015_compliance, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag;")
     con.reset!
     Rake::Task["db:rollback"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("alter role #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} set search_path to ctgov, proj, proj_2015_compliance, proj_tag, lookup, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_2015_compliance, proj_tag, ctgov, public;")
     con.reset!
   end
 
