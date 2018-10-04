@@ -62,37 +62,34 @@ puts "Created #{Project.count} use cases."
 
 #   New Test Projects
 
-puts  "Test #1......"
-proj4 = Project.new(
-            name: 'Clinically Categorize - Cardiology',
-            investigators: 'Karen Alexander, David Kong',
-            organizations: 'Duke Clinical Research Institute',
-            start_date: Date.strptime('27/09/2011', '%d/%m/%Y'),
-            year: 2011,
-            email: 'sheri.tibbs@duke.edu',
-            study_selection_criteria: "see methods section of publication: 'http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033677",
-            description: "We developed and validated a methodology for annotating studies by clinical specialty, using a custom taxonomy employing Medical Subject Heading (MeSH) terms applied by an NLM algorithm, as well as MeSH terms and other disease condition terms provided by study sponsors. Clinical specialists reviewed and annotated MeSH and non-MeSH disease condition terms, and an algorithm was created to classify studies into clinical specialties based on both MeSH and non-MeSH annotations. False positives and false negatives were evaluated by comparing algorithmic classification with manual classification for three specialties.")
+# 2015 Monique Anderson.  Compliance with Results Reporting at ClinicalTrials.gov
+puts  "2015 Monique Anderson......"
 
-proj4.publications << Publication.create(url: 'http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033677')
-proj4.datasets << Dataset.create(dataset_type: 'support', name: 'y2010_mesh_term', description: '2010 MeSH Thesauraus')
-proj4.datasets << Dataset.create(dataset_type: 'results',  name: 'analyzed_free_text_terms', description: 'Free text terms (as opposed to MeSH terms) from ClinicalTrials.gov conditions that were analyzed by clinicians and assigned to one or more of 24 clinical categories.  Each row represent a free text term and each column represents a clinical category.')
-proj4.datasets << Dataset.create(dataset_type: 'results',  name: 'analyzed_mesh_terms', description: 'MeSH terms from ClinicalTrials.gov conditions that were analyzed by clinicians and assigned to one or more of 24 clinical categories.  Each row represent a free text term and each column represents a clinical category.')
-proj4.datasets << Dataset.create(dataset_type: 'summary',  name: 'categorized_terms', description: 'Table containing a list of all terms (MeSH & free) and the clinical category to which it has been assigned.  A row exists for each clinical category to which a term has been assigned, so there may be multiple rows in the table for the same term.')
-proj4.save!
-puts "Created #{Project.count} use cases."
-
-# other test case
-puts  "Test #2......"
-proj5 = Project.new(
-            name: 'Clinically Categorize - Oncology',
-            investigators: 'Amy Abernathy, Brad Hirsch',
+projAnderson = Project.new(
+            name: 'Compliance with Results Reporting at ClinicalTrials.gov',
+            schema_name: 'proj_anderson',
+            investigators: 'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
             organizations: 'Duke Clinical Research Institute',
-            start_date: Date.strptime('27/09/2011', '%d/%m/%Y'),
-            year: 2011,
-            email: 'sheri.tibbs@duke.edu',
-            description: "We developed and validated a methodology for annotating studies by clinical specialty, using a custom taxonomy employing Medical Subject Heading (MeSH) terms applied by an NLM algorithm, as well as MeSH terms and other disease condition terms provided by study sponsors. Clinical specialists reviewed and annotated MeSH and non-MeSH disease condition terms, and an algorithm was created to classify studies into clinical specialties based on both MeSH and non-MeSH annotations. False positives and false negatives were evaluated by comparing algorithmic classification with manual classification for three specialties.",
-            protocol: "The xx sections of the 2010 MeSH thesaurus was reviewed by a set of clinicians...",
-            issues:  "100 conflicting MeSH id tags.Faculty decided to review ambiguous studies as opposed to adjudicating MeSH tags.  Same tags used as those in Rob Califf's manuscript.")
-proj5.publications << Publication.create(url: 'http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033677')
-proj5.save!
+            start_date: Date.strptime('27/09/2013', '%d/%m/%Y'),
+            year: 2013,
+            email: 'monique.starks@duke.edu',
+            study_selection_criteria: "Using an algorithm based on input from the National Library of Medicine, we identified trials that were likely to be subject to FDAAA provisions (highly likely applicable clinical trials, or HLACTs) from 2008 through 2013. We determined the proportion of HLACTs that reported results within the 12-month interval mandated by the FDAAA or at any time during the 5-year study period. We used regression models to examine characteristics associated with reporting at 12 months and throughout the 5-year study period.")
+
+projAnderson.publications << Publication.create(
+     published_in: 'NEJM',
+     published_on: Date.strptime('12/03/2015', '%d/%m/%Y'),
+     url: 'https://www.nejm.org/doi/full/10.1056/NEJMsa1409364?query=featured_home')
+
+projAnderson.datasets << Dataset.create(
+     dataset_type: 'results',
+     schema_name: 'proj_anderson',
+     table_name: 'analyzed_studies',
+     name: 'analyzed studies')
+
+file_name="#{Rails.public_path}/attachments/proj_anderson.xlsx"
+file = Rack::Test::UploadedFile.new(file_name, 'application/vnd.openxmlformats-officedocument.spreads')
+projAnderson.attachments << Attachment.create_from(file)
+projAnderson.save!
+ProjAnderson::AnalyzedStudy.populate
+
 puts "Created #{Project.count} use cases."
