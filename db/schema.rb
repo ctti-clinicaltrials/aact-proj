@@ -68,12 +68,12 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.date "dr_received_dt"
     t.boolean "mn2delay"
     t.boolean "delayed12"
-    t.index ["agency_class"], name: "index_proj_2015_compliance.analyzed_studies_on_agency_class"
-    t.index ["funding"], name: "index_proj_2015_compliance.analyzed_studies_on_funding"
-    t.index ["masking"], name: "index_proj_2015_compliance.analyzed_studies_on_masking"
-    t.index ["overall_status"], name: "index_proj_2015_compliance.analyzed_studies_on_overall_status"
-    t.index ["phase"], name: "index_proj_2015_compliance.analyzed_studies_on_phase"
-    t.index ["primary_purpose"], name: "index_proj_2015_compliance.analyzed_studies_on_primary_purpose"
+    t.index ["agency_class"], name: "index_proj_anderson.analyzed_studies_on_agency_class"
+    t.index ["funding"], name: "index_proj_anderson.analyzed_studies_on_funding"
+    t.index ["masking"], name: "index_proj_anderson.analyzed_studies_on_masking"
+    t.index ["overall_status"], name: "index_proj_anderson.analyzed_studies_on_overall_status"
+    t.index ["phase"], name: "index_proj_anderson.analyzed_studies_on_phase"
+    t.index ["primary_purpose"], name: "index_proj_anderson.analyzed_studies_on_primary_purpose"
   end
 
   create_table "attachments", force: :cascade do |t|

@@ -1,16 +1,16 @@
-class CreateProj2015ComplianceTables < ActiveRecord::Migration[5.2]
+class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
 
   def down
-    drop_table proj_2015_compliance.analyzed_studies;
-    execute "DROP SCHEMA IF EXISTS proj_2015_compliance;"
+    drop_table proj_anderson.analyzed_studies;
+    execute "DROP SCHEMA IF EXISTS proj_anderson;"
     execute "ALTER ROLE proj SET search_path to ctgov, proj, proj_tag;"
   end
 
   def up
-    execute "CREATE SCHEMA IF NOT EXISTS proj_2015_compliance;"
-    execute "ALTER ROLE proj SET search_path to ctgov, proj, proj_tag, proj_2015_compliance"
+    execute "CREATE SCHEMA IF NOT EXISTS proj_anderson;"
+    execute "ALTER ROLE proj SET search_path to ctgov, proj, proj_tag, proj_anderson"
 
-    create_table "proj_2015_compliance.analyzed_studies" do |t|
+    create_table "proj_anderson.analyzed_studies" do |t|
       t.string  'nct_id'
       t.string  'url'
       t.string  'brief_title'
@@ -65,12 +65,12 @@ class CreateProj2015ComplianceTables < ActiveRecord::Migration[5.2]
       t.boolean 'delayed12'
     end
 
-    add_index 'proj_2015_compliance.analyzed_studies', :agency_class
-    add_index 'proj_2015_compliance.analyzed_studies', :funding
-    add_index 'proj_2015_compliance.analyzed_studies', :overall_status
-    add_index 'proj_2015_compliance.analyzed_studies', :phase
-    add_index 'proj_2015_compliance.analyzed_studies', :masking
-    add_index 'proj_2015_compliance.analyzed_studies', :primary_purpose
+    add_index 'proj_anderson.analyzed_studies', :agency_class
+    add_index 'proj_anderson.analyzed_studies', :funding
+    add_index 'proj_anderson.analyzed_studies', :overall_status
+    add_index 'proj_anderson.analyzed_studies', :phase
+    add_index 'proj_anderson.analyzed_studies', :masking
+    add_index 'proj_anderson.analyzed_studies', :primary_purpose
 
   end
 
