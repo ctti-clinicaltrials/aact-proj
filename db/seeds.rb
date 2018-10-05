@@ -1,6 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
+# This file should contain all the record creation needed to seed the database.
+
+#  Populate MeSH Term Datasets for Various Years
+Util::Updater.new.populate_mesh_tables
+Util::Updater.new.populate_tagged_terms
 
 # Clinwiki
 puts  "Clinwiki......"
@@ -63,33 +65,5 @@ puts "Created #{Project.count} use cases."
 #   New Test Projects
 
 # 2015 Monique Anderson.  Compliance with Results Reporting at ClinicalTrials.gov
-puts  "2015 Monique Anderson......"
-
-projAnderson = Project.new(
-            name: 'Compliance with Results Reporting at ClinicalTrials.gov',
-            schema_name: 'proj_anderson',
-            investigators: 'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
-            organizations: 'Duke Clinical Research Institute',
-            start_date: Date.strptime('27/09/2013', '%d/%m/%Y'),
-            year: 2013,
-            email: 'monique.starks@duke.edu',
-            study_selection_criteria: "Using an algorithm based on input from the National Library of Medicine, we identified trials that were likely to be subject to FDAAA provisions (highly likely applicable clinical trials, or HLACTs) from 2008 through 2013. We determined the proportion of HLACTs that reported results within the 12-month interval mandated by the FDAAA or at any time during the 5-year study period. We used regression models to examine characteristics associated with reporting at 12 months and throughout the 5-year study period.")
-
-projAnderson.publications << Publication.create(
-     published_in: 'NEJM',
-     published_on: Date.strptime('12/03/2015', '%d/%m/%Y'),
-     url: 'https://www.nejm.org/doi/full/10.1056/NEJMsa1409364?query=featured_home')
-
-projAnderson.datasets << Dataset.create(
-     dataset_type: 'results',
-     schema_name: 'proj_anderson',
-     table_name: 'analyzed_studies',
-     name: 'analyzed studies')
-
-file_name="#{Rails.public_path}/attachments/proj_anderson.xlsx"
-file = Rack::Test::UploadedFile.new(file_name, 'application/vnd.openxmlformats-officedocument.spreads')
-projAnderson.attachments << Attachment.create_from(file)
-projAnderson.save!
-ProjAnderson::AnalyzedStudy.populate
-
+Util::Updater.new.populate_project_anderson
 puts "Created #{Project.count} use cases."

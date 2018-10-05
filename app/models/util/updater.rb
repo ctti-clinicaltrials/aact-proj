@@ -6,8 +6,35 @@ module Util
     def run
       populate_mesh_tables
       populate_tagged_terms
+      populate_project_anderson
   #    SanityChecker.new.run
   #    dump_database
+    end
+
+    def populate_project_anderson
+      proj= Project.new( ProjAnderson::ProjectInfo.meta_info )
+      puts  proj.name
+      remove_existing(proj)
+
+      ProjAnderson::ProjectInfo.datasets.each{ |ds|
+        proj.datasets << Dataset.create(ds)
+      }
+
+      ProjAnderson::ProjectInfo.publications.each{ |p|
+        proj.publications << Publication.create(p)
+      }
+
+      ProjAnderson::ProjectInfo.attachments.each{ |a|
+        file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
+        proj.attachments << Attachment.create_from(file)
+      }
+      ProjAnderson::AnalyzedStudy.populate
+      proj.save!
+    end
+
+    def remove_existing(proj)
+      #  TODO:  Drop & recreate schema too?
+      Project.where('schema_name=?',proj.schema_name).each {|p|  p.destroy }
     end
 
     def populate_mesh_tables
@@ -24,47 +51,6 @@ module Util
       con = ActiveRecord::Base.establish_connection.connection
       con.execute("truncate table tagged_terms")
       ProjTag::TaggedTerm.populate
-    end
-
-    def dump_database
-      psql_file_name="/aact-files/other/aact-proj-#{Time.now.strftime("%Y%m%d_%H")}.psql"
-      File.delete(psql_file_name) if File.exist?(psql_file_name)
-      cmd="pg_dump --no-owner --no-acl --host=localhost --username=#{ENV['DB_SUPER_USERNAME']} --schema=proj  aact_back > #{psql_file_name}"
-      run_command_line(cmd)
-      system cmd
-      return psql_file_name
-    end
-
-    def refresh_public_db(psql_file_name)
-      begin
-        success_code=true
-        revoke_db_privs
-        terminate_db_sessions
-        return nil if psql_file_name.nil?
-        pub_con.execute('DROP SCHEMA IF EXISTS proj CASCADE')
-        pub_con.execute('DROP SCHEMA IF EXISTS proj_tag CASCADE')
-        pub_con.execute('CREATE SCHEMA proj')
-        pub_con.execute('CREATE SCHEMA proj_tag')
-        cmd="psql -h aact-db.ctti-clinicaltrials.org #{public_db_name} < #{psql_file} > /dev/null"
-        run_command_line(cmd)
-
-        terminate_alt_db_sessions
-        pub_con.execute('DROP SCHEMA IF EXISTS proj CASCADE')
-        pub_con.execute('DROP SCHEMA IF EXISTS proj_tag CASCADE')
-        pub_con.execute('CREATE SCHEMA proj')
-        pub_con.execute('CREATE SCHEMA proj_tag')
-        cmd="psql -h aact-db.ctti-clinicaltrials.org #{public_db_name} < #{psql_file} > /dev/null"
-        run_command_line(cmd)
-
-        grant_db_privs
-        return success_code
-      rescue => error
-        msg="#{error.message} (#{error.class} #{error.backtrace}"
-        event.add_problem(msg)
-        log msg
-        grant_db_privs
-        return false
-      end
     end
 
     def db_name

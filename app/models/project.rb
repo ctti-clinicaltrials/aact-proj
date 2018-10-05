@@ -1,8 +1,34 @@
 class Project < ActiveRecord::Base
-  has_many :attachments, :dependent => :destroy
+  has_many :attachments,  :dependent => :destroy
+  has_many :datasets,     :dependent => :destroy
   has_many :publications, :dependent => :destroy
-  has_many :datasets, :dependent => :destroy
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
+
+
+  def self.populate(proj_name)
+    proj= Project.new( ProjAnderson::ProjectInfo.meta_info )
+    puts  proj.name
+    reset_existing(proj)
+  end
+
+  def reset_existing(proj)
+    Project.where('schema_name=?',proj.schema_name).each {|p|  p.destroy }
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
+    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = #{proj.schema_name};").values
+    con.execute("DROP SCHEMA #{proj.schema_name} CASCADE;") if !exists.empty?
+    con.execute("CREATE SCHEMA #{proj.schema_name};")
+    con.execute("GRANT USAGE ON SCHEMA #{proj.schema_name} to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("GRANT CREATE ON SCHEMA #{proj.schema_name} to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("GRANT SELECT ON all tables in SCHEMA #{proj.schema_name} to public;")
+    require proj.migration_file_name
+    require "db/migrate/20090408054532_add_foos.rb"
+    AddFoos.up
+  end
+
+
+
+
+
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
