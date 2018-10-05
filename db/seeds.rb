@@ -62,8 +62,4 @@ proj3.attachments << Attachment.create_from(file2)
 proj3.save!
 puts "Created #{Project.count} use cases."
 
-#   New Test Projects
-
-# 2015 Monique Anderson.  Compliance with Results Reporting at ClinicalTrials.gov
-Util::Updater.new.populate_project_anderson
-puts "Created #{Project.count} use cases."
+Project.populate_all

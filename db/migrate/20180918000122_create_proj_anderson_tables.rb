@@ -8,7 +8,7 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
 
   def up
     execute "CREATE SCHEMA IF NOT EXISTS proj_anderson;"
-    execute "ALTER ROLE proj SET search_path to ctgov, proj, proj_tag, proj_anderson"
+    execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj_anderson, ctgov, proj, proj_tag"
 
     create_table "proj_anderson.analyzed_studies" do |t|
       t.string  'nct_id'
@@ -65,6 +65,7 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
       t.boolean 'delayed12'
     end
 
+    execute "ALTER ROLE proj IN DATABASE aact SET search_path TO ctgov, proj, proj_tag, proj_anderson"
     add_index 'proj_anderson.analyzed_studies', :agency_class
     add_index 'proj_anderson.analyzed_studies', :funding
     add_index 'proj_anderson.analyzed_studies', :overall_status

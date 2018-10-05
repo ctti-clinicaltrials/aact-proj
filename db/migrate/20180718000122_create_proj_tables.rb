@@ -6,6 +6,7 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
       t.date    'start_date'
       t.date    'completion_date'
       t.string  'schema_name'
+      t.string  'migration_file_name'
       t.string  'name'
       t.integer 'year'
       t.string  'brief_summary'

@@ -530,6 +530,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.date "start_date"
     t.date "completion_date"
     t.string "schema_name"
+    t.string "migration_file_name"
     t.string "name"
     t.integer "year"
     t.string "brief_summary"

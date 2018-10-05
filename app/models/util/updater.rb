@@ -1,40 +1,14 @@
 module Util
   class Updater
 
-    attr_accessor :con, :pub_con
+    attr_accessor :con
 
     def run
       populate_mesh_tables
       populate_tagged_terms
-      populate_project_anderson
+      Project.populate_all
   #    SanityChecker.new.run
   #    dump_database
-    end
-
-    def populate_project_anderson
-      proj= Project.new( ProjAnderson::ProjectInfo.meta_info )
-      puts  proj.name
-      remove_existing(proj)
-
-      ProjAnderson::ProjectInfo.datasets.each{ |ds|
-        proj.datasets << Dataset.create(ds)
-      }
-
-      ProjAnderson::ProjectInfo.publications.each{ |p|
-        proj.publications << Publication.create(p)
-      }
-
-      ProjAnderson::ProjectInfo.attachments.each{ |a|
-        file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
-        proj.attachments << Attachment.create_from(file)
-      }
-      ProjAnderson::AnalyzedStudy.populate
-      proj.save!
-    end
-
-    def remove_existing(proj)
-      #  TODO:  Drop & recreate schema too?
-      Project.where('schema_name=?',proj.schema_name).each {|p|  p.destroy }
     end
 
     def populate_mesh_tables
@@ -48,6 +22,7 @@ module Util
     end
 
     def populate_tagged_terms
+      #  TODO:  Refactor this to add to Project.populate_all
       con = ActiveRecord::Base.establish_connection.connection
       con.execute("truncate table tagged_terms")
       ProjTag::TaggedTerm.populate
@@ -61,10 +36,6 @@ module Util
       @con ||= ActiveRecord::Base.establish_connection.connection
     end
 
-
-    def pub_con
-      @pub_con ||= PublicBase.establish_connection(ENV["AACT_PUBLIC_DATABASE_URL"]).connection
-    end
 
     def public_db_name
       ENV['AACT_PUBLIC_DATABASE_NAME']

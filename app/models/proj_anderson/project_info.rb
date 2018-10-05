@@ -1,12 +1,12 @@
 module ProjAnderson
   class ProjectInfo
 
-    #  TODO:  Maybe we should just save this info in a spreadsheet containing meta info for all projects and import from that?
-
     def self.meta_info
-      { name: 'Compliance with Results Reporting at ClinicalTrials.gov',
-        schema_name: 'proj_anderson',
-        investigators: 'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
+      #  Required:  name, schema_name & migration_file_name
+      { name:                'Compliance with Results Reporting at ClinicalTrials.gov',
+        schema_name:         'proj_anderson',
+        migration_file_name:  Rails.root.join('db','migrate','20180918000122_create_proj_anderson_tables.rb').to_s,
+        investigators:       'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
         organizations: 'Duke Clinical Research Institute',
         start_date: Date.strptime('27/09/2013', '%d/%m/%Y'),
         year: 2013,
@@ -43,6 +43,10 @@ module ProjAnderson
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         }
       ]
+    end
+
+    def self.load_project_tables
+      ProjAnderson::AnalyzedStudy.populate
     end
 
   end
