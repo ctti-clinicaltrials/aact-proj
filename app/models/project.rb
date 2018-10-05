@@ -37,20 +37,20 @@ class Project < ActiveRecord::Base
 
   def reset_schema(proj_info)
     Project.where('schema_name=?',proj_info.schema_name).each {|p|  p.destroy }
-    con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = '#{proj_info.schema_name}';").values
     con.execute("DROP SCHEMA #{proj_info.schema_name} CASCADE;") if !exists.empty?
     con.execute("CREATE SCHEMA #{proj_info.schema_name};")
-    con.execute("GRANT USAGE ON SCHEMA #{proj_info.schema_name} to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("GRANT CREATE ON SCHEMA #{proj_info.schema_name} to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("GRANT SELECT ON all tables in SCHEMA #{proj_info.schema_name} to public;")
-    con.execute("ALTER ROLE proj SET search_path to #{proj_info.schema_name}")
+    con.execute("GRANT USAGE ON SCHEMA #{proj_info.schema_name} to public;")
+    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{proj_info.schema_name} TO public;")
+    con.execute("GRANT CREATE ON SCHEMA #{proj_info.schema_name} TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("ALTER ROLE proj IN DATABASE aact SET search_path TO #{proj_info.schema_name}")
     require(proj_info.migration_file_name)
     migration_class_name=(File.open(proj_info.migration_file_name) {|f| f.readline}).split(' ')[1]
     migration_class_name.constantize.new.up
 
     # TODO:  How to reset search path for the Projects superuser?
-    con.execute "ALTER ROLE proj IN DATABASE aact SET search_path TO ctgov, proj, proj_tag, proj_anderson"
+    con.execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj, proj_tag, proj_anderson, ctgov"
   end
 
   def self.to_csv(options = {})
@@ -63,3 +63,4 @@ class Project < ActiveRecord::Base
   end
 
 end
+

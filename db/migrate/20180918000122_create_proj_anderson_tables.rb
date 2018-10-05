@@ -3,7 +3,7 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
   def down
     drop_table proj_anderson.analyzed_studies;
     execute "DROP SCHEMA IF EXISTS proj_anderson;"
-    execute "ALTER ROLE proj SET search_path to ctgov, proj, proj_tag;"
+    execute "ALTER ROLE proj IN DATABASE aact SET search_path to ctgov, proj, proj_tag;"
   end
 
   def up
