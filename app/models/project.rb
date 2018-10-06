@@ -2,36 +2,29 @@ class Project < ActiveRecord::Base
   has_many :attachments,  :dependent => :destroy
   has_many :datasets,     :dependent => :destroy
   has_many :publications, :dependent => :destroy
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 
   def self.project_list
-    ['ProjAnderson::ProjectInfo']
+    [ 'ProjAnderson', 'ProjTag' ]
   end
 
   def self.populate_all
-    self.project_list.each{ |proj_class| new.populate(proj_class) }
+    self.project_list.each{ |proj_module| new.populate(proj_module) }
   end
 
-  def populate(proj_class)
-    new_proj = Project.new( proj_class.constantize.meta_info )
+  def populate(proj_module)
+    proj_class="#{proj_module}::ProjectInfo".constantize
+    new_proj = Project.new( proj_class.meta_info )
     puts  "Populating #{new_proj.name}..."
     reset_schema(new_proj)
 
-    proj_class.constantize.attachments.each{ |a|
+    proj_class.attachments.each{ |a|
       file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
       new_proj.attachments << Attachment.create_from(file)
     }
-
-    proj_class.constantize.datasets.each{ |ds|
-      new_proj.datasets << Dataset.create(ds)
-    }
-
-    proj_class.constantize.publications.each{ |p|
-      new_proj.publications << Publication.create(p)
-    }
-
+    proj_class.datasets.each{ |ds| new_proj.datasets << Dataset.create(ds) }
+    proj_class.publications.each{ |p| new_proj.publications << Publication.create(p) }
     new_proj.save!
-    proj_class.constantize.load_project_tables
+    proj_class.load_project_tables
 
   end
 

@@ -1,5 +1,8 @@
 class CreateProjTagTables < ActiveRecord::Migration[5.2]
-  def change
+
+  def up
+    execute "CREATE SCHEMA IF NOT EXISTS proj_tag;"
+    execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj_tag, ctgov, proj, proj_anderson"
 
     create_table "proj_tag.tagged_terms" do |t|
       t.integer 'project_id'
@@ -15,6 +18,12 @@ class CreateProjTagTables < ActiveRecord::Migration[5.2]
     add_index 'proj_tag.tagged_terms', :tag
     add_index 'proj_tag.tagged_terms', :term_type
 
+  end
+
+  def down
+    drop_table proj_tag.tagged_terms;
+    execute "DROP SCHEMA IF EXISTS proj_tag;"
+    execute "ALTER ROLE proj IN DATABASE aact SET search_path to ctgov, proj, public;"
   end
 
 end
