@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   has_many :publications, :dependent => :destroy
 
   def self.project_list
-    [ 'ProjAnderson', 'ProjTag' ]
+    [ 'ProjAnderson', 'ProjTag', 'ProjSummaryTrends', 'ProjClinwiki', 'ProjEeg' ]
   end
 
   def self.populate_all
@@ -12,19 +12,19 @@ class Project < ActiveRecord::Base
   end
 
   def populate(proj_module)
-    proj_class="#{proj_module}::ProjectInfo".constantize
-    new_proj = Project.new( proj_class.meta_info )
+    proj_info="#{proj_module}::ProjectInfo".constantize
+    new_proj = Project.new( proj_info.meta_info )
     puts  "Populating #{new_proj.name}..."
-    reset_schema(new_proj)
+    reset_schema(new_proj) if new_proj.migration_file_name  # only need a schema if the project has tables to contribute to AACT
 
-    proj_class.attachments.each{ |a|
+    proj_info.attachments.each{ |a|
       file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
       new_proj.attachments << Attachment.create_from(file)
     }
-    proj_class.datasets.each{ |ds| new_proj.datasets << Dataset.create(ds) }
-    proj_class.publications.each{ |p| new_proj.publications << Publication.create(p) }
+    proj_info.datasets.each{ |ds| new_proj.datasets << Dataset.create(ds) }
+    proj_info.publications.each{ |p| new_proj.publications << Publication.create(p) }
     new_proj.save!
-    proj_class.load_project_tables
+    proj_info.load_project_tables
 
   end
 
