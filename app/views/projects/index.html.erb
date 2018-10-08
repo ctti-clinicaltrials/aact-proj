@@ -1,3 +1,15 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "/javascripts/shared/sortable" %>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+     (function vendorTableSorter(){
+    /* paste all the vendor code here */
+     }());
+  });// end document.ready
+</script>
+
 <div class="wrap">
 
   <p>
@@ -8,13 +20,13 @@
   <div class="projects">
     <h4> <%=number_with_delimiter(@project_count, :delimiter => ',') %> AACT Projects</h4>
 
-    <table id='projects' class='table dataTable'>
+    <table id='projects' class=" table table-striped sortable" data-sort-name="name" data-sort-order="desc">
 
         <tr>
-            <th class='projectTableHeader'>name</th>
-            <th class='projectTableHeader'>investigators</th>
-            <th class='projectTableHeader'>year</th>
-            <th class='projectTableHeader'>description</th>
+          <th class='projectTableHeader'>name</th>
+          <th class='projectTableHeader'>investigators</th>
+          <th class='projectTableHeader'>year</th>
+          <th class='projectTableHeader'>description</th>
             <th class='projectTableHeader'></th>
         </tr>
 
