@@ -14,6 +14,7 @@ class Project < ActiveRecord::Base
   def populate(proj_module)
     proj_info="#{proj_module}::ProjectInfo".constantize
     new_proj = Project.new( proj_info.meta_info )
+    Project.where('name=?',new_proj.name).each{|p| p.destroy }
     puts  "Populating #{new_proj.name}..."
     reset_schema(new_proj) if new_proj.migration_file_name  # only need a schema if the project has tables to contribute to AACT
 

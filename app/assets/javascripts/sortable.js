@@ -21,9 +21,9 @@ var stIsIE = /*@cc_on!@*/false;
 sorttable = {
   init: function() {
     // quit if this function has already been called
-    if (arguments.callee.done) return;
+    //if (arguments.callee.done) return;
     // flag this function so we don't do the same thing twice
-    arguments.callee.done = true;
+    //arguments.callee.done = true;
     // kill the timer
     if (_timer) clearInterval(_timer);
 
@@ -33,6 +33,7 @@ sorttable = {
 
     forEach(document.getElementsByTagName('table'), function(table) {
       if (table.className.search(/\bsortable\b/) != -1) {
+        alert('making this table sortable...');
         sorttable.makeSortable(table);
       }
     });
@@ -367,6 +368,10 @@ if (/WebKit/i.test(navigator.userAgent)) { // sniff
 
 /* for other browsers */
 window.onload = sorttable.init;
+
+document.addEventListener("turbolinks:load", function() {
+  sorttable.init();
+})
 
 // written by Dean Edwards, 2005
 // with input from Tino Zijdel, Matthias Miller, Diego Perini

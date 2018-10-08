@@ -1,8 +1,22 @@
-  <section class='proj'>
+<section class='proj'>
+
+  <p>
+    Download:
+    <%= link_to "CSV", projects_path(format: "csv") %> |
+    <%= link_to "Excel", projects_path(format: "xls") %>
+  </p>
+
     <p>
       <div class='proj'>
         <p class='headingText'><%= @project.name %></p>
+        <p class='headingText'><%= @project.schema_name %></p>
+        <p class='headingText'><%= @project.url %></p>
+        <p class='headingText'><%= @project.start_date %></p>
+        <p class='headingText'><%= @project.investigators %></p>
+        <p class='headingText'><%= @project.email %></p>
+        <p class='headingText'><%= @project.description %></p>
+        <p class='headingText'><%= @project.study_selection_criteria %></p>
       </div>
     </p>
-  </section>
+</section>
 

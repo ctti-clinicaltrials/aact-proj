@@ -1,4 +1,4 @@
-module ProjClinwiki
+module ProjEeg
   class ProjectInfo
 
     def self.meta_info

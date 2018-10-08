@@ -7,13 +7,12 @@
     <title>AACT Database Projects  | Clinical Trials Transformation Initiative</title>
       <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300,400italic' rel='stylesheet' type='text/css'>
       <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/black-tie/jquery-ui.css" rel="stylesheet">
-
+      <%= javascript_include_tag "application" %>
       <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
   </head>
 
   <body>
-    <%= javascript_include_tag "/javascripts/application" %>
     <%= yield :javascript_includes %>
     <header>
       <%= render 'includes/main_header' %>
