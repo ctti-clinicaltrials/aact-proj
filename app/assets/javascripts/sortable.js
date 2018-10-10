@@ -33,7 +33,6 @@ sorttable = {
 
     forEach(document.getElementsByTagName('table'), function(table) {
       if (table.className.search(/\bsortable\b/) != -1) {
-        alert('making this table sortable...');
         sorttable.makeSortable(table);
       }
     });
