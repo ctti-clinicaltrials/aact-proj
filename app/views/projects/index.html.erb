@@ -23,7 +23,7 @@ javascript_include_tag "sortable"
               <td><%= proj.name %></td>
               <td><%= proj.investigators %></td>
               <td><%= proj.year %></td>
-              <td><%= proj.description %></td>
+              <td><%= proj.brief_summary %></td>
               <td><%= link_to 'Detail', project_path(:id => proj.id) %></td>
             </tr>
           <% end %>

@@ -3,10 +3,12 @@ module ProjTag
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name
-      { name:                'Aggregated Set of Tagged MeSH Terms',
-        schema_name:         'proj_tag',
+      { name:                 'Aggregated Set of Tagged MeSH Terms',
+        schema_name:          'proj_tag',
+        brief_summary:        "A number of clinicians have reviewed & categorized MeSH terms by clinical domain. We have aggregated this categorization information so that others can benefit from this body of work. Tables that map MeSH terms to general categories are available to query.",
         migration_file_name:  Rails.root.join('db','migrate','20180719000122_create_proj_tag_tables.rb').to_s,
         organizations:        'Duke Clinical Research Institute',
+        data_available:       true,
         start_date:           Date.strptime('27/09/2010', '%d/%m/%Y'),
         year:                 2010,
       }
