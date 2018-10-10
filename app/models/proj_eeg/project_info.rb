@@ -8,7 +8,7 @@ module ProjEeg
         schema_name:         'proj_eeg',
         investigators:       'Sheri Tibbs',
         organizations:       'DCRI',
-        data_avaliable:      false,
+        data_available:      false,
         start_date:          Date.strptime('05/01/2016', '%d/%m/%Y'),
         year:                2016,
         email:               'sheri.tibbs@duke.edu',

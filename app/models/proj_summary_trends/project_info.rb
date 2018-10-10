@@ -8,7 +8,7 @@ module ProjSummaryTrends
         schema_name:         'proj_summary_trends',
         investigators:       'Karen Chiswell',
         organizations:       'Duke Clinical Research Institute',
-        data_avaliable:      false,
+        data_available:      false,
         start_date:          Date.strptime('27/09/2017', '%d/%m/%Y'),
         year:                2017,
         email:               'karen.chiswell@duke.edu',
