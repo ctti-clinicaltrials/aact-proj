@@ -18,7 +18,7 @@ javascript_include_tag "sortable"
         </thead>
 
         <tbody class='projects'>
-          <% @projects.each do |proj| %>
+          <% @projects_with_data.each do |proj| %>
             <tr>
               <td><%= proj.name %></td>
               <td><%= proj.investigators %></td>

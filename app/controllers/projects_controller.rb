@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   def index
     @project_count = Project.all.size
     @projects = Project.order(:name)
+    @projects_with_data = Project.where('data_available is true').order(:name)
     respond_to do |format|
       format.html
       format.csv { render text: @projects.to_csv }
