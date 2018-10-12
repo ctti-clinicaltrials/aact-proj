@@ -8,6 +8,8 @@ module ProjAnderson
         migration_file_name:  Rails.root.join('db','migrate','20180918000122_create_proj_anderson_tables.rb').to_s,
         investigators:       'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
         organizations:       'Duke Clinical Research Institute',
+        contact_info:        'Monique Anderson. Duke University, Dept of Medicine, Box 3099, Durham C 27710 monique.starks@duke.edu',
+        contact_url:         'https://scholars.duke.edu/person/moniqueanderson.starks',
         data_available:      true,
         start_date:          Date.strptime('27/09/2013', '%d/%m/%Y'),
         year:                2013,

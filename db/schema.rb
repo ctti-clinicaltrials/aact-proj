@@ -544,6 +544,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.text "study_selection_criteria"
     t.string "submitter_name"
     t.string "contact_info"
+    t.string "contact_url"
     t.string "email"
     t.binary "image"
     t.datetime "created_at", null: false
