@@ -20,6 +20,7 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
       t.text    'study_selection_criteria'
       t.string  'submitter_name'
       t.string  'contact_info'
+      t.string  'contact_url'
       t.string  'email'
       t.binary  'image'
       t.timestamps null: false
