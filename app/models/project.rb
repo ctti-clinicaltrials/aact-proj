@@ -47,6 +47,10 @@ class Project < ActiveRecord::Base
     con.execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj, proj_tag, proj_anderson, ctgov"
   end
 
+  def image
+    attachments.select{|a| a.is_image }.first
+  end
+
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
       csv << column_names
