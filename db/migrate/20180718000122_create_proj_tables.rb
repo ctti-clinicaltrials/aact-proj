@@ -26,37 +26,44 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
       t.timestamps null: false
     end
 
-    create_table "proj.attachments" do |t|
+    create_table "proj.datasets" do |t|
       t.integer 'project_id'
-      t.string 'file_name'
-      t.string 'content_type'
-      t.binary 'file_contents'
+      t.string  'schema_name'
+      t.string  'table_name'
+      t.string  'dataset_type'   # results, included_studies, statistics
+      t.string  'file_name'
+      t.string  'content_type'  # image, spreadsheet, etc
+      t.string  'name'
+      t.binary  'file_contents'
+      t.string  'url'
+      t.date    'made_available_on'
+      t.text    'description'
+      t.timestamps null: false
+    end
+
+    create_table "proj.attachments" do |t| # other types of files (not datasets) like images and text reports
+      t.integer 'project_id'
+      t.string  'file_name'
+      t.string  'content_type'  # image, spreadsheet, etc
+      t.binary  'file_contents'
       t.boolean 'is_image'
+      t.text    'description'
       t.timestamps null: false
     end
 
     create_table "proj.publications" do |t|
       t.integer 'project_id'
       t.string 'pub_type'
-      t.string 'name'
+      t.string 'journal_name'
+      t.string 'title'
       t.string 'url'
-      t.string 'published_in'
-      t.date 'published_on'
-      t.text 'description'
+      t.string 'citation'
+      t.date   'publication_date'
+      t.text   'abstract'
       t.timestamps null: false
     end
 
-    create_table "proj.datasets" do |t|
-      t.integer 'project_id'
-      t.string 'dataset_type'
-      t.string 'name'
-      t.string 'schema_name'
-      t.string 'table_name'
-      t.string 'url'
-      t.text 'description'
-      t.timestamps null: false
-    end
-
+    add_index "proj.projects", :data_available
     add_index "proj.projects", :investigators
     add_index "proj.projects", :organizations
     add_index "proj.projects", :start_date

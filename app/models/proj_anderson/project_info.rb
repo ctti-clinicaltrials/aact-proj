@@ -24,11 +24,19 @@ module ProjAnderson
     def self.publications
       [
         {
-          published_in: 'NEJM',
-          published_on: Date.strptime('12/03/2015', '%d/%m/%Y'),
-          url:          'https://www.nejm.org/doi/full/10.1056/NEJMsa1409364?query=featured_home'
+          journal_name:     'The New England Journal of Medicine',
+          publication_date: Date.strptime('12/03/2015', '%d/%m/%Y'),
+          pub_type:         'AcademicArticle',
+          journal_name:     'New England Journal of Medicine',
+          title:            'Compliance with Results Reporting at ClinicalTrials.gov',
+          url:              'https://scholars.duke.edu/display/pub1075763',
+          citation:         'Anderson, ML, and Peterson, ED. "Compliance with results reporting at ClinicalTrials.gov." The New England Journal of Medicine 372, no. 24 (June 2015): 2370-2371. (Letter)'
         }
       ]
+    end
+
+    def self.attachments
+      []
     end
 
     def self.datasets
@@ -37,16 +45,9 @@ module ProjAnderson
           dataset_type: 'results',
           schema_name:  'proj_anderson',
           table_name:   'analyzed_studies',
-          name:         'analyzed studies'
-        }
-      ]
-    end
-
-    def self.attachments
-      [
-        {
-          file_name: "#{Rails.public_path}/attachments/proj_anderson.xlsx",
-          file_type: 'application/vnd.openxmlformats-officedocument.spreads'
+          name:         'Analyzed studies',
+          file_name:    "#{Rails.public_path}/attachments/proj_anderson.xlsx",
+          file_type:    'application/vnd.openxmlformats-officedocument.spreads'
         }
       ]
     end

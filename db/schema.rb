@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.string "content_type"
     t.binary "file_contents"
     t.boolean "is_image"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -195,11 +196,15 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
 
   create_table "datasets", force: :cascade do |t|
     t.integer "project_id"
-    t.string "dataset_type"
-    t.string "name"
     t.string "schema_name"
     t.string "table_name"
+    t.string "dataset_type"
+    t.string "file_name"
+    t.string "content_type"
+    t.string "name"
+    t.binary "file_contents"
     t.string "url"
+    t.date "made_available_on"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -550,6 +555,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["completion_date"], name: "index_proj.projects_on_completion_date"
+    t.index ["data_available"], name: "index_proj.projects_on_data_available"
     t.index ["investigators"], name: "index_proj.projects_on_investigators"
     t.index ["organizations"], name: "index_proj.projects_on_organizations"
     t.index ["start_date"], name: "index_proj.projects_on_start_date"
@@ -559,11 +565,12 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
   create_table "publications", force: :cascade do |t|
     t.integer "project_id"
     t.string "pub_type"
-    t.string "name"
+    t.string "journal_name"
+    t.string "title"
     t.string "url"
-    t.string "published_in"
-    t.date "published_on"
-    t.text "description"
+    t.string "citation"
+    t.date "publication_date"
+    t.text "abstract"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

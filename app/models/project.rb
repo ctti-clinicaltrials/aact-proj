@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
-  has_many :attachments,  :dependent => :destroy
-  has_many :datasets,     :dependent => :destroy
   has_many :publications, :dependent => :destroy
+  has_many :datasets,     :dependent => :destroy  # data artifacts - typically saved as tables in the project's db schema. (May include attachment.)
+  has_many :attachments,  :dependent => :destroy  # non-dataset attachments like images & full-text documents
 
   def self.project_list
+    # A list of all project modules currently in AACT.
+    # Each module (in app/models) and encapsulates all info about the project.
     [ 'ProjAnderson', 'ProjTag', 'ProjSummaryTrends', 'ProjClinwiki', 'ProjEeg' ]
   end
 
@@ -18,12 +20,16 @@ class Project < ActiveRecord::Base
     puts  "Populating #{new_proj.name}..."
     reset_schema(new_proj) if new_proj.migration_file_name  # only need a schema if the project has tables to contribute to AACT
 
+    proj_info.publications.each{ |p| new_proj.publications << Publication.create(p) }
+
     proj_info.attachments.each{ |a|
       file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
       new_proj.attachments << Attachment.create_from(file)
     }
-    proj_info.datasets.each{ |ds| new_proj.datasets << Dataset.create(ds) }
-    proj_info.publications.each{ |p| new_proj.publications << Publication.create(p) }
+    proj_info.datasets.each{ |ds|
+      file = Rack::Test::UploadedFile.new(ds[:file_name], ds[:file_type])
+      new_proj.datasets << Dataset.create_from(ds, file)
+    }
     new_proj.save!
     proj_info.load_project_tables
 
