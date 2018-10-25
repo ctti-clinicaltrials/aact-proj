@@ -29,12 +29,12 @@ module ProjSummaryTrends
     def self.attachments
       [
         {
-          description: "Spreadsheet containing details of data trends in ClinicalTrials.gov"
+          description: "Spreadsheet containing details of data trends in ClinicalTrials.gov",
           file_name: "#{Rails.public_path}/attachments/proj_summary_trends.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
-          description: "Sample illustration of data trends in ClinicalTrials.gov"
+          description: "Sample illustration of data trends in ClinicalTrials.gov",
           file_name: "#{Rails.public_path}/attachments/proj_summary_trends.png",
           file_type: 'image'
         },
