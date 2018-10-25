@@ -25,26 +25,32 @@ module ProjTag
     def self.attachments
       [
         {
+          description: '2010 Free Text Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2010_free_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
+          description: '2010 MeSH Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2010_mesh_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
+          description: '2016 Free Text Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2016_free_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
+          description: '2016 MeSH Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2016_mesh_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
+          description: '2017 Free Text Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2017_free_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
+          description: '2017 MeSH Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2017_mesh_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },

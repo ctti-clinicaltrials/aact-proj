@@ -28,6 +28,7 @@ module ProjClinwiki
 
     def self.attachments
       [
+        description: 'Sample image',
         file_name: "#{Rails.public_path}/attachments/clinwiki-image.png",
         file_type: 'image/png'
       ]

@@ -28,6 +28,7 @@ module ProjEeg
 
     def self.attachments
       [
+        description: 'Sample image showing where EEG-related studies are being (and have been) conducted.',
         file_name: "#{Rails.public_path}/attachments/eeg-related-trials.png",
         file_type: 'image/png'
       ]
