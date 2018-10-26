@@ -24,7 +24,7 @@ class Project < ActiveRecord::Base
 
     proj_info.attachments.each{ |a|
       file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
-      new_proj.attachments << Attachment.create_from(file)
+      new_proj.attachments << Attachment.create_from(a, file)
     }
     proj_info.datasets.each{ |ds|
       file = Rack::Test::UploadedFile.new(ds[:file_name], ds[:file_type])

@@ -1,11 +1,12 @@
 class Attachment < ActiveRecord::Base
   belongs_to :project
 
-  def self.create_from(file,image_type=nil)
+  def self.create_from(attachment, file, image_type=nil)
     new({:file_name     => sanitize_filename(file.original_filename),
          :content_type  => file.content_type,
          :file_contents => file.read,
-         :is_image      => !image_type.nil?
+         :is_image      => !image_type.nil?,
+         :description   => attachment[:description]
         })
   end
 
