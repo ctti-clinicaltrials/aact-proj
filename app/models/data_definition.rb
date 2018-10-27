@@ -19,6 +19,8 @@ class DataDefinition < ActiveRecord::Base
            ).save!
       end
     end
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
+    con.execute("CREATE OR REPLACE VIEW #{schema_name}.data_definitions AS SELECT * FROM proj.data_definitions WHERE schema_name='#{schema_name}';")
   end
 
 end
