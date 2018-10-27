@@ -22,6 +22,7 @@ gem 'execjs'
 #gem 'therubyracer', '~> 0.12.3'
 #  read excel spreadsheets
 gem 'roo'
+gem 'roo-xls'
 
 gem 'jquery-rails'
 gem 'jquery-turbolinks'

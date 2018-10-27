@@ -165,6 +165,10 @@ GEM
     roo (2.7.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
+    roo-xls (1.2.0)
+      nokogiri
+      roo (>= 2.0.0, < 3)
+      spreadsheet (> 0.9.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.1)
@@ -182,6 +186,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    ruby-ole (1.2.12.1)
     rubyzip (1.2.1)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
@@ -197,6 +202,8 @@ GEM
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    spreadsheet (1.1.8)
+      ruby-ole (>= 1.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.2)
@@ -252,6 +259,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.0)
   roo
+  roo-xls
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
