@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.binary "file_contents"
     t.boolean "is_image"
     t.text "description"
+    t.string "original_file_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -192,6 +193,21 @@ ActiveRecord::Schema.define(version: 2018_09_18_000122) do
     t.string "name"
     t.boolean "removed"
     t.index ["nct_id"], name: "index_countries_on_nct_id"
+  end
+
+  create_table "data_definitions", force: :cascade do |t|
+    t.string "schema_name"
+    t.string "table_name"
+    t.string "column_name"
+    t.string "category"
+    t.string "label"
+    t.string "data_type"
+    t.string "source"
+    t.text "description"
+    t.string "nlm_link"
+    t.json "enumerations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "datasets", force: :cascade do |t|

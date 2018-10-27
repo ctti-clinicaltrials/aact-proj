@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
 
   def self.project_list
     # A list of all project modules currently in AACT.
-    # Each module (in app/models) and encapsulates all info about the project.
+    # Each module (in app/models) encapsulates all info about the project.
     [ 'ProjAnderson', 'ProjTag', 'ProjSummaryTrends', 'ProjClinwiki', 'ProjEeg' ]
   end
 
@@ -22,17 +22,30 @@ class Project < ActiveRecord::Base
 
     proj_info.publications.each{ |p| new_proj.publications << Publication.create(p) }
 
-    proj_info.attachments.each{ |a|
-      file = Rack::Test::UploadedFile.new(a[:file_name], a[:file_type])
-      new_proj.attachments << Attachment.create_from(a, file)
+    proj_info.attachments.each{ |attachment|
+      new_proj.attachments << Attachment.create_from(attachment)
     }
+
     proj_info.datasets.each{ |ds|
       file = Rack::Test::UploadedFile.new(ds[:file_name], ds[:file_type])
       new_proj.datasets << Dataset.create_from(ds, file)
     }
     new_proj.save!
-    proj_info.load_project_tables
 
+    new_proj.populate_data_definitions
+    proj_info.load_project_tables
+  end
+
+  def populate_data_definitions
+    defs = data_definitions
+    DataDefinition.populate(schema_name, defs) if defs
+  end
+
+  def data_definitions
+    #  Assumes that a project has an attachment described 'Data Definitions' that will be a spreadsheet with
+    #  columns that match columns in proj.data_definitions table.
+    dd_attachments = attachments.select {|a| a.description == 'Data Definitions' }
+    return Roo::Spreadsheet.open(dd_attachments.first.original_file_name) unless dd_attachments.empty?
   end
 
   def reset_schema(proj_info)

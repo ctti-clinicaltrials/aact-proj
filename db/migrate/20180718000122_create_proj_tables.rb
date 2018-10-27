@@ -48,6 +48,7 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
       t.binary  'file_contents'
       t.boolean 'is_image'
       t.text    'description'
+      t.string  'original_file_name'
       t.timestamps null: false
     end
 
@@ -60,6 +61,20 @@ class CreateProjTables < ActiveRecord::Migration[5.2]
       t.string 'citation'
       t.date   'publication_date'
       t.text   'abstract'
+      t.timestamps null: false
+    end
+
+    create_table 'proj.data_definitions' do |t|
+      t.string  'schema_name'
+      t.string 'table_name'
+      t.string 'column_name'
+      t.string 'category'
+      t.string 'label'
+      t.string 'data_type'
+      t.string 'source'
+      t.text   'description'
+      t.string 'nlm_link'
+      t.json   'enumerations'
       t.timestamps null: false
     end
 
