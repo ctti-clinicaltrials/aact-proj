@@ -32,7 +32,7 @@ class Project < ActiveRecord::Base
     }
     new_proj.save!
 
-    DataDefinition.populate(schema_name)
+    DataDefinition.populate(new_proj.schema_name)
     proj_info.load_project_tables
   end
 
@@ -56,6 +56,11 @@ class Project < ActiveRecord::Base
 
   def image
     attachments.select{|a| a.is_image }.first
+  end
+
+  def data_def_attachment
+    # There could be multiple attachments defined as Data Definitions. For now, just return first one.
+    attachments.select{|a| a.description == 'Data Definitions' }.first
   end
 
   def self.to_csv(options = {})

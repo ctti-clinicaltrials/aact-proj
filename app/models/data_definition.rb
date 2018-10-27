@@ -4,7 +4,7 @@ class DataDefinition < ActiveRecord::Base
 
   def self.populate(schema_name)
     # If Data Defs exist for the project, they will have been loaded as an attachment with description 'Data Definitions'
-    file = DataDefinition.data_def_file_for(schema_name)
+    file = self.file_for(schema_name)
     return if file.nil?
     data = file.sheet_for('Data Definitions')
     return if data.nil?
@@ -30,15 +30,13 @@ class DataDefinition < ActiveRecord::Base
     con.execute("CREATE OR REPLACE VIEW #{schema_name}.data_definitions AS SELECT * FROM proj.data_definitions WHERE schema_name='#{schema_name}';")
   end
 
-  def self.data_def_file_for(schema_name)
+  def self.file_for(schema_name)
     #  Assumes any attachment described as 'Data Definitions' will have a sheet also named 'Data Definitions'
     #  and that sheet can be used to populate the Data_Definitions table. (ie. it contains columns that match
     #  columns in proj.data_definitions table.
-    defs = self.where('schema_name = ? and description = ?', schema_name, 'Data Definitions')
-    return nil if defs.empty?
-    # Suppose there can be multiple attachments per project defined as Data Definitions. For now, just use the first one.
-    file_name = defs.first.original_file_name
-    return Roo::Spreadsheet.open(file_name)
+    dd = Project.where('schema_name = ?', schema_name).first.data_def_attachment
+    return if dd.nil?
+    return Roo::Spreadsheet.open(dd.original_file_name)
   end
 
 end
