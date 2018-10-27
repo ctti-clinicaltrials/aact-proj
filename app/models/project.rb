@@ -1,16 +1,17 @@
 class Project < ActiveRecord::Base
-  has_many :publications, :dependent => :destroy
-  has_many :datasets,     :dependent => :destroy  # data artifacts - typically saved as tables in the project's db schema. (May include attachment.)
-  has_many :attachments,  :dependent => :destroy  # non-dataset attachments like images & full-text documents
+  has_many :publications,     :dependent => :destroy
+  has_many :datasets,         :dependent => :destroy  # Typically correspond to a table in project's schema.
+  has_many :attachments,      :dependent => :destroy  # Non-dataset attachments like images & full-text documents
+  #has_many :data_definitions, :dependent => :destroy, :foreign_key => 'schema_name'
 
   def self.project_list
     # A list of all project modules currently in AACT.
     # Each module (in app/models) encapsulates all info about the project.
-    [ 'ProjAnderson', 'ProjTag', 'ProjSummaryTrends', 'ProjClinwiki', 'ProjEeg' ]
+    [ 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg' ]
   end
 
   def self.populate_all
-    self.project_list.each{ |proj_module| new.populate(proj_module) }
+    self.project_list.each{ |proj_module| new.populate("Proj#{proj_module}") }
   end
 
   def populate(proj_module)
@@ -19,7 +20,6 @@ class Project < ActiveRecord::Base
     Project.where('name=?',new_proj.name).each{|p| p.destroy }
     puts  "Populating #{new_proj.name}..."
     reset_schema(new_proj) if new_proj.migration_file_name  # only need a schema if the project has tables to contribute to AACT
-
     proj_info.publications.each{ |p| new_proj.publications << Publication.create(p) }
 
     proj_info.attachments.each{ |attachment|
@@ -32,20 +32,8 @@ class Project < ActiveRecord::Base
     }
     new_proj.save!
 
-    new_proj.populate_data_definitions
+    DataDefinition.populate(schema_name)
     proj_info.load_project_tables
-  end
-
-  def populate_data_definitions
-    defs = data_definitions
-    DataDefinition.populate(schema_name, defs) if defs
-  end
-
-  def data_definitions
-    #  Assumes that a project has an attachment described 'Data Definitions' that will be a spreadsheet with
-    #  columns that match columns in proj.data_definitions table.
-    dd_attachments = attachments.select {|a| a.description == 'Data Definitions' }
-    return Roo::Spreadsheet.open(dd_attachments.first.original_file_name) unless dd_attachments.empty?
   end
 
   def reset_schema(proj_info)
