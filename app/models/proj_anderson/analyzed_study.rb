@@ -3,7 +3,7 @@ module ProjAnderson
     self.table_name = 'proj_anderson.analyzed_studies'
 
     def self.populate
-      file_name="#{Rails.public_path}/incoming/2015_compliance.xlsx"
+      file_name="#{Rails.public_path}/attachments/proj_anderson.xlsx"
       self.populate_from_file(file_name)
     end
 

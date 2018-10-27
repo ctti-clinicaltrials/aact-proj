@@ -39,7 +39,7 @@ module ProjAnderson
       [
         {
           description: 'Data Definitions',
-          file_name:   "#{Rails.public_path}/data_definitions/proj_anderson.xlsx",
+          file_name:   "#{Rails.public_path}/attachments/proj_anderson.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
       ]
