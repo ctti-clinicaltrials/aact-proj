@@ -39,7 +39,7 @@ module ProjAnderson
       [
         {
           description: 'Data Definitions',
-          file_name:   "#{Rails.public_path}/attachments/proj_anderson.xlsx",
+          file_name:   "#{Rails.public_path}/attachments/proj_anderson_data_defs.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
       ]
@@ -51,7 +51,7 @@ module ProjAnderson
           dataset_type: 'results',
           schema_name:  'proj_anderson',
           table_name:   'analyzed_studies',
-          name:         'Analyzed studies',
+          name:         'Analyzed Studies',
           file_name:    "#{Rails.public_path}/attachments/proj_anderson.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads'
         }
