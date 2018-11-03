@@ -27,7 +27,6 @@ module ProjAnderson
           journal_name:     'The New England Journal of Medicine',
           publication_date: Date.strptime('12/03/2015', '%d/%m/%Y'),
           pub_type:         'AcademicArticle',
-          journal_name:     'New England Journal of Medicine',
           title:            'Compliance with Results Reporting at ClinicalTrials.gov',
           url:              'https://scholars.duke.edu/display/pub1075763',
           citation:         'Anderson, ML, and Peterson, ED. "Compliance with results reporting at ClinicalTrials.gov." The New England Journal of Medicine 372, no. 24 (June 2015): 2370-2371. (Letter)'

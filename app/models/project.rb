@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   def self.project_list
     # A list of all project modules currently in AACT.
     # Each module (in app/models) encapsulates all info about the project.
-    [ 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg' ]
+    [ 'Tag_Nephrology', 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg' ]
   end
 
   def self.populate_all
@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
     migration_class_name.constantize.new.up
 
     # TODO:  How to reset search path for the Projects superuser?
-    con.execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj, proj_tag, proj_anderson, ctgov"
+    con.execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj, proj_tag_nephrology, proj_tag, proj_anderson, ctgov"
   end
 
   def image
