@@ -19,6 +19,15 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
     add_index 'proj_tag_nephrology.tagged_terms', :tag
     add_index 'proj_tag_nephrology.tagged_terms', :term_type
 
+    execute <<-SQL
+         ALTER ROLE proj IN DATABASE aact SET search_path TO proj_tag_nephrology, ctgov;
+
+         CREATE OR REPLACE VIEW proj_tag_nephrology.analyzed_studies AS
+         SELECT * FROM ctgov.studies
+         WHERE study_type = 'interventional';
+    SQL
+  end
+
     # reset search path back so proj has access to all
     execute "ALTER ROLE proj IN DATABASE aact SET search_path TO ctgov, proj, proj_tag_nephrology, proj_tag, proj_anderson, public"
   end
