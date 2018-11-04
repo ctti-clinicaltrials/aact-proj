@@ -13,17 +13,20 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
       t.string  'term_type'
     end
 
+    create_table "proj_tag_nephrology.analyzed_studies" do |t|
+      t.integer 'nct_id'
+      t.string  'hyperlink'
+      t.string  'brief_title'
+      t.string  'keywords'
+      t.string  'conditions'
+      t.string  'mesh_terms'
+    end
+
     add_index 'proj_tag_nephrology.tagged_nephrology_terms', :identifier
     add_index 'proj_tag_nephrology.tagged_nephrology_terms', :term
     add_index 'proj_tag_nephrology.tagged_nephrology_terms', :tag
     add_index 'proj_tag_nephrology.tagged_nephrology_terms', :term_type
 
-    execute <<-SQL
-
-         CREATE OR REPLACE VIEW proj_tag_nephrology.analyzed_nephrology_studies AS
-         SELECT * FROM ctgov.studies
-         WHERE study_type = 'interventional';
-    SQL
   end
 
   def down
