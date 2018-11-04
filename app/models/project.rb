@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   def self.project_list
     # A list of all project modules currently in AACT.
     # Each module (in app/models) encapsulates all info about the project.
-    [ 'Tag_Nephrology', 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg' ]
+    [ 'TagNephrology', 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg' ]
   end
 
   def self.populate_all
