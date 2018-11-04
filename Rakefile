@@ -13,7 +13,7 @@ namespace :db do
     # put back to normal so the PROJ super user can see tables in ctgov schema
     puts "Resetting search path ..."
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag, ctgov;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag, proj_tag_nephrology, ctgov;")
     con.reset!
   end
 
