@@ -6,7 +6,7 @@ module ProjTagNephrology
       { name:                 'Tag MeSH Terms Related to Nephrology',
         schema_name:          'proj_tag_nephrology',
         brief_summary:        "In conducting a systematic review of nephrology-related studies in ClinicalTrials.gov, the investigators tagged nephrology-related MeSH terms.",
-        migration_file_name:  Rails.root.join('db','migrate',' 20181104000122_create_proj_tag_nephrology_tables.rb').to_s,
+        migration_file_name:  Rails.root.join('db','migrate','20181104000122_create_proj_tag_nephrology_tables.rb').to_s,
         organizations:        'Duke Clinical Research Institute',
         data_available:       true,
         start_date:           Date.strptime('27/09/2010', '%d/%m/%Y'),
