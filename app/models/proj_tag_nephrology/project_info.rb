@@ -52,12 +52,12 @@ An initial data set of 998 studies was identified as having conditions relevant 
     def self.attachments
       [
         {
-          description: '2010 Free Text Terms Tagged by Clinical Domain',
+          description: '2010 Free Text Terms Tagged Nephrology',
           file_name: "#{Rails.public_path}/incoming/2010_nephrology_free_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
         {
-          description: '2010 MeSH Terms Tagged by Clinical Domain',
+          description: '2010 MeSH Terms Tagged Nephrology',
           file_name: "#{Rails.public_path}/incoming/2010_nephrology_mesh_tagged_terms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
