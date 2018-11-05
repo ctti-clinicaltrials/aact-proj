@@ -66,6 +66,7 @@ An initial data set of 998 studies was identified as having conditions relevant 
 
     def self.load_project_tables
       ProjTagNephrology::TaggedTerm.populate
+      ProjTagNephrology::AnalyzedTerm.populate
       ProjTagNephrology::AnalyzedStudy.populate
     end
 

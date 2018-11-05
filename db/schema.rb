@@ -137,6 +137,10 @@ ActiveRecord::Schema.define(version: 2018_11_04_000122) do
     t.index ["primary_purpose"], name: "index_proj_anderson.analyzed_studies_on_primary_purpose"
   end
 
+  create_table "analyzed_terms", force: :cascade do |t|
+    t.string "term"
+  end
+
   create_table "attachments", force: :cascade do |t|
     t.integer "project_id"
     t.string "file_name"
@@ -822,13 +826,9 @@ ActiveRecord::Schema.define(version: 2018_11_04_000122) do
     t.string "year"
     t.string "term_type"
     t.index ["identifier"], name: "index_proj_tag.tagged_terms_on_identifier"
-    t.index ["identifier"], name: "index_proj_tag_nephrology.tagged_terms_on_identifier"
     t.index ["tag"], name: "index_proj_tag.tagged_terms_on_tag"
-    t.index ["tag"], name: "index_proj_tag_nephrology.tagged_terms_on_tag"
     t.index ["term"], name: "index_proj_tag.tagged_terms_on_term"
-    t.index ["term"], name: "index_proj_tag_nephrology.tagged_terms_on_term"
     t.index ["term_type"], name: "index_proj_tag.tagged_terms_on_term_type"
-    t.index ["term_type"], name: "index_proj_tag_nephrology.tagged_terms_on_term_type"
   end
 
   create_table "tagged_terms", force: :cascade do |t|
@@ -839,13 +839,9 @@ ActiveRecord::Schema.define(version: 2018_11_04_000122) do
     t.string "year"
     t.string "term_type"
     t.index ["identifier"], name: "index_proj_tag.tagged_terms_on_identifier"
-    t.index ["identifier"], name: "index_proj_tag_nephrology.tagged_terms_on_identifier"
     t.index ["tag"], name: "index_proj_tag.tagged_terms_on_tag"
-    t.index ["tag"], name: "index_proj_tag_nephrology.tagged_terms_on_tag"
     t.index ["term"], name: "index_proj_tag.tagged_terms_on_term"
-    t.index ["term"], name: "index_proj_tag_nephrology.tagged_terms_on_term"
     t.index ["term_type"], name: "index_proj_tag.tagged_terms_on_term_type"
-    t.index ["term_type"], name: "index_proj_tag_nephrology.tagged_terms_on_term_type"
   end
 
   create_table "y2010_mesh_terms", force: :cascade do |t|
