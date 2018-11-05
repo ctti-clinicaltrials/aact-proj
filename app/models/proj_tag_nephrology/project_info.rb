@@ -36,17 +36,20 @@ An initial data set of 998 studies was identified as having conditions relevant 
           name:         'Tagged Nephrology Terms',
           file_name:    "#{Rails.public_path}/incoming/2010_nephrology_mesh_tagged_terms.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads'
-        }
+        },
+        {
+          dataset_type: 'analyzed studies',
+          schema_name:  'proj_tag_nephrology',
+          table_name:   'analyzed_studies',
+          name:         'Analyzed Studies',
+          file_name: "#{Rails.public_path}/attachments/proj_tag_nephrology_studies.xlsx",
+          file_type: 'application/vnd.openxmlformats-officedocument.spreads'
+        },
       ]
     end
 
     def self.attachments
       [
-        {
-          description: 'Analyzed Studies',
-          file_name: "#{Rails.public_path}/attachments/proj_tag_nephrology_studies.xlsx",
-          file_type: 'application/vnd.openxmlformats-officedocument.spreads'
-        },
         {
           description: '2010 Free Text Terms Tagged by Clinical Domain',
           file_name: "#{Rails.public_path}/incoming/2010_nephrology_free_tagged_terms.xlsx",
@@ -61,7 +64,7 @@ An initial data set of 998 studies was identified as having conditions relevant 
     end
 
     def self.load_project_tables
-      ProjTagNephrology::TaggedNephrologyTerm.populate
+      ProjTagNephrology::TaggedTerm.populate
       ProjTagNephrology::AnalyzedStudy.populate
     end
 

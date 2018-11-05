@@ -4,7 +4,7 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
     execute "CREATE SCHEMA IF NOT EXISTS proj_tag_nephrology;"
     # set search path so that this doesn't get confused about other schemas
 
-    create_table "proj_tag_nephrology.tagged_nephrology_terms" do |t|
+    create_table "proj_tag_nephrology.tagged_terms" do |t|
       t.integer 'project_id'
       t.string  'identifier'
       t.string  'tag'
@@ -22,15 +22,15 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
       t.string  'mesh_terms'
     end
 
-    add_index 'proj_tag_nephrology.tagged_nephrology_terms', :identifier
-    add_index 'proj_tag_nephrology.tagged_nephrology_terms', :term
-    add_index 'proj_tag_nephrology.tagged_nephrology_terms', :tag
-    add_index 'proj_tag_nephrology.tagged_nephrology_terms', :term_type
+    add_index 'proj_tag_nephrology.tagged_terms', :identifier
+    add_index 'proj_tag_nephrology.tagged_terms', :term
+    add_index 'proj_tag_nephrology.tagged_terms', :tag
+    add_index 'proj_tag_nephrology.tagged_terms', :term_type
 
   end
 
   def down
-    drop_table proj_tag_nephrology.tagged_nephrology_terms;
+    drop_table proj_tag_nephrology.tagged_terms;
     execute "DROP SCHEMA IF EXISTS proj_tag_nephrology;"
   end
 

@@ -1,7 +1,7 @@
 module ProjTagNephrology
-  class TaggedNephrologyTerm < ActiveRecord::Base
+  class TaggedTerm < ActiveRecord::Base
 
-    self.table_name = 'proj_tag_nephrology.tagged_nephrology_terms'
+    self.table_name = 'proj_tag_nephrology.tagged_terms'
     def self.populate
       # Put a spreadsheet in the public/incoming directory.
       #
