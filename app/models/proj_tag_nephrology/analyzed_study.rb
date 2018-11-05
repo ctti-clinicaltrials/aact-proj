@@ -13,16 +13,15 @@ module ProjTagNephrology
       header = data.first.compact.map(&:downcase)
 
       (2..data.last_row).each  {|i|
-        row = Hash[[header, data.row(i)[0..(header.size-1)]].transpose]
+        row = Hash[[header, data.row(i)].transpose]
         if !row['nct_id'].blank?
-                create(
-                  :nct_id                   => row['nct_id'],
-                  :hyperlink                => row['hyperlink'],
-                  :brief_title              => row['brief_title'],
-                  :keywords                 => row['keywords'],
-                  :conditions               => row['conditions'],
-                  :mesh_terms               => row['mesh_terms'],
-                ).save!
+          create(
+            :nct_id                   => row['nct_id'],
+            :brief_title              => row['brief_title'],
+            :keywords                 => row['keywords'],
+            :conditions               => row['conditions'],
+            :mesh_terms               => row['mesh_terms'],
+          ).save!
         end
       }
     end
