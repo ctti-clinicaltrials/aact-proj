@@ -6,6 +6,7 @@ module ProjTagNephrology
       { name:                 'Tag MeSH Terms Related to Nephrology',
         schema_name:          'proj_tag_nephrology',
         brief_summary:        "In conducting a systematic review of nephrology-related studies in ClinicalTrials.gov, the investigators tagged nephrology-related MeSH terms.",
+        investigators:        'Jula K. Inrig, MD,1,2 Robert M. Califf, MD,1 Asba Tasneem, PhD,1 Radha K. Vegunta, MD,3 Christopher Molina, BS,4 John W. Stanifer, MD,1 Karen Chiswell, PhD,1 and Uptal D. Patel, MD1',
         migration_file_name:  Rails.root.join('db','migrate','20181104000122_create_proj_tag_nephrology_tables.rb').to_s,
         organizations:        'Duke Clinical Research Institute',
         data_available:       true,
