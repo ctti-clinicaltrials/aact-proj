@@ -14,7 +14,7 @@ module ProjTagNephrology
 
       (2..data.last_row).each  {|i|
         row = Hash[[header, data.row(i)].transpose]
-        create(:term => row['term'].downcase).save!  if !row['term'].blank?
+        create(:term => row['term'].downcase.strip).save!  if !row['term'].blank?
       }
     end
 

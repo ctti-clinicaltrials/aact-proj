@@ -16,11 +16,11 @@ module ProjTagNephrology
         row = Hash[[header, data.row(i)].transpose]
         if !row['nct_id'].blank?
           create(
-            :nct_id                   => row['nct_id'],
-            :brief_title              => row['brief_title'],
-            :keywords                 => row['keywords'],
-            :conditions               => row['conditions'],
-            :mesh_terms               => row['mesh_terms'],
+            :nct_id                   => row['nct_id'].try(:strip),
+            :brief_title              => row['brief_title'].try(:strip),
+            :keywords                 => row['keywords'].try(:strip),
+            :conditions               => row['conditions'].try(:strip),
+            :mesh_terms               => row['mesh_terms'].try(:strip),
           ).save!
         end
       }
