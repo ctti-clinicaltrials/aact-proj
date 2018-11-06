@@ -50,7 +50,6 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
   end
 
   def down
-    drop_table proj_tag_nephrology.tagged_terms;
     execute "DROP SCHEMA IF EXISTS proj_tag_nephrology;"
   end
 
