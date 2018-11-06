@@ -62,22 +62,23 @@ namespace :db do
     # make rails unaware of other schemas. If rails detects an existing schema_migrations table,
     # it will use it - but we need a proj-specific schema_migrations table in our proj schema
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj;")
     con.reset!
     Rake::Task["db:migrate"].invoke
-    # now put ctgov & public schemas back in the searh path
-    con = ActiveRecord::Base.connection
+    # Afterwards, put search_path back to normal.
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
     con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
     con.reset!
   end
 
   task :seed do
-    con = ActiveRecord::Base.connection
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
+    # Make sure it doesn't try to populate any tables in ctgov
     con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag;")
     con.reset!
     Rake::Task["db:seed"].invoke
-    # now put ctgov & public schemas back in the searh path
-    con = ActiveRecord::Base.connection
+    # Afterwards, put search_path back to normal.
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
     con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
     con.reset!
   end

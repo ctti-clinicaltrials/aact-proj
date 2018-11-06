@@ -20,8 +20,7 @@ class CreateProjTagTables < ActiveRecord::Migration[5.2]
   end
 
   def down
-    drop_table proj_tag.tagged_terms;
-    execute "DROP SCHEMA IF EXISTS proj_tag;"
+    execute "DROP SCHEMA IF EXISTS proj_tag CASCADE;"
   end
 
 end

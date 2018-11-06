@@ -1,14 +1,7 @@
 class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
 
-  def down
-    drop_table proj_anderson.analyzed_studies;
-    execute "DROP SCHEMA IF EXISTS proj_anderson;"
-    execute "ALTER ROLE proj IN DATABASE aact SET search_path to ctgov, proj, proj_tag;"
-  end
-
   def up
     execute "CREATE SCHEMA IF NOT EXISTS proj_anderson;"
-    execute "ALTER ROLE proj IN DATABASE aact SET search_path TO proj_anderson, ctgov, proj, proj_tag"
 
     create_table "proj_anderson.analyzed_studies" do |t|
       t.string  'nct_id'
@@ -73,6 +66,10 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
     add_index 'proj_anderson.analyzed_studies', :masking
     add_index 'proj_anderson.analyzed_studies', :primary_purpose
 
+  end
+
+  def down
+    execute "DROP SCHEMA IF EXISTS proj_anderson CASCADE;"
   end
 
 end
