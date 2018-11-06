@@ -137,10 +137,6 @@ ActiveRecord::Schema.define(version: 2018_11_04_000122) do
     t.index ["primary_purpose"], name: "index_proj_anderson.analyzed_studies_on_primary_purpose"
   end
 
-  create_table "analyzed_terms", force: :cascade do |t|
-    t.string "term"
-  end
-
   create_table "attachments", force: :cascade do |t|
     t.integer "project_id"
     t.string "file_name"
