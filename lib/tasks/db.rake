@@ -20,7 +20,7 @@ namespace :db do
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag_nephrology';").values
     con.execute('DROP SCHEMA proj_tag_nephrology CASCADE;') if !exists.empty?
 
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE #{ENV['AACT_PROJ_DATABASE']} SET search_path TO ctgov, public;")
     con.reset!
   end
 
@@ -29,7 +29,7 @@ namespace :db do
     puts "Creating schema proj, proj_anderson & proj_tag, proj_tag_nephrology..."
     # To get proj setup, need to login as the AACT primary superuser - they will give the AACT_PROJ_DB_SUPER_USERNAME privs
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
-    con.execute("GRANT CREATE ON DATABASE aact TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("GRANT CREATE ON DATABASE #{ENV['AACT_PROJ_DATABASE']} TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
 
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj';").values
     con.execute('CREATE SCHEMA proj;') if exists.empty?
@@ -62,35 +62,35 @@ namespace :db do
     # make rails unaware of other schemas. If rails detects an existing schema_migrations table,
     # it will use it - but we need a proj-specific schema_migrations table in our proj schema
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag;")
     con.reset!
     Rake::Task["db:migrate"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
     con.reset!
   end
 
   task :seed do
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag;")
     con.reset!
     Rake::Task["db:seed"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
     con.reset!
   end
 
   task :rollback do
     # make rails unaware of any other schema in the database
     con=ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag;")
     con.reset!
     Rake::Task["db:rollback"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag, ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE  #{ENV['AACT_PROJ_DATABASE']} SET search_path TO proj, proj_anderson, proj_tag, ctgov, public;")
     con.reset!
   end
 
