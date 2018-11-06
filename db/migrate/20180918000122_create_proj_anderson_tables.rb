@@ -1,7 +1,6 @@
 class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
 
   def up
-    execute "CREATE SCHEMA IF NOT EXISTS proj_anderson;"
 
     create_table "proj_anderson.analyzed_studies" do |t|
       t.string  'nct_id'
@@ -69,7 +68,7 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
   end
 
   def down
-    execute "DROP SCHEMA IF EXISTS proj_anderson CASCADE;"
+    execute "DROP SCHEMA proj_anderson CASCADE;"
   end
 
 end

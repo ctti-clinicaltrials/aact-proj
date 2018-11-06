@@ -1,7 +1,6 @@
 class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
 
   def up
-    execute "CREATE SCHEMA IF NOT EXISTS proj_tag_nephrology;"
 
     create_table "proj_tag_nephrology.tagged_terms" do |t|
       t.string  'term'
@@ -49,7 +48,7 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
   end
 
   def down
-    execute "DROP SCHEMA IF EXISTS proj_tag_nephrology CASCADE;"
+    execute "DROP SCHEMA proj_tag_nephrology CASCADE;"
   end
 
 end

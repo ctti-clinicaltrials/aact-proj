@@ -1,7 +1,6 @@
 class CreateProjTagTables < ActiveRecord::Migration[5.2]
 
   def up
-    execute "CREATE SCHEMA IF NOT EXISTS proj_tag;"
 
     create_table "proj_tag.tagged_terms" do |t|
       t.integer 'project_id'
@@ -20,7 +19,7 @@ class CreateProjTagTables < ActiveRecord::Migration[5.2]
   end
 
   def down
-    execute "DROP SCHEMA IF EXISTS proj_tag CASCADE;"
+    execute "DROP SCHEMA proj_tag CASCADE;"
   end
 
 end
