@@ -67,18 +67,18 @@ namespace :db do
     Rake::Task["db:migrate"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag, ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
     con.reset!
   end
 
   task :seed do
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag;")
     con.reset!
     Rake::Task["db:seed"].invoke
     # now put ctgov & public schemas back in the searh path
     con = ActiveRecord::Base.connection
-    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag, ctgov, public;")
+    con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE aact SET search_path TO proj, proj_anderson, proj_tag_nephrology, proj_tag, ctgov, public;")
     con.reset!
   end
 
