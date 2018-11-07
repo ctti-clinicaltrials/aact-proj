@@ -33,27 +33,31 @@ namespace :db do
 
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj';").values
     con.execute('CREATE SCHEMA proj;') if exists.empty?
-    con.execute("grant usage on schema proj to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema proj to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant select on all tables in schema proj to public;")
+    con.execute("GRANT USAGE ON SCHEMA proj to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute('GRANT USAGE ON SCHEMA proj TO public;')
+    con.execute("GRANT CREATE ON SCHEMA proj to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute('GRANT SELECT ON ALL TABLES IN SCHEMA proj TO public;')
 
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_anderson';").values
     con.execute('CREATE SCHEMA proj_anderson;') if exists.empty?
-    con.execute("grant usage on schema proj_anderson to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema proj_anderson to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant select on all tables in schema proj_anderson to public;")
+    con.execute("GRANT USAGE ON SCHEMA proj_anderson TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute('GRANT USAGE ON SCHEMA proj TO public;')
+    con.execute("GRANT CREATE ON SCHEMA proj_anderson TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA proj_anderson TO public;")
 
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag';").values
     con.execute('CREATE SCHEMA proj_tag;') if exists.empty?
-    con.execute("grant usage on schema proj_tag to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema proj_tag to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant select on all tables in schema proj_tag to public;")
+    con.execute("GRANT USAGE ON SCHEMA proj_tag TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute('GRANT USAGE ON SCHEMA proj_tag TO public;')
+    con.execute("GRANT CREATE ON SCHEMA proj_tag TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag TO public;")
 
     exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag_nephrology';").values
     con.execute('CREATE SCHEMA proj_tag_nephrology;') if exists.empty?
-    con.execute("grant usage on schema proj_tag_nephrology to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant create on schema proj_tag_nephrology to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("grant select on all tables in schema proj_tag_nephrology to public;")
+    con.execute("GRANT USAGE ON SCHEMA proj_tag_nephrology TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute('GRANT USAGE ON SCHEMA proj_tag_nephrology TO public;')
+    con.execute("GRANT CREATE ON SCHEMA proj_tag_nephrology TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_nephrology TO public;")
 
     con.reset!
   end
