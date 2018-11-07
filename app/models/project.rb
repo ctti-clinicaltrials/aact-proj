@@ -11,6 +11,10 @@ class Project < ActiveRecord::Base
     #[ 'TagNephrology', 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg' ]
   end
 
+  def self.schema_name_list
+    project_list.map{|p| "Proj#{p}".underscore }
+  end
+
   def self.populate_all
     self.project_list.each{ |proj_module| new.populate("Proj#{proj_module}") }
   end

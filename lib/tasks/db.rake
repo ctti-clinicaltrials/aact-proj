@@ -8,18 +8,10 @@ namespace :db do
   task drop: [:environment] do
     puts "Dropping schema proj, proj_anderson & proj_tag, proj_tag_nephrology..."
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj';").values
-    con.execute('DROP SCHEMA proj CASCADE;') if !exists.empty?
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_anderson';").values
-    con.execute('DROP SCHEMA proj_anderson CASCADE;') if !exists.empty?
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag';").values
-    con.execute('DROP SCHEMA proj_tag CASCADE;') if !exists.empty?
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag_nephrology';").values
-    con.execute('DROP SCHEMA proj_tag_nephrology CASCADE;') if !exists.empty?
-
+    Project.schema_name_list.each {|schema_name|
+      exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = '#{schema_name}';").values
+      con.execute("DROP SCHEMA #{schema_name} CASCADE;") if !exists.empty?
+    }
     con.execute("ALTER ROLE #{ENV['AACT_PROJ_DB_SUPER_USERNAME']} IN DATABASE #{ENV['AACT_PROJ_DATABASE']} SET search_path TO ctgov, public;")
     con.reset!
   end
@@ -30,34 +22,14 @@ namespace :db do
     # To get proj setup, need to login as the AACT primary superuser - they will give the AACT_PROJ_DB_SUPER_USERNAME privs
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
     con.execute("GRANT CREATE ON DATABASE #{ENV['AACT_PROJ_DATABASE']} TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj';").values
-    con.execute('CREATE SCHEMA proj;') if exists.empty?
-    con.execute("GRANT USAGE ON SCHEMA proj to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute('GRANT USAGE ON SCHEMA proj TO public;')
-    con.execute("GRANT CREATE ON SCHEMA proj to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute('GRANT SELECT ON ALL TABLES IN SCHEMA proj TO public;')
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_anderson';").values
-    con.execute('CREATE SCHEMA proj_anderson;') if exists.empty?
-    con.execute("GRANT USAGE ON SCHEMA proj_anderson TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute('GRANT USAGE ON SCHEMA proj TO public;')
-    con.execute("GRANT CREATE ON SCHEMA proj_anderson TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA proj_anderson TO public;")
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag';").values
-    con.execute('CREATE SCHEMA proj_tag;') if exists.empty?
-    con.execute("GRANT USAGE ON SCHEMA proj_tag TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute('GRANT USAGE ON SCHEMA proj_tag TO public;')
-    con.execute("GRANT CREATE ON SCHEMA proj_tag TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag TO public;")
-
-    exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = 'proj_tag_nephrology';").values
-    con.execute('CREATE SCHEMA proj_tag_nephrology;') if exists.empty?
-    con.execute("GRANT USAGE ON SCHEMA proj_tag_nephrology TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute('GRANT USAGE ON SCHEMA proj_tag_nephrology TO public;')
-    con.execute("GRANT CREATE ON SCHEMA proj_tag_nephrology TO #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
-    con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_nephrology TO public;")
+    Project.schema_name_list.each {|schema_name|
+      exists = con.execute("SELECT schema_name FROM information_schema.schemata WHERE schema_name = '#{schema_name}';").values
+      con.execute("CREATE SCHEMA #{schema_name};") if exists.empty?
+      con.execute("GRANT USAGE ON SCHEMA #{schema_name} to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+      con.execute("GRANT USAGE ON SCHEMA #{schema_name} TO public;")
+      con.execute("GRANT CREATE ON SCHEMA #{schema_name} to #{ENV['AACT_PROJ_DB_SUPER_USERNAME']};")
+      con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO public;")
+    }
 
     con.reset!
   end
