@@ -2,6 +2,7 @@ class CreateProjTagTables < ActiveRecord::Migration[5.2]
 
   def up
 
+    execute "CREATE SCHEMA proj_tag;"
     create_table "proj_tag.tagged_terms" do |t|
       t.integer 'project_id'
       t.string  'identifier'

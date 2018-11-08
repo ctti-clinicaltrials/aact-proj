@@ -2,6 +2,7 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
 
   def up
 
+    execute "CREATE SCHEMA proj_anderson;"
     create_table "proj_anderson.analyzed_studies" do |t|
       t.string  'nct_id'
       t.string  'url'

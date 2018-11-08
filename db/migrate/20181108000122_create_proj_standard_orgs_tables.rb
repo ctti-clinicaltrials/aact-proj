@@ -2,6 +2,7 @@ class CreateProjStandardOrgsTables < ActiveRecord::Migration[5.2]
 
   def up
 
+    execute "CREATE SCHEMA proj_standard_orgs;"
     create_table "proj_standard_orgs.organizations" do |t|
       t.string  'name'
       t.string  'lowercase_name'

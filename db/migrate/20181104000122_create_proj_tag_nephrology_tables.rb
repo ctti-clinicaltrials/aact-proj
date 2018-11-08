@@ -2,6 +2,7 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
 
   def up
 
+    execute "CREATE SCHEMA proj_tag_nephrology;"
     create_table "proj_tag_nephrology.tagged_terms" do |t|
       t.string  'term'
     end
@@ -21,7 +22,7 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
     #  it drops all views before hand. When it's done restoring, it runs a function to recreate
     #  the view.
     execute <<-SQL
-        CREATE OR REPLACE FUNCTION proj.create_views() RETURNS void AS
+        CREATE OR REPLACE FUNCTION proj_tag_nephrology.create_views() RETURNS void AS
         $BODY$
         BEGIN
           EXECUTE 'CREATE OR REPLACE VIEW proj_tag_nephrology.tagged_studies AS ' ||
