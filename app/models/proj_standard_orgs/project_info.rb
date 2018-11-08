@@ -27,7 +27,7 @@ module ProjStandardOrgs
           dataset_type: 'terms',
           schema_name:  'proj_standard_orgs',
           table_name:   'organizations',
-          name:         'Nephrology Terms',
+          name:         'Standardized Organization Names',
           file_name:    "#{Rails.public_path}/attachments/proj_standard_orgs_organizations.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads'
         },
