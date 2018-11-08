@@ -1,5 +1,6 @@
 module ProjTag
   class TaggedTerm < ActiveRecord::Base
+    self.table_name = 'proj_tag.tagged_terms'
 
     def self.populate
       # Put a spreadsheet in the public/incoming directory.
