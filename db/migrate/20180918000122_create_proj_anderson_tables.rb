@@ -57,7 +57,6 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
       t.boolean 'delayed12'
     end
 
-    execute "ALTER ROLE proj IN DATABASE aact SET search_path TO ctgov, proj, proj_tag, proj_anderson"
     add_index 'proj_anderson.analyzed_studies', :agency_class
     add_index 'proj_anderson.analyzed_studies', :funding
     add_index 'proj_anderson.analyzed_studies', :overall_status

@@ -39,7 +39,6 @@ module ProjTag
           if !tags.empty?
             tags.each{ |tag|
                 create(
-                  :project_id   => '1',
                   :identifier   => row['identifier'],
                   :tag          => tag,
                   :term         => row['term'].downcase,
