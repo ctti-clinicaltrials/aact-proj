@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   def self.project_list
     # A list of all project modules currently in AACT.
     # Each module (in app/models) encapsulates all info about the project.
-    [ 'TagNephrology', 'Anderson', 'StandardOrgs' ]
+    [ 'TagNephrology', 'Anderson', 'StandardOrgs', 'Tag' ]
     #[ 'TagNephrology', 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg', 'StandardOrgs' ]
   end
 
@@ -41,7 +41,6 @@ class Project < ActiveRecord::Base
       new_proj.datasets << Dataset.create_from(ds, file)
     }
     new_proj.save!
-
     DataDefinition.populate(new_proj.schema_name)
     proj_info.load_project_tables
   end

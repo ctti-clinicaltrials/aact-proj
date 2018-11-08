@@ -624,6 +624,10 @@ ActiveRecord::Schema.define(version: 2018_11_08_000122) do
     t.string "term"
   end
 
+  create_table "tagged_terms", force: :cascade do |t|
+    t.string "term"
+  end
+
   create_table "y2010_mesh_terms", force: :cascade do |t|
     t.string "qualifier"
     t.string "tree_number"
