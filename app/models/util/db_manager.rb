@@ -31,8 +31,8 @@ module Util
         con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
         con.execute("GRANT USAGE ON SCHEMA #{schema_name} to public;")
         con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO public;")
+        con.reset!
       }
-      con.reset!
     end
 
     def dump_file_name
