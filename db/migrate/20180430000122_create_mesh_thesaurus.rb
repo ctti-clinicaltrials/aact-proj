@@ -3,6 +3,8 @@ class CreateMeshThesaurus < ActiveRecord::Migration[5.2]
   def up
 
     execute "CREATE SCHEMA mesh_archive;"
+    execute "GRANT USAGE ON SCHEMA mesh_archive to public;"
+    execute "GRANT SELECT ON ALL TABLES IN SCHEMA mesh_archive TO public;"
     create_table 'mesh_archive.y2010_mesh_terms' do |t|
       t.string  'qualifier'
       t.string  'tree_number'

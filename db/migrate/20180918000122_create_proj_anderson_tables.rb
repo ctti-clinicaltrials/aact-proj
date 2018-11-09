@@ -3,6 +3,8 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
   def up
 
     execute "CREATE SCHEMA proj_anderson;"
+    execute "GRANT USAGE ON SCHEMA proj_anderson to public;"
+    execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_anderson TO public;"
     create_table "proj_anderson.analyzed_studies" do |t|
       t.string  'nct_id'
       t.string  'url'
