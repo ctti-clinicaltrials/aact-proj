@@ -18,8 +18,8 @@ namespace :db do
   task migrate: [:environment] do
     Rake::Task["db:migrate"].invoke
     puts "aact_proj db:  set search_path ..."
-    con=ActiveRecord::Base.establish_connection(ENV['AACT_ADMIN_DATABASE_URL']).connection
-    con.execute("alter role proj in database aact_proj set search_path = public, proj_anderson, proj_tag, proj_tag_nephrology;")
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PROJ_DATABASE_URL']).connection
+    con.execute("alter role proj in database aact_proj set search_path = public, #{Admin::Project.schema_name_list};")
     con.reset!
   end
 
