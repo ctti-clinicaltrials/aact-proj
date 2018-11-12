@@ -2,5 +2,5 @@
 # Projects are stored in their own database schema.  The process drops & recreates these project schemas
 # then runs the project migration file to create project-related table(s) in the project's schema
 
-Util::Updater.populate_all
+Util::Updater.run
 #Util::Updater.new.populate_mesh_tables
