@@ -9,7 +9,8 @@ module Admin
            :file_contents => file.read,
            :is_image      => !image_type.nil?,
            :description   => attachment[:description],
-           :original_file_name => attachment[:file_name]
+           :source        => attachment[:source],
+           :original_file_name => attachment[:file_name],
           })
     end
 

@@ -7,6 +7,7 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
     execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_nephrology TO public;"
     create_table "proj_tag_nephrology.tagged_terms" do |t|
       t.string  'term'
+      t.string  'term_type'
     end
 
     create_table "proj_tag_nephrology.analyzed_studies" do |t|

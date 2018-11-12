@@ -3,7 +3,7 @@ module ProjAnderson
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name
-      { name:                'Compliance with Results Reporting at ClinicalTrials.gov',
+      { name:                'Results Reporting Compliance',
         schema_name:         'proj_anderson',
         migration_file_name:  Rails.root.join('db','migrate','20180918000122_create_proj_anderson_tables.rb').to_s,
         investigators:       'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
@@ -11,6 +11,7 @@ module ProjAnderson
         contact_info:        'Monique Anderson. Duke University, Dept of Medicine, Box 3099, Durham C 27710 monique.starks@duke.edu',
         contact_url:         'https://scholars.duke.edu/person/moniqueanderson.starks',
         data_available:      true,
+        aact_version:        '27/09/2013',
         start_date:          Date.strptime('27/09/2013', '%d/%m/%Y'),
         year:                2013,
         url:                 'https://www.nejm.org/doi/full/10.1056/NEJMsa1409364',
@@ -27,9 +28,12 @@ module ProjAnderson
           journal_name:     'The New England Journal of Medicine',
           publication_date: Date.strptime('12/03/2015', '%d/%m/%Y'),
           pub_type:         'AcademicArticle',
+          pmid:             '25760355',
+          pmcid:            'PMC4508873',
+          doi:              '10.1056/NEJMsa1409364',
           title:            'Compliance with Results Reporting at ClinicalTrials.gov',
           url:              'https://scholars.duke.edu/display/pub1075763',
-          citation:         'Anderson, ML, and Peterson, ED. "Compliance with results reporting at ClinicalTrials.gov." The New England Journal of Medicine 372, no. 24 (June 2015): 2370-2371. (Letter)'
+          citation:         'Anderson ML, Chiswell K, Peterson ED, Tasneem A, Topping J, Califf RM. Compliance with results reporting at ClinicalTrials. gov. New England Journal of Medicine. 2015 Mar 12;372(11):1031-9.'
         }
       ]
     end
@@ -47,12 +51,14 @@ module ProjAnderson
     def self.datasets
       [
         {
-          dataset_type: 'results',
+          dataset_type: 'study list',
           schema_name:  'proj_anderson',
           table_name:   'analyzed_studies',
           name:         'Analyzed Studies',
           file_name:    "#{Rails.public_path}/attachments/proj_anderson.xlsx",
-          file_type:    'application/vnd.openxmlformats-officedocument.spreads'
+          file_type:    'application/vnd.openxmlformats-officedocument.spreads',
+          description:  "Identifies the final cohort of 1054 nephrology trials reported in manuscript. Note that this manuscript also includes cardiology trials, but the coding for those will be shared under the cardiology project.",
+          source:       "From AACT(2010), subset on 40970 interventional studies registered >= 1Oct2007. Searched for studies with nephrology-specific terms in AACT(2010).Conditions, OR AACT(2010).Keywords, OR AACT(2010).MeSH_Trees (where MeSH_Type='condition')"
         }
       ]
     end

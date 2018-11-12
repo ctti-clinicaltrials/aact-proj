@@ -10,6 +10,9 @@ module Admin
            :schema_name   => ds[:schema_name],
            :table_name    => ds[:table_name],
            :name          => ds[:name],
+           :description   => ds[:description],
+           :source        => ds[:source],
+           :made_available_on   => ds[:made_available_on],
           })
     end
 
