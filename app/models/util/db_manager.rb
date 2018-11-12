@@ -10,16 +10,9 @@ module Util
       grant_privs
     end
 
-    def run_command(cmd)
-      stdout, stderr, status = Open3.capture3(cmd)
-      if status.exitstatus != 0
-        success_code=false
-      end
-    end
-
     def dump
       schema_snippet = Admin::Project.schema_name_array.join(' --schema ')
-      "pg_dump #{ENV['AACT_PROJ_DATABASE_URL']} -v -h localhost -p 5432 -U #{ENV['AACT_DB_SUPER_USERNAME']} --no-password --clean #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
+      "pg_dump #{ENV['AACT_PROJ_DATABASE_URL']} -v -h localhost -p 5432 -U #{ENV['AACT_DB_SUPER_USERNAME']} --no-password --clean --schema #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
     end
 
     def restore(database_name)
@@ -33,6 +26,13 @@ module Util
         con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO public;")
         con.reset!
       }
+    end
+
+    def run_command(cmd)
+      stdout, stderr, status = Open3.capture3(cmd)
+      if status.exitstatus != 0
+        success_code=false
+      end
     end
 
     def dump_file_name
