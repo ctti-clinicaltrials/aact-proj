@@ -1,7 +1,7 @@
 module Util
   class Updater
 
-    def self.populate_all
+    def self.run
       Admin::Project.project_list.each{ |proj_module| new.populate("Proj#{proj_module}") }
       Util::DbManager.new.refresh_public_db
     end
