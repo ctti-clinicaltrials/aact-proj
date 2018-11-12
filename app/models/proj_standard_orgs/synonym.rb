@@ -8,7 +8,7 @@ module ProjStandardOrgs
     end
 
     def self.populate_from_file(file_name)
-      destroy_all
+      connection.execute("TRUNCATE TABLE #{table_name};")
       data = Roo::Spreadsheet.open(file_name).sheet("Synonyms")
       header = data.first.compact.map(&:downcase)
 

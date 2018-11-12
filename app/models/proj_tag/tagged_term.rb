@@ -19,6 +19,7 @@ module ProjTag
         # eliminate those preceded with ~ char which represents open file
         (fn.include? 'tagged_terms.xlsx') and fn[0] != '~'
       }
+      connection.execute("TRUNCATE TABLE #{table_name};")
       puts ">>>>>> Importing tagged terms from #{file_names.size} files."
       file_names.each{|file_name|
         self.populate_from_file("#{dir}/#{file_name}")
