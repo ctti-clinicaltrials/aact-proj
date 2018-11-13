@@ -60,9 +60,35 @@ ActiveRecord::Schema.define(version: 2018_11_08_000122) do
     t.string "term_type"
   end
 
-  create_table "tagged_terms", force: :cascade do |t|
-    t.string "term"
-    t.string "term_type"
+  create_table "y2010_mesh_terms", force: :cascade do |t|
+    t.string "qualifier"
+    t.string "tree_number"
+    t.string "description"
+    t.string "mesh_term"
+    t.string "downcase_mesh_term"
+    t.index ["description"], name: "index_mesh_archive.y2010_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_mesh_archive.y2010_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_mesh_archive.y2010_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_mesh_archive.y2010_mesh_terms_on_qualifier"
+  end
+
+  create_table "y2016_mesh_headings", force: :cascade do |t|
+    t.string "qualifier"
+    t.string "heading"
+    t.string "subcategory"
+    t.index ["qualifier"], name: "index_mesh_archive.y2016_mesh_headings_on_qualifier"
+  end
+
+  create_table "y2016_mesh_terms", force: :cascade do |t|
+    t.string "qualifier"
+    t.string "tree_number"
+    t.string "description"
+    t.string "mesh_term"
+    t.string "downcase_mesh_term"
+    t.index ["description"], name: "index_mesh_archive.y2016_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_mesh_archive.y2016_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_mesh_archive.y2016_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_mesh_archive.y2016_mesh_terms_on_qualifier"
   end
 
 end
