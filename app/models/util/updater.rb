@@ -1,9 +1,16 @@
 module Util
   class Updater
 
-    def self.run
+     def self.run
       Admin::Project.project_list.each{ |proj_module| new.populate("Proj#{proj_module}") }
+      self.populate_mesh_thesauri
       Util::DbManager.new.refresh_public_db
+    end
+
+    def self.populate_mesh_thesauri
+      MeshArchive::Y2010MeshTerm.populate_from_file
+      MeshArchive::Y2016MeshTerm.populate_from_file
+      MeshArchive::Y2016MeshHeading.populate_from_file
     end
 
     def populate(proj_module)
