@@ -3,14 +3,14 @@ module ProjAnderson
     self.table_name = 'proj_anderson.analyzed_studies'
 
     def self.populate
-      file_name="#{Rails.public_path}/attachments/proj_anderson.xlsx"
+      file_name = ProjAnderson::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'analyzed_studies'}.first[:file_name]
       self.populate_from_file(file_name)
     end
 
     def self.populate_from_file(file_name)
       connection.execute("TRUNCATE TABLE #{table_name};")
       data = Roo::Spreadsheet.open(file_name).sheet("Analysis Data")
-      header = data.first.map(&:downcase)
+      header = data.first.compact.map(&:downcase)
 
       (2..data.last_row).each  {|i|
         row = Hash[[header, data.row(i)].transpose]
@@ -21,6 +21,7 @@ module ProjAnderson
                   :brief_title              => row['brief_title'],
                   :start_month              => row['start_month'],
                   :start_year               => row['start_year'],
+                  :overall_status           => row['overall_status'],
                   :p_completion_month       => row['p_completion_month'],
                   :p_completion_year        => row['p_completion_year'],
                   :completion_month         => row['completion_month'],

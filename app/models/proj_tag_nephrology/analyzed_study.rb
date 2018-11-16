@@ -3,7 +3,7 @@ module ProjTagNephrology
     self.table_name = 'proj_tag_nephrology.analyzed_studies'
 
     def self.populate
-      file_name="#{Rails.public_path}/attachments/proj_tag_nephrology_studies.xlsx"
+      file_name = ProjTagNephrology::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'analyzed_studies'}.first[:file_name]
       self.populate_from_file(file_name)
     end
 
