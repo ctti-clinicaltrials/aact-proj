@@ -3,4 +3,3 @@
 # then runs the project migration file to create project-related table(s) in the project's schema
 
 Util::Updater.run
-#Util::Updater.new.populate_mesh_tables
