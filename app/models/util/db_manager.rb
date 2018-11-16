@@ -11,7 +11,7 @@ module Util
     end
 
     def dump
-      schema_snippet = Admin::Project.schema_name_array.join(' --schema ')
+      schema_snippet = Admin::Project.schema_name_array.join(' --schema mesh_archive --schema ')
       "pg_dump #{ENV['AACT_PROJ_DATABASE_URL']} -v -h localhost -p 5432 -U #{ENV['AACT_DB_SUPER_USERNAME']} --no-password --clean --schema #{schema_snippet} -b -c -C -Fc -f #{dump_file_name}"
     end
 
