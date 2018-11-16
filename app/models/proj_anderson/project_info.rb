@@ -55,10 +55,10 @@ module ProjAnderson
           schema_name:  'proj_anderson',
           table_name:   'analyzed_studies',
           name:         'Analyzed Studies',
-          file_name:    "#{Rails.public_path}/attachments/proj_anderson.xlsx",
+          file_name:    "#{Rails.public_path}/attachments/proj_anderson_studies.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads',
-          description:  "Identifies the final cohort of 1054 nephrology trials reported in manuscript. Note that this manuscript also includes cardiology trials, but the coding for those will be shared under the cardiology project.",
-          source:       "From AACT(2010), subset on 40970 interventional studies registered >= 1Oct2007. Searched for studies with nephrology-specific terms in AACT(2010).Conditions, OR AACT(2010).Keywords, OR AACT(2010).MeSH_Trees (where MeSH_Type='condition')"
+          description:  "",
+          source:       "Trials selected from AACT by applying algorithm to identify trials highly likely to be 'Applicable Clinical Trials' (see table S1 in supplemental material to manuscript)."
         }
       ]
     end
