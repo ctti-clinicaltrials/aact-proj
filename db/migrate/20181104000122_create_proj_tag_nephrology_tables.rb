@@ -29,9 +29,22 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
         $BODY$
         BEGIN
           EXECUTE 'CREATE OR REPLACE VIEW proj_tag_nephrology.tagged_studies AS ' ||
-
-            ' select distinct * from ctgov.studies where nct_id in (' ||
-              ' select distinct s.nct_id' ||
+            ' select distinct s.nct_id, s.start_date, s.start_date_type, s.primary_completion_date, s.primary_completion_date_type, ' ||
+            '   s.acronym, s.brief_title, s.official_title, s.overall_status, s.phase, ' ||
+            '   s.source, s.number_of_arms, s.enrollment, ' ||
+            '   regexp_replace(s.baseline_population, E''[\\n\\r\\u2028]+'', '' '', ''g'' ) as baseline_population,  ' ||
+            '   regexp_replace(s.why_stopped, E''[\\n\\r\\u2028]+'', '' '', ''g'' ) as why_stopped,  ' ||
+            '   regexp_replace(s.limitations_and_caveats, E''[\\n\\r\\u2028]+'', '' '', ''g'' ) as limitations_and_caveats,  ' ||
+            '   cv.number_of_facilities, cv.actual_duration, ' ||
+            '   cv.were_results_reported, cv.has_us_facility, cv.has_single_facility, ' ||
+            '   cv.months_to_report_results , cv.minimum_age_num, cv.minimum_age_unit, ' ||
+            '   cv.maximum_age_num, cv.maximum_age_unit, ' ||
+            '   d.allocation, d.intervention_model, d.primary_purpose, d.time_perspective, d.masking  ' ||
+            '   from ctgov.studies s, ctgov.calculated_values cv, ctgov.designs d ' ||
+            '   where s.nct_id = cv.nct_id ' ||
+            '     and s.nct_id = d.nct_id  ' ||
+            '     and s.nct_id in (        ' ||
+              ' select distinct s.nct_id   ' ||
                ' from ctgov.studies s, ctgov.browse_conditions bc ' ||
                ' where s.study_type=''Interventional''  ' ||
                  ' and s.study_first_posted_date >= ''2007-10-01'' ' ||
