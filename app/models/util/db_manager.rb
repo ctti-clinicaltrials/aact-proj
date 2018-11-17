@@ -22,8 +22,8 @@ module Util
     def grant_privs
       Admin::Project.schema_name_array.each {|schema_name|
         con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
-        con.execute("GRANT USAGE ON SCHEMA #{schema_name} to public;")
-        con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO public;")
+        con.execute("GRANT USAGE ON SCHEMA #{schema_name} to read_only;")
+        con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO read_only;")
         con.reset!
       }
     end
