@@ -48,7 +48,6 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
                ' from ctgov.studies s, ctgov.browse_conditions bc ' ||
                ' where s.study_type=''Interventional''  ' ||
                  ' and s.study_first_posted_date >= ''2007-10-01'' ' ||
-                 ' and s.study_first_posted_date < ''2018-11-01'' ' ||
                  ' and s.nct_id = bc.nct_id ' ||
                  ' and bc.downcase_mesh_term IN (select term from proj_tag_nephrology.tagged_terms) '
               ' union ' ||
@@ -56,7 +55,6 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
               '   from ctgov.studies s, ctgov.keywords k ' ||
               '   where s.study_type=''Interventional'' ' ||
               '   and s.study_first_posted_date >= ''2007-10-01'' ' ||
-              '   and s.study_first_posted_date < ''2018-11-01'' ' ||
               '   and s.nct_id = k.nct_id ' ||
               '  and k.downcase_name IN (select term from proj_tag_nephrology.tagged_terms)  ' ||
               ' union  ' ||
@@ -64,7 +62,6 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
               '   from studies s, conditions c  ' ||
               '   where s.study_type=''Interventional''  ' ||
               '   and s.study_first_posted_date >= ''2007-10-01''  ' ||
-              '   and s.study_first_posted_date < ''2018-11-01''  ' ||
               '   and s.nct_id = c.nct_id  ' ||
               '   and c.downcase_name IN (select term from proj_tag_nephrology.tagged_terms)  ' ||
               '   ) ';
