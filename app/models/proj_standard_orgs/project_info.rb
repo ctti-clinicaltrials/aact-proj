@@ -5,10 +5,10 @@ module ProjStandardOrgs
       #  Required:  name, schema_name & migration_file_name
       { name:                 'Standardize Organization Names',
         schema_name:          'proj_standard_orgs',
-        brief_summary:        "The CDEK project at Washington University has curated organization data to standardize terminology.",
-        investigators:        'Rebekah G, Michael K',
+        brief_summary:        'The CDEK project at Washington University has curated organization data to standardize terminology.',
+        investigators:        'Rebekah Griesenauer, PhD, Postdoctoral Scholar; Michael S Kinch, PhD, Associate Vice Chancellor',
         migration_file_name:  Rails.root.join('db','migrate','20181108000122_create_proj_standard_orgs_tables.rb').to_s,
-        organizations:        'Duke Clinical Research Institute',
+        organizations:        'Washington University - St. Louis. Center for Research Innovation and Biotechnology',
         data_available:       true,
         start_date:           Date.strptime('27/09/2010', '%d/%m/%Y'),
         year:                 2018,
