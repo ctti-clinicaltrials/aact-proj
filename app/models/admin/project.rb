@@ -7,7 +7,7 @@ module Admin
     def self.project_list
       # A list of all project modules currently in AACT.
       # Each module (in app/models) encapsulates all info about the project.
-      [ 'TagNephrology', 'Anderson', 'StandardOrgs' ]
+      [ 'Anderson', 'TagNephrology', 'StandardOrgs' ]
       #[ 'TagNephrology', 'Anderson', 'Tag', 'SummaryTrends', 'Clinwiki', 'Eeg', 'StandardOrgs' ]
     end
 
