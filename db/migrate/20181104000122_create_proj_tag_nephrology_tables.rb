@@ -3,8 +3,8 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
   def up
 
     execute "CREATE SCHEMA proj_tag_nephrology;"
-    execute "GRANT USAGE ON SCHEMA proj_tag_nephrology to public;"
-    execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_nephrology TO public;"
+    execute "GRANT USAGE ON SCHEMA proj_tag_nephrology to read_only;"
+    execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_nephrology TO read_only;"
     create_table "proj_tag_nephrology.tagged_terms" do |t|
       t.string  'term'
       t.string  'term_type'
