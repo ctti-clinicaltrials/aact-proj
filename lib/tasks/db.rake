@@ -24,21 +24,19 @@ namespace :db do
     con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
     con.execute("alter role read_only in database #{ENV['AACT_PUBLIC_DATABASE_NAME']} set search_path = ctgov, mesh_archive, #{Admin::Project.schema_name_list}, public;")
     con.execute("alter role read_only in database #{ENV['AACT_PUBLIC_DATABASE_NAME']}_alt set search_path = ctgov, mesh_archive, #{Admin::Project.schema_name_list}, public;")
+    con.reset!
+    Rake::Task["db:create"].invoke
     # The only way to access these schemas should be with the read-only role.
     # When users register (before they confirm their email), they are considered 'public'.
     # Don't let these unconfirmed users access these schemas until they confirm.
     # When they confirm, they become members of 'ready-only', then they have access.
+    con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
     con.execute("REVOKE SELECT ON ALL TABLES IN SCHEMA mesh_archive FROM public;")
     con.execute("REVOKE ALL ON SCHEMA mesh_archive FROM public;")
     Admin::Project.schema_name_array.each{ |schema_name|
       con.execute("REVOKE SELECT ON ALL TABLES IN SCHEMA #{schema_name} FROM public;")
       con.execute("REVOKE ALL ON SCHEMA #{schema_name} FROM public;")
     }
-
-    con.reset!
-    Rake::Task["db:create"].invoke
-
-    con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
     con.reset!
   end
 
