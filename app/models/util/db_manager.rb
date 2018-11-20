@@ -20,14 +20,14 @@ module Util
     end
 
     def grant_privs
+      con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
       con.execute("GRANT USAGE ON SCHEMA mesh_archive to read_only;")
       con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA mesh_archive TO read_only;")
       Admin::Project.schema_name_array.each {|schema_name|
-        con=ActiveRecord::Base.establish_connection(ENV['AACT_PUBLIC_DATABASE_URL']).connection
         con.execute("GRANT USAGE ON SCHEMA #{schema_name} to read_only;")
         con.execute("GRANT SELECT ON ALL TABLES IN SCHEMA #{schema_name} TO read_only;")
-        con.reset!
       }
+      con.reset!
     end
 
     def run_command(cmd)
