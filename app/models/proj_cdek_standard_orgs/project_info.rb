@@ -2,8 +2,6 @@ module ProjCdekStandardOrgs
   class ProjectInfo
 
     def self.meta_info
-      #  Required:  name, schema_name & migration_file_name
-
     {
      name:           'CDEK’s Standard Organization Names',
      schema_name:    'proj_cdek_standard_orgs',
@@ -11,6 +9,8 @@ module ProjCdekStandardOrgs
      brief_summary:  'The CDEK project at Washington University has curated organization data to standardize terminology.',
      investigators:  'Rebekah Griesenauer, PhD, Postdoctoral Scholar; Michael S Kinch, PhD, Associate Vice Chancellor',
      organizations:  'Washington University - St. Louis. Center for Research Innovation and Biotechnology',
+     contact_info:   'CDEK was developed and is maintained by the Center for Research Innovation in Biotechnology 374 (CRIB) at Washington University in St. Louis. CRIB studies the blend of science, business, and 375 regulation of biotechnology, medical devices, and healthcare IT to ensure continued improvements 376 in the delivery of medical innovations and public health. CRIB is actively pursuing collaborations to 377 study the data within CDEK. Errors and suggestions for improvement can be submitted at 378 http://cdek.wustl.edu/about/. Or contact us via e-mail at cdek at wustl dot edu.',
+     contact_url:    'http://cdek.wustl.edu/about/',
      data_available: true,
      start_date:     Date.strptime('27/09/2016', '%d/%m/%Y'),
      year:           2018,
@@ -19,7 +19,14 @@ module ProjCdekStandardOrgs
     end
 
     def self.publications
-      []
+      [{
+        journal_name:     '',
+        publication_date: Date.strptime('05/01/2014', '%d/%m/%Y'),
+        pub_type:         'AcademicArticle',
+        title:            'CDEK: Clinical Drug Experience Knowledgebase',
+        url:              'http://dx.doi.org/10.1101/474189',
+        doi:              '10.1101/474189',
+      }]
     end
 
     def self.datasets
@@ -38,7 +45,7 @@ module ProjCdekStandardOrgs
           table_name:   'cdek_synonyms',
           name:         'CDEK Organization Synonyms',
           file_name:    "#{Rails.public_path}/attachments/proj_cdek_standard_orgs_synonyms.xlsx",
-          file_type: 'application/vnd.openxmlformats-officedocument.spreads'
+          file_type:    'application/vnd.openxmlformats-officedocument.spreads'
         },
       ]
     end
