@@ -27,7 +27,7 @@ module ProjCdekStandardOrgs
         {
           dataset_type: 'terms',
           schema_name:  'proj_cdek_standard_orgs',
-          table_name:   'organizations',
+          table_name:   'cdek_organizations',
           name:         'CDEK Standardized Organization Names',
           file_name:    "#{Rails.public_path}/attachments/proj_cdek_standard_orgs_organizations.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads'
@@ -35,7 +35,7 @@ module ProjCdekStandardOrgs
         {
           dataset_type: 'links',
           schema_name:  'proj_cdek_standard_orgs',
-          table_name:   'synonyms',
+          table_name:   'cdek_synonyms',
           name:         'CDEK Organization Synonyms',
           file_name:    "#{Rails.public_path}/attachments/proj_cdek_standard_orgs_synonyms.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
