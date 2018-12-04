@@ -1,9 +1,9 @@
-module ProjStandardOrgs
-  class Organization < ActiveRecord::Base
-    self.table_name = 'proj_standard_orgs.organizations'
+module ProjCdekStandardOrgs
+  class CdekOrganization < ActiveRecord::Base
+    self.table_name = 'proj_cdek_standard_orgs.cdek_organizations'
 
     def self.populate
-      file_name="#{Rails.public_path}/attachments/proj_standard_orgs_organizations.xlsx"
+      file_name="#{Rails.public_path}/attachments/proj_cdek_standard_orgs_organizations.xlsx"
       self.populate_from_file(file_name)
     end
 

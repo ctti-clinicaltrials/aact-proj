@@ -1,9 +1,9 @@
-module ProjStandardOrgs
-  class Synonym < ActiveRecord::Base
-    self.table_name = 'proj_standard_orgs.synonyms'
+module ProjCdekStandardOrgs
+  class CdekSynonym < ActiveRecord::Base
+    self.table_name = 'proj_cdek_standard_orgs.cdek_synonyms'
 
     def self.populate
-      file_name="#{Rails.public_path}/attachments/proj_standard_orgs_synonyms.xlsx"
+      file_name="#{Rails.public_path}/attachments/proj_cdek_standard_orgs_synonyms.xlsx"
       self.populate_from_file(file_name)
     end
 
