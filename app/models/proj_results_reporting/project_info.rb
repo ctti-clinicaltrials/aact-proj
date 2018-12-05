@@ -3,7 +3,7 @@ module ProjResultsReporting
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name
-      { name:                'Results Reporting Compliance',
+      { name:                'Compliance with Results Reporting at ClinicalTrials.gov',
         schema_name:         'proj_results_reporting',
         migration_file_name:  Rails.root.join('db','migrate','20180918000122_create_proj_results_reporting_tables.rb').to_s,
         investigators:       'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',

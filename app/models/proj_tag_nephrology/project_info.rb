@@ -5,7 +5,7 @@ module ProjTagNephrology
       #  Required:  name, schema_name & migration_file_name
       { name:                 'The Landscape of Clinical Trials in Nephrology: A Systematic Review of ClinicalTrials.gov',
         schema_name:          'proj_tag_nephrology',
-        brief_summary:        "While conducting a systematic review of nephrology-related studies in ClinicalTrials.gov, the investigators tagged nephrology-related MeSH & free-text terms. Interventional studies registered between Oct 1, 2007 & September 27, 2010 with conditions, browse_conditions or keywords that matched any of the terms tagged as 'nephrology' were included in the analysis.",
+        brief_summary:        "While conducting a systematic review of nephrology-related studies in ClinicalTrials.gov, the investigators tagged nephrology-related MeSH & free-text condition terms. Interventional studies registered between Oct 1, 2007 & September 27, 2010 with conditions, browse_conditions or keywords that matched any of the terms tagged as 'nephrology' were reviewed by investigators, to create the final subset of studies included in the analysis.",
         investigators:        'Jula K. Inrig, MD,1,2 Robert M. Califf, MD,1 Asba Tasneem, PhD,1 Radha K. Vegunta, MD,3 Christopher Molina, BS,4 John W. Stanifer, MD,1 Karen Chiswell, PhD,1 and Uptal D. Patel, MD1',
         migration_file_name:  Rails.root.join('db','migrate','20181104000122_create_proj_tag_nephrology_tables.rb').to_s,
         organizations:        'Duke Clinical Research Institute',
@@ -52,7 +52,7 @@ An initial data set of 998 studies was identified as having conditions relevant 
           name:         'Analyzed Studies',
           file_name:    "#{Rails.public_path}/attachments/proj_tag_nephrology_studies.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads',
-          source:       "From AACT(2010), subset on 40,970 interventional studies registered on or after October 1, 2007. Searched for studies with nephrology-specific terms in AACT(2010).Conditions, OR AACT(2010).Keywords, OR AACT(2010).MeSH_Trees (where MeSH_Type='condition)"
+          source:       "From AACT(2010), subset on 40,970 interventional studies registered on or after October 1, 2007. Searched for studies with nephrology-specific terms in AACT(2010).Conditions, OR AACT(2010).Keywords, OR AACT(2010).MeSH_Trees (where MeSH_Type='condition). Investigators then reviewed the resulting list of studies and identified the final cohort of 1054 nephrology trials reported in the manuscript."
         },
       ]
     end
