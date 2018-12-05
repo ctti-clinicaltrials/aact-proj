@@ -20,12 +20,13 @@ module ProjCdekStandardOrgs
 
     def self.publications
       [{
-        journal_name:     '',
-        publication_date: Date.strptime('05/01/2014', '%d/%m/%Y'),
+        journal_name:     'BioRxiv  The Preprint Server for Biology',
+        publication_date: Date.strptime('11/19/2018', '%m/%d/%Y'),
         pub_type:         'AcademicArticle',
         title:            'CDEK: Clinical Drug Experience Knowledgebase',
         url:              'http://dx.doi.org/10.1101/474189',
         doi:              '10.1101/474189',
+        citation:         'Griesenauer R, Schillebeeck C, Kinch MS. CDEK: Clinical Drug Experience Knowledgebase. bioRxiv  The Preprint Server for Biology. 2018 November 19'
       }]
     end
 
