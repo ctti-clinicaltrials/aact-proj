@@ -1,11 +1,11 @@
-module ProjAnderson
+module ProjResultsReporting
   class ProjectInfo
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name
       { name:                'Results Reporting Compliance',
-        schema_name:         'proj_anderson',
-        migration_file_name:  Rails.root.join('db','migrate','20180918000122_create_proj_anderson_tables.rb').to_s,
+        schema_name:         'proj_results_reporting',
+        migration_file_name:  Rails.root.join('db','migrate','20180918000122_create_proj_results_reporting_tables.rb').to_s,
         investigators:       'Monique L. Anderson, M.D., Karen Chiswell, Ph.D., Eric D. Peterson, M.D., M.P.H., Asba Tasneem, Ph.D., James Topping, M.S., and Robert M. Califf, M.D.',
         organizations:       'Duke Clinical Research Institute',
         contact_info:        'Monique Anderson. Duke University, Dept of Medicine, Box 3099, Durham C 27710 monique.starks@duke.edu',
@@ -42,7 +42,7 @@ module ProjAnderson
       [
         {
           description: 'Data Definitions',
-          file_name:   "#{Rails.public_path}/attachments/proj_anderson_data_defs.xlsx",
+          file_name:   "#{Rails.public_path}/attachments/proj_results_reporting_data_defs.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
       ]
@@ -52,10 +52,10 @@ module ProjAnderson
       [
         {
           dataset_type: 'study list',
-          schema_name:  'proj_anderson',
+          schema_name:  'proj_results_reporting',
           table_name:   'analyzed_studies',
           name:         'Analyzed Studies',
-          file_name:    "#{Rails.public_path}/attachments/proj_anderson_studies.xlsx",
+          file_name:    "#{Rails.public_path}/attachments/proj_results_reporting_studies.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads',
           description:  "",
           source:       "Trials selected from AACT by applying algorithm to identify trials highly likely to be 'Applicable Clinical Trials' (see table S1 in supplemental material to manuscript)."
@@ -64,7 +64,7 @@ module ProjAnderson
     end
 
     def self.load_project_tables
-      ProjAnderson::AnalyzedStudy.populate
+      ProjResultsReporting::AnalyzedStudy.populate
     end
 
   end

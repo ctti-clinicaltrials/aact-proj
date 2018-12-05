@@ -1,11 +1,11 @@
-class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
+class CreateProjResultsReportingTables < ActiveRecord::Migration[5.2]
 
   def up
 
-    execute "CREATE SCHEMA proj_anderson;"
-    execute "GRANT USAGE ON SCHEMA proj_anderson to read_only;"
-    execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_anderson TO read_only;"
-    create_table "proj_anderson.analyzed_studies" do |t|
+    execute "CREATE SCHEMA proj_results_reporting;"
+    execute "GRANT USAGE ON SCHEMA proj_results_reporting to read_only;"
+    execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_results_reporting TO read_only;"
+    create_table "proj_results_reporting.analyzed_studies" do |t|
       t.string  'nct_id'
       t.string  'url'
       t.string  'brief_title'
@@ -60,17 +60,10 @@ class CreateProjAndersonTables < ActiveRecord::Migration[5.2]
       t.boolean 'delayed12'
     end
 
-    add_index 'proj_anderson.analyzed_studies', :agency_class
-    add_index 'proj_anderson.analyzed_studies', :funding
-    add_index 'proj_anderson.analyzed_studies', :overall_status
-    add_index 'proj_anderson.analyzed_studies', :phase
-    add_index 'proj_anderson.analyzed_studies', :masking
-    add_index 'proj_anderson.analyzed_studies', :primary_purpose
-
   end
 
   def down
-    execute "DROP SCHEMA proj_anderson CASCADE;"
+    execute "DROP SCHEMA proj_results_reporting CASCADE;"
   end
 
 end

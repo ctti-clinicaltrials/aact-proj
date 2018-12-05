@@ -1,9 +1,9 @@
-module ProjAnderson
+module ProjResultsReporting
   class AnalyzedStudy < ActiveRecord::Base
-    self.table_name = 'proj_anderson.analyzed_studies'
+    self.table_name = 'proj_results_reporting.analyzed_studies'
 
     def self.populate
-      file_name = ProjAnderson::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'analyzed_studies'}.first[:file_name]
+      file_name = ProjResultsReporting::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'analyzed_studies'}.first[:file_name]
       self.populate_from_file(file_name)
     end
 
