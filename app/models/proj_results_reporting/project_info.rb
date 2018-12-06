@@ -11,7 +11,7 @@ module ProjResultsReporting
         contact_info:        'Monique Anderson. Duke University, Dept of Medicine, Box 3099, Durham C 27710 monique.starks@duke.edu',
         contact_url:         'https://scholars.duke.edu/person/moniqueanderson.starks',
         data_available:      true,
-        aact_version:        '27/09/2013',
+        aact_version:        'September 27, 2013',
         start_date:          Date.strptime('27/09/2013', '%d/%m/%Y'),
         year:                2013,
         url:                 'https://www.nejm.org/doi/full/10.1056/NEJMsa1409364',
