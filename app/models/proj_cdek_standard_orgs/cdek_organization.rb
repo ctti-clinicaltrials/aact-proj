@@ -16,7 +16,7 @@ module ProjCdekStandardOrgs
         row = Hash[[header, data.row(i)].transpose]
         create(
           :name            => row['name'].strip,
-          :lowercase_name  => row['name'].downcase.strip
+          :downcase_name   => row['name'].downcase.strip
         ).save!  if !row['name'].blank?
       }
     end

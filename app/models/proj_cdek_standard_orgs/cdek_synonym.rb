@@ -16,9 +16,9 @@ module ProjCdekStandardOrgs
         row = Hash[[header, data.row(i)].transpose]
         create(
           :name                      => row['name'].strip,
-          :lowercase_name            => row['name'].downcase.strip,
+          :downcase_name             => row['name'].downcase.strip,
           :preferred_name            => (row['preferred_name'] if row['preferred_name']),
-          :lowercase_preferred_name  => (row['preferred_name'].downcase.strip if row['preferred_name'])
+          :downcase_preferred_name   => (row['preferred_name'].downcase.strip if row['preferred_name'])
         ).save!  if !row['name'].blank?
       }
     end

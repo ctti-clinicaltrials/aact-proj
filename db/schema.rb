@@ -127,14 +127,14 @@ ActiveRecord::Schema.define(version: 2018_11_08_000122) do
 
   create_table "cdek_organizations", force: :cascade do |t|
     t.string "name"
-    t.string "lowercase_name"
+    t.string "downcase_name"
   end
 
   create_table "cdek_synonyms", force: :cascade do |t|
     t.string "name"
     t.string "preferred_name"
-    t.string "lowercase_name"
-    t.string "lowercase_preferred_name"
+    t.string "downcase_name"
+    t.string "downcase_preferred_name"
   end
 
   create_table "tagged_terms", force: :cascade do |t|
