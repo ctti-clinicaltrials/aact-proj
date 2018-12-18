@@ -13,9 +13,7 @@ class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
     create_table "proj_tag_nephrology.analyzed_studies" do |t|
       t.string  'nct_id'
       t.string  'brief_title'
-      t.string  'keywords'
-      t.string  'conditions'
-      t.string  'mesh_terms'
+      t.string  'lead_sponsor'
     end
 
     #  Views that join across schemas can cause problem for pg_restore. It can get hung up on
