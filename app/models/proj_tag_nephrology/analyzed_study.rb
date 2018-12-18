@@ -18,7 +18,7 @@ module ProjTagNephrology
           create(
             :nct_id                   => row['nct_id'].try(:strip),
             :brief_title              => row['brief_title'].try(:strip),
-            :lead_sponsor             => row['keywords'].try(:strip),
+            :lead_sponsor             => row['lead_sponsor'].try(:strip),
           ).save!
         end
       }
