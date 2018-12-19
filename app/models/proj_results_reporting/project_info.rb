@@ -32,7 +32,7 @@ module ProjResultsReporting
           pmcid:            'PMC4508873',
           doi:              '10.1056/NEJMsa1409364',
           title:            'Compliance with Results Reporting at ClinicalTrials.gov',
-          url:              'https://scholars.duke.edu/display/pub1075763',
+          url:              'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4508873/',
           citation:         'Anderson ML, Chiswell K, Peterson ED, Tasneem A, Topping J, Califf RM. Compliance with results reporting at ClinicalTrials. gov. New England Journal of Medicine. 2015 Mar 12;372(11):1031-9.'
         }
       ]
