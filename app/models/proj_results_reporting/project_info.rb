@@ -13,7 +13,7 @@ module ProjResultsReporting
         data_available:      true,
         aact_version:        'September 27, 2013',
         start_date:          Date.strptime('27/09/2013', '%d/%m/%Y'),
-        year:                2013,
+        year:                2015,
         url:                 'https://www.nejm.org/doi/full/10.1056/NEJMsa1409364',
         email:               'monique.starks@duke.edu',
         brief_summary:       'Analysis of the levels & patterns of compliance with FDAAA reporting regulations for trials conducted between 2008 & 2013 (considering only those trials that are highly likely to be applicable to FDAAA provisions).',
