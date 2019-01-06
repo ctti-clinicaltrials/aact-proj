@@ -10,80 +10,136 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_19_000122) do
+ActiveRecord::Schema.define(version: 2018_11_08_000122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "attachments", force: :cascade do |t|
-    t.integer "project_id"
-    t.string "file_name"
-    t.string "content_type"
-    t.binary "file_contents"
-    t.boolean "is_image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "analyzed_studies", force: :cascade do |t|
+    t.string "nct_id"
+    t.string "url"
+    t.string "brief_title"
+    t.string "start_month"
+    t.integer "start_year"
+    t.string "overall_status"
+    t.string "p_completion_month"
+    t.integer "p_completion_year"
+    t.string "completion_month"
+    t.integer "completion_year"
+    t.string "verification_month"
+    t.integer "verification_year"
+    t.integer "p_comp_mn"
+    t.integer "p_comp_yr"
+    t.integer "received_year"
+    t.integer "mntopcom"
+    t.integer "enrollment"
+    t.integer "number_of_arms"
+    t.string "allocation"
+    t.string "masking"
+    t.string "phase"
+    t.string "primary_purpose"
+    t.string "sponsor_name"
+    t.string "agency_class"
+    t.string "collaborator_names"
+    t.string "funding"
+    t.string "responsible_party_type"
+    t.string "responsible_party_organization"
+    t.string "us_coderc"
+    t.string "oversight"
+    t.string "behavioral"
+    t.string "biological"
+    t.string "device"
+    t.string "dietsup"
+    t.string "drug"
+    t.string "genetic"
+    t.string "procedure"
+    t.string "radiation"
+    t.string "otherint"
+    t.string "intervg1"
+    t.string "results"
+    t.string "resultsreceived_month"
+    t.string "resultsreceived_year"
+    t.date "firstreceived_results_dt"
+    t.integer "t2result"
+    t.integer "t2result_imp"
+    t.integer "t2resmod"
+    t.string "results12"
+    t.string "delayed"
+    t.date "dr_received_dt"
+    t.boolean "mn2delay"
+    t.boolean "delayed12"
   end
 
-  create_table "datasets", force: :cascade do |t|
-    t.integer "project_id"
-    t.string "dataset_type"
-    t.string "name"
-    t.string "table_name"
+  create_table "analyzed_studies", force: :cascade do |t|
+    t.string "nct_id"
     t.string "url"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "brief_title"
+    t.string "start_month"
+    t.integer "start_year"
+    t.string "overall_status"
+    t.string "p_completion_month"
+    t.integer "p_completion_year"
+    t.string "completion_month"
+    t.integer "completion_year"
+    t.string "verification_month"
+    t.integer "verification_year"
+    t.integer "p_comp_mn"
+    t.integer "p_comp_yr"
+    t.integer "received_year"
+    t.integer "mntopcom"
+    t.integer "enrollment"
+    t.integer "number_of_arms"
+    t.string "allocation"
+    t.string "masking"
+    t.string "phase"
+    t.string "primary_purpose"
+    t.string "sponsor_name"
+    t.string "agency_class"
+    t.string "collaborator_names"
+    t.string "funding"
+    t.string "responsible_party_type"
+    t.string "responsible_party_organization"
+    t.string "us_coderc"
+    t.string "oversight"
+    t.string "behavioral"
+    t.string "biological"
+    t.string "device"
+    t.string "dietsup"
+    t.string "drug"
+    t.string "genetic"
+    t.string "procedure"
+    t.string "radiation"
+    t.string "otherint"
+    t.string "intervg1"
+    t.string "results"
+    t.string "resultsreceived_month"
+    t.string "resultsreceived_year"
+    t.date "firstreceived_results_dt"
+    t.integer "t2result"
+    t.integer "t2result_imp"
+    t.integer "t2resmod"
+    t.string "results12"
+    t.string "delayed"
+    t.date "dr_received_dt"
+    t.boolean "mn2delay"
+    t.boolean "delayed12"
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "status"
-    t.date "start_date"
-    t.date "completion_date"
-    t.string "schema_name"
+  create_table "cdek_organizations", force: :cascade do |t|
     t.string "name"
-    t.integer "year"
-    t.string "brief_summary"
-    t.string "investigators"
-    t.string "organizations"
-    t.string "url"
-    t.text "description"
-    t.text "protocol"
-    t.text "issues"
-    t.text "study_selection_criteria"
-    t.string "submitter_name"
-    t.string "contact_info"
-    t.string "email"
-    t.binary "image"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["completion_date"], name: "index_proj.projects_on_completion_date"
-    t.index ["investigators"], name: "index_proj.projects_on_investigators"
-    t.index ["organizations"], name: "index_proj.projects_on_organizations"
-    t.index ["start_date"], name: "index_proj.projects_on_start_date"
-    t.index ["year"], name: "index_proj.projects_on_year"
+    t.string "downcase_name"
   end
 
-  create_table "publications", force: :cascade do |t|
-    t.integer "project_id"
+  create_table "cdek_synonyms", force: :cascade do |t|
     t.string "name"
-    t.string "url"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "preferred_name"
+    t.string "downcase_name"
+    t.string "downcase_preferred_name"
   end
 
   create_table "tagged_terms", force: :cascade do |t|
-    t.integer "project_id"
-    t.string "identifier"
-    t.string "tag"
     t.string "term"
-    t.string "year"
     t.string "term_type"
-    t.index ["identifier"], name: "index_proj_tag.tagged_terms_on_identifier"
-    t.index ["tag"], name: "index_proj_tag.tagged_terms_on_tag"
-    t.index ["term"], name: "index_proj_tag.tagged_terms_on_term"
-    t.index ["term_type"], name: "index_proj_tag.tagged_terms_on_term_type"
   end
 
   create_table "y2010_mesh_terms", force: :cascade do |t|
@@ -92,17 +148,17 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "description"
     t.string "mesh_term"
     t.string "downcase_mesh_term"
-    t.index ["description"], name: "index_proj.y2010_mesh_terms_on_description"
-    t.index ["downcase_mesh_term"], name: "index_proj.y2010_mesh_terms_on_downcase_mesh_term"
-    t.index ["mesh_term"], name: "index_proj.y2010_mesh_terms_on_mesh_term"
-    t.index ["qualifier"], name: "index_proj.y2010_mesh_terms_on_qualifier"
+    t.index ["description"], name: "index_mesh_archive.y2010_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_mesh_archive.y2010_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_mesh_archive.y2010_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_mesh_archive.y2010_mesh_terms_on_qualifier"
   end
 
   create_table "y2016_mesh_headings", force: :cascade do |t|
     t.string "qualifier"
     t.string "heading"
     t.string "subcategory"
-    t.index ["qualifier"], name: "index_proj.y2016_mesh_headings_on_qualifier"
+    t.index ["qualifier"], name: "index_mesh_archive.y2016_mesh_headings_on_qualifier"
   end
 
   create_table "y2016_mesh_terms", force: :cascade do |t|
@@ -111,10 +167,10 @@ ActiveRecord::Schema.define(version: 2018_07_19_000122) do
     t.string "description"
     t.string "mesh_term"
     t.string "downcase_mesh_term"
-    t.index ["description"], name: "index_proj.y2016_mesh_terms_on_description"
-    t.index ["downcase_mesh_term"], name: "index_proj.y2016_mesh_terms_on_downcase_mesh_term"
-    t.index ["mesh_term"], name: "index_proj.y2016_mesh_terms_on_mesh_term"
-    t.index ["qualifier"], name: "index_proj.y2016_mesh_terms_on_qualifier"
+    t.index ["description"], name: "index_mesh_archive.y2016_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_mesh_archive.y2016_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_mesh_archive.y2016_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_mesh_archive.y2016_mesh_terms_on_qualifier"
   end
 
 end

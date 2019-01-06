@@ -12,6 +12,5 @@ server.env
 /public/assets
 /tags
 /vendor
-/tmp/*
 .env
 *.secret
