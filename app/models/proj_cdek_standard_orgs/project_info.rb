@@ -67,10 +67,6 @@ Note: The cdek_organizations table essentially contains a unique list of the 'na
       ]
     end
 
-    def self.attachments
-      []
-    end
-
     def self.load_project_tables
       ProjCdekStandardOrgs::CdekOrganization.populate
       ProjCdekStandardOrgs::CdekSynonym.populate
