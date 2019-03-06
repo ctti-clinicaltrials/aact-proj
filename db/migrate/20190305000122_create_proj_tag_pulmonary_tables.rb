@@ -5,10 +5,8 @@ class CreateProjTagPulmonaryTables < ActiveRecord::Migration[5.2]
     execute "CREATE SCHEMA proj_tag_pulmonary;"
     execute "GRANT USAGE ON SCHEMA proj_tag_pulmonary to read_only;"
     execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_pulmonary TO read_only;"
-    create_table "proj_tag_pulmonary.tagged_terms" do |t|
-      t.string  'term'
-      t.string  'term_type'
-    end
+    #  Cannot create the view until the proj_tag project table has been populated.
+    execute "CREATE VIEW proj_tag_pulmonary.tagged_terms AS SELECT * FROM proj_tag.tagged_terms WHERE tag='pulmonary'"
 
     create_table "proj_tag_pulmonary.analyzed_studies" do |t|
       t.string  'nct_id'

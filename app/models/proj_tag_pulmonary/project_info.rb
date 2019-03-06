@@ -10,7 +10,7 @@ module ProjTagPulmonary
         organizations:        'Duke Clinical Research Institute',
         data_available:       true,
         aact_version:         'September 27, 2010',
-        start_date:           Date.strptime('', '%d/%m/%Y'),
+        start_date:           Date.strptime('27/09/2010', '%d/%m/%Y'),
         year:                 2013,
         study_selection_criteria: ''
       }
@@ -39,7 +39,7 @@ module ProjTagPulmonary
           name:         'Pulmonary Terms (MeSH & Free Text)',
           file_name:    "#{Rails.public_path}/attachments/proj_tag_pulmonary_terms.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads',
-          description:  'xxx unique MeSH condition terms & xxxx unique free text condition terms tagged for pulmonary',
+          description:  '582 unique MeSH condition terms & 45 unique free text condition terms tagged for pulmonary',
           source:       'The MeSH terms are from the 2010 MeSH thesaurus, terms in branches C, E, F, G. The free text terms are those  that occurred in AACT(2010).Conditions field with frequency >=5 among interventional studies registered on or after Oct 1, 2007, and that did not exist in MeSH thesaurus.'
         },
         {

@@ -3,8 +3,7 @@ module ProjTagNephrology
     self.table_name = 'proj_tag_nephrology.tagged_terms'
 
     def self.populate
-      file_name = ProjTagNephrology::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'tagged_terms'}.first[:file_name]
-      self.populate_from_file(file_name)
+      AciveRecord::Base.connection.execute "CREATE VIEW proj_tag_pulmonary.tagged_terms AS SELECT * FROM proj_tag.tagged_terms WHERE tag='pulmonary'"
     end
 
     def self.populate_from_file(file_name)
