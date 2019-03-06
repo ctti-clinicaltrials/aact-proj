@@ -59,8 +59,7 @@ module ProjTagPulmonary
     end
 
     def self.load_project_tables
-      ProjTagPulmonary::TaggedTerm.populate
-      ProjTagPulmonary::AnalyzedStudy.populate
+      #ProjTagPulmonary::AnalyzedStudy.populate
     end
 
   end
