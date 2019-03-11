@@ -76,6 +76,7 @@ A subset of the 2010 MeSH thesaurus from the NLM21 and a list of non-MeSH diseas
     end
 
     def self.load_project_tables
+      ProjTagMoc::TaggedTerm.populate
       ProjTagMoc::AnalyzedStudy.populate
     end
 
