@@ -14,7 +14,7 @@ module ProjTagMoc
 
       (2..data.last_row).each  {|i|
         row = Hash[[header, data.row(i)].transpose]
-        create(:term => row['term'].downcase.strip, :term_type=> row['type'].downcase.strip).save!  if !row['term'].blank?
+        create(:tag => row['tag'].downcase.strip, :term => row['term'].downcase.strip, :term_type=> row['type'].downcase.strip).save!  if !row['term'].blank?
       }
     end
 

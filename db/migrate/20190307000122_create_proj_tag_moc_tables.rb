@@ -7,6 +7,7 @@ class CreateProjTagMocTables < ActiveRecord::Migration[5.2]
     execute "GRANT SELECT ON ALL TABLES IN SCHEMA proj_tag_moc TO read_only;"
 
     create_table "proj_tag_moc.tagged_terms" do |t|
+      t.string  'tag'
       t.string  'term'
       t.string  'term_type'
     end
