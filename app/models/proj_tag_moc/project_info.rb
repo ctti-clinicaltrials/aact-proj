@@ -77,7 +77,9 @@ A subset of the 2010 MeSH thesaurus from the NLM21 and a list of non-MeSH diseas
 
     def self.load_project_tables
       ProjTagMoc::TaggedTerm.populate
-      ProjTagMoc::AnalyzedStudy.populate
+      ProjTagMoc::CardiovascularStudy.populate
+      ProjTagMoc::MentalHealthStudy.populate
+      ProjTagMoc::OncologyStudy.populate
     end
 
   end
