@@ -14,11 +14,13 @@ module ProjTag
       #   C01.252.100.375   hemorrhagic septicemia  Y           N
 
       dir="#{Rails.public_path}/incoming"
-      file_names=Dir.entries(dir).select{|fn|
+      # For now, we're only using the tagged terms from the 2010-based study
+      file_names=['2010_mesh_tagged_terms.xlsx','2010_free_tagged_terms.xlsx']
+      #file_names=Dir.entries(dir).select{|fn|
         # collect the mesh term files
         # eliminate those preceded with ~ char which represents open file
-        (fn.include? 'tagged_terms.xlsx') and fn[0] != '~'
-      }
+      #  (fn.include? 'tagged_terms.xlsx') and fn[0] != '~'
+      #}
       connection.execute("TRUNCATE TABLE #{table_name};")
       puts ">>>>>> Importing tagged terms from #{file_names.size} files."
       file_names.each{|file_name|

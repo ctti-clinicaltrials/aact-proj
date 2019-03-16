@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_000122) do
+ActiveRecord::Schema.define(version: 2019_03_07_000122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,12 @@ ActiveRecord::Schema.define(version: 2018_11_08_000122) do
     t.boolean "delayed12"
   end
 
+  create_table "cardiovascular_studies", force: :cascade do |t|
+    t.string "nct_id"
+    t.string "brief_title"
+    t.string "lead_sponsor"
+  end
+
   create_table "cdek_organizations", force: :cascade do |t|
     t.string "name"
     t.string "downcase_name"
@@ -137,8 +143,42 @@ ActiveRecord::Schema.define(version: 2018_11_08_000122) do
     t.string "downcase_preferred_name"
   end
 
+  create_table "mental_health_studies", force: :cascade do |t|
+    t.string "nct_id"
+    t.string "brief_title"
+    t.string "lead_sponsor"
+  end
+
+  create_table "oncology_studies", force: :cascade do |t|
+    t.string "nct_id"
+    t.string "brief_title"
+    t.string "lead_sponsor"
+  end
+
   create_table "tagged_terms", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "identifier"
+    t.string "tag"
     t.string "term"
+    t.string "year"
+    t.string "term_type"
+  end
+
+  create_table "tagged_terms", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "identifier"
+    t.string "tag"
+    t.string "term"
+    t.string "year"
+    t.string "term_type"
+  end
+
+  create_table "tagged_terms", force: :cascade do |t|
+    t.integer "project_id"
+    t.string "identifier"
+    t.string "tag"
+    t.string "term"
+    t.string "year"
     t.string "term_type"
   end
 
