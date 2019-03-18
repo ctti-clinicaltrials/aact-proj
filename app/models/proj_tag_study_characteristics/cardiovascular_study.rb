@@ -1,9 +1,9 @@
-module ProjTagMoc
+module ProjTagStudyCharacteristics
   class CardiovascularStudy < ActiveRecord::Base
-    self.table_name = 'proj_tag_moc.cardiovascular_studies'
+    self.table_name = 'proj_tag_study_characteristics.cardiovascular_studies'
 
     def self.populate
-      file_name = ProjTagMoc::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'analyzed_studies'}.first[:file_name]
+      file_name = ProjTagStudyCharacteristics::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'analyzed_studies'}.first[:file_name]
       self.populate_from_file(file_name)
     end
 

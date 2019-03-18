@@ -1,9 +1,9 @@
-module ProjTagMoc
+module ProjTagStudyCharacteristics
   class TaggedTerm < ActiveRecord::Base
-    self.table_name = 'proj_tag_moc.tagged_terms'
+    self.table_name = 'proj_tag_study_characteristics.tagged_terms'
 
     def self.populate
-      file_name = ProjTagMoc::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'tagged_terms'}.first[:file_name]
+      file_name = ProjTagStudyCharacteristics::ProjectInfo.datasets.select{|ds| ds[:table_name] == 'tagged_terms'}.first[:file_name]
       self.populate_from_file(file_name)
     end
 
