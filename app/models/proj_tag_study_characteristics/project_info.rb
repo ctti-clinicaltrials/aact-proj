@@ -47,16 +47,6 @@ A subset of the 2010 MeSH thesaurus from the NLM and a list of non-MeSH (free te
           file_name:   "#{Rails.public_path}/attachments/proj_tag_study_characteristics_data_defs.xlsx",
           file_type: 'application/vnd.openxmlformats-officedocument.spreads'
         },
-        {
-          description: 'Analyzed Cardiovascular Terms',
-          file_name:   "#{Rails.public_path}/attachments/proj_tag_study_characteristics_cardiovascular_terms.xlsx",
-          file_type: 'application/vnd.openxmlformats-officedocument.spreads'
-        },
-        {
-          description: 'Analyzed Oncology Terms',
-          file_name:   "#{Rails.public_path}/attachments/proj_tag_study_characteristics_oncology_terms.xlsx",
-          file_type: 'application/vnd.openxmlformats-officedocument.spreads'
-        },
       ]
     end
 
@@ -75,10 +65,10 @@ A subset of the 2010 MeSH thesaurus from the NLM and a list of non-MeSH (free te
           dataset_type: 'terms',
           schema_name:  'proj_tag_study_characteristics',
           table_name:   'tagged_terms',
-          name:         'Mental Health, Oncology and Cardiovascular Terms (MeSH & Free Text)',
+          name:         'Analyzed MeSH & Free Text Terms & Those Associated with Mental Health, Oncology and Cardiovascular',
           file_name:    "#{Rails.public_path}/attachments/proj_tag_study_characteristics_terms.xlsx",
           file_type:    'application/vnd.openxmlformats-officedocument.spreads',
-          description:  '',
+          description:  "This 5-page spreadsheet includes information about the MeSH & free text terms that were analyzed to determine which are associated with mental health, oncology or cardiovascular specialties. The first page lists all analyzed MeSH terms (and MeSH IDs) and three Y/N columns to show if the term was determined to be associated with a clinical specialty. The second page does the same for the free text terms. Three other pages: mental health, oncology and cardiovascular, provide a unique list of MeSH & free text terms associated with that specialty. Some terms are associated with more than one clinical specialty. For example, 'Carcinoid Heart Disease' is associated with both oncology and cardiovascular.",
           source:       'The MeSH terms are those from the 2010 MeSH thesaurus branches C, E, F, G that relate to either mental health, oncology or cardiovascular conditions. The free text terms are those related to one of these 3 specialties that occurred in AACT(2010).conditions field with frequency >=5 among interventional studies registered on or after Oct 1, 2007, and that did not exist in MeSH thesaurus.'
         }
       ]
