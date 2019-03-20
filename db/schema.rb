@@ -88,4 +88,16 @@ ActiveRecord::Schema.define(version: 2019_03_07_000122) do
     t.index ["qualifier"], name: "index_mesh_archive.y2016_mesh_terms_on_qualifier"
   end
 
+  create_table "y2018_mesh_terms", force: :cascade do |t|
+    t.string "qualifier"
+    t.string "tree_number"
+    t.string "description"
+    t.string "mesh_term"
+    t.string "downcase_mesh_term"
+    t.index ["description"], name: "index_mesh_archive.y2018_mesh_terms_on_description"
+    t.index ["downcase_mesh_term"], name: "index_mesh_archive.y2018_mesh_terms_on_downcase_mesh_term"
+    t.index ["mesh_term"], name: "index_mesh_archive.y2018_mesh_terms_on_mesh_term"
+    t.index ["qualifier"], name: "index_mesh_archive.y2018_mesh_terms_on_qualifier"
+  end
+
 end
