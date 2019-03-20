@@ -13,13 +13,13 @@ module ProjTagStudyCharacteristics
     def self.populate_from_file(file_name, specialty)
       data = Roo::Spreadsheet.open(file_name).sheet(specialty)
       header = data.first.compact.map(&:downcase)
-      eliminated_terms = ProjTagStudyCharacteristics::EliminatedTerm.terms[specialty.downcase]
+      eliminated_terms = ProjTagStudyCharacteristics::EliminatedTerm.terms_for(specialty.downcase)
 
       (2..data.last_row).each  {|i|
         row = Hash[[header, data.row(i)].transpose]
         term=row['term'].downcase.strip
         if !row['term'].blank? and !eliminated_terms.include?(term)
-          create(:tag => specialty.downcase.strip, :term => row['term'].downcase.strip, :term_type=> row['type'].downcase.strip).save!
+          create(:tag => specialty.downcase.strip, :term => term, :term_type=> row['type'].downcase.strip).save!
         end
       }
     end
