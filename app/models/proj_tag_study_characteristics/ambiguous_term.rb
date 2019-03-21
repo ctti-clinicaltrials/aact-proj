@@ -1,10 +1,10 @@
 module ProjTagStudyCharacteristics
-  class EliminatedTerm < ActiveRecord::Base
+  class AmbiguousTerm < ActiveRecord::Base
 
     self.table_name = 'proj_tag_study_characteristics.tagged_terms'
 
     def self.populate
-      connection.execute("DELETE FROM #{table_name} WHERE term_type='excluded';")
+      connection.execute("DELETE FROM #{table_name} WHERE term_type='ambiguous';")
       data = self.get_from_spreadsheet
       header = data.first.compact.map(&:downcase)
 
@@ -12,14 +12,14 @@ module ProjTagStudyCharacteristics
         row = Hash[[header, data.row(i)].transpose]
         term=row['term'].downcase.strip
         if !row['term'].blank? and !row['tag'].blank?
-          create(:tag => row['tag'].downcase.strip, :term => term, :term_type=> 'excluded').save!
+          create(:tag => row['tag'].downcase.strip, :term => term, :term_type=> 'ambiguous').save!
         end
       }
     end
 
     def self.get_from_spreadsheet
       file_name = ProjTagStudyCharacteristics::ProjectInfo.datasets.select{|ds| ds[:dataset_type] == 'terms'}.first[:file_name]
-      Roo::Spreadsheet.open(file_name).sheet('Excluded Terms')
+      Roo::Spreadsheet.open(file_name).sheet('Ambiguous Terms')
     end
 
     def self.terms_for(specialty)

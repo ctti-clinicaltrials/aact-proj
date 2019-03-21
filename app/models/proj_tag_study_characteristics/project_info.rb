@@ -74,8 +74,9 @@ A subset of the 2010 MeSH thesaurus from the NLM and a list of non-MeSH (free te
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
       ProjTagStudyCharacteristics::TaggedTerm.populate
+      ProjTagStudyCharacteristics::AmbiguousTerm.populate
       ProjTagStudyCharacteristics::CardiovascularStudy.populate
       ProjTagStudyCharacteristics::MentalHealthStudy.populate
       ProjTagStudyCharacteristics::OncologyStudy.populate
