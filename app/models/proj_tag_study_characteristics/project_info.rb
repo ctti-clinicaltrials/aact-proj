@@ -26,7 +26,7 @@ A subset of the 2010 MeSH thesaurus from the NLM and a list of non-MeSH (free te
     def self.faqs
       [
         {
-          name:     'Categorization of MeSH Terms',
+          name:     'How were terms reviewed & assigned to the three clinical specialties (mental health, oncology & cardiovascular)?',
           url:      'https://www.ctti-clinicaltrials.org/files/clinicaltrials.gov-methodspaper.pdf',
           citation:  'Tasneem A, Aberle L, Ananth H, Chakraborty S, Chiswell K, et al. (2012) The Database for Aggregate Analysis of ClinicalTrials.gov (AACT) and Subsequent Regrouping by Clinical Specialty. PLoS ONE 7(3): e33677. doi:10.1371/journal.pone.0033677)',
           description: 'Data submitters (study sponsors or their designees) are requested to provide Condition and Keywords data as MeSH terms when registering a study. Additionally, an NLM algorithm also evaluates studies and applies MeSH terms according to the following steps: 1) study records are checked for the presence of a MeSH term, including synonyms and lexical variations; 2) weighted scores are computed for all matches, with exact matches, lexical variations, and synonyms receiving descending proportional weight; 3) very common terms are excluded to avoid confounding; 4) location by data element is considered and weighted in the term scoring process; and 5) terms with scores exceeding the cutoff value are applied to the respective studies.  (Note that the output from steps 1 and 2 is used for both condition and intervention annotations; the field weights are different for each and divert terms into the target annotation type.) This method does not consider the natural-language context for matched terms or ontologically related concepts that would add specificity.'
