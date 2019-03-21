@@ -23,9 +23,10 @@ class ProjectInfoTemplate
 
     def self.faqs
       # {
-      #   name: '',
+      #   question: '',
+      #   answer: ''
       #   citation: '',
-      #   description: ''
+      #   url: '',
       # }
       []
     end
