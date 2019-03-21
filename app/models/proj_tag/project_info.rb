@@ -57,7 +57,7 @@ module ProjTag
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
       ProjTag::TaggedTerm.populate
     end
 

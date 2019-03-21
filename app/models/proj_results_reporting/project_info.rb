@@ -63,7 +63,7 @@ module ProjResultsReporting
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
       ProjResultsReporting::AnalyzedStudy.populate
     end
 

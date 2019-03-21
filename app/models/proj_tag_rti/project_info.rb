@@ -58,7 +58,7 @@ module ProjTagRti
       []
     end
 
-    def self.load_project_tables
+    def self.populate
       #ProjTagPvd::AnalyzedStudy.populate
     end
 

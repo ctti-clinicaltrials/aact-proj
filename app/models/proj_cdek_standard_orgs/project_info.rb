@@ -67,7 +67,7 @@ The organization information curated for the CDEK project is now available in AA
       ]
     end
 
-    def self.load_project_tables
+    def self.populate
       ProjCdekStandardOrgs::CdekOrganization.populate
       ProjCdekStandardOrgs::CdekSynonym.populate
     end

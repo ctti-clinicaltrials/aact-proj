@@ -58,7 +58,7 @@ module ProjTagOsteoporosis
       []
     end
 
-    def self.load_project_tables
+    def self.populate
       #ProjTagOsteoporosis::AnalyzedStudy.populate
     end
 

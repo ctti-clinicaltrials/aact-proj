@@ -26,7 +26,7 @@ module Util
       }
       new_proj.save!
       #DataDefinition.populate(new_proj.schema_name)
-      proj_info.load_project_tables
+      proj_info.populate
     end
 
     def image
