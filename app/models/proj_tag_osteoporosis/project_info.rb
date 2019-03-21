@@ -1,5 +1,5 @@
 module ProjTagOsteoporosis
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       { name:                 'Recent Clinical Trials in Osteoporosis: A Firm Foundation or Falling Short?',

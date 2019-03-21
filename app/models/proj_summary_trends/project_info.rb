@@ -1,5 +1,5 @@
 module ProjSummaryTrends
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       #  Required:  name & schema_name

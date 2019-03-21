@@ -2,6 +2,7 @@ module Admin
   class Project < AdminBase
     has_many :attachments
     has_many :datasets
+    has_many :faqs
     has_many :publications
 
     def self.project_list

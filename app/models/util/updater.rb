@@ -20,6 +20,7 @@ module Util
       Admin::Project.connection.execute("DELETE FROM PROJECTS WHERE NAME = '#{new_proj.name.strip}';")
       proj_info.attachments.each{ |a| new_proj.attachments << Admin::Attachment.create_from(a) }
       proj_info.publications.each{ |p| new_proj.publications << Admin::Publication.create(p) }
+      proj_info.faqs.each{ |f| new_proj.faqs << Admin::Faq.create(f) }
       proj_info.datasets.each{ |ds|
         file = Rack::Test::UploadedFile.new(ds[:file_name], ds[:file_type])
         new_proj.datasets << Admin::Dataset.create_from(ds, file)

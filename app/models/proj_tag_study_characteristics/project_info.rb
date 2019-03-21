@@ -1,8 +1,7 @@
 module ProjTagStudyCharacteristics
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
-      #  Required:  name, schema_name & migration_file_name
       { name:                'Characteristics of Clinical Trials Registered in ClinicalTrials.gov, 2007-2010',
         schema_name:         'proj_tag_study_characteristics',
         migration_file_name:  Rails.root.join('db','migrate','20190307000122_create_proj_tag_study_characteristics_tables.rb').to_s,
@@ -22,6 +21,17 @@ module ProjTagStudyCharacteristics
 
 A subset of the 2010 MeSH thesaurus from the NLM and a list of non-MeSH (free text) disease condition terms provided by data submitters that appeared in 5 or more interventional studies in the analysis data set were reviewed and annotated by clinical specialists at Duke University Medical Center. Terms were annotated according to their relevance to a given specialty (Y = relevant, N = not relevant). Cardiovascular(N=3437), oncology (N=8992), and mental health (N=3695)studies were identified by searching for relevant MeSH and free text terms in the submitted conditions field, as well the condition MeSH terms generated for each study by the NLM. Because MeSH terms can exist with multiple MeSH IDs in the MeSH thesaurus and relevance to a clinical specialty may depend on the context, only MeSH terms that were consistently coded as relevant (Y) across all MeSH IDs met the criteria for inclusion in this analysis. A single study may have multiple MeSH and/or condition terms, and studies were included if they had one or more terms relevant to the clinical specialty of interest. A study could be included in more than one specialty. The results of these specialty classifications based on searches for relevant terms were validated by comparison with classifications based on manual review. (Tasneem A, Aberle L, Ananth H, et al. The database for Aggregate Analysis of ClinicalTrials.gov (AACT) and subsequent regrouping by clinical specialty. PLoS One. 2012;7(3):e33677.)",
       }
+    end
+
+    def self.faqs
+      [
+        {
+          name:     'Categorization of MeSH Terms',
+          url:      'https://www.ctti-clinicaltrials.org/files/clinicaltrials.gov-methodspaper.pdf',
+          citation:  'Tasneem A, Aberle L, Ananth H, Chakraborty S, Chiswell K, et al. (2012) The Database for Aggregate Analysis of ClinicalTrials.gov (AACT) and Subsequent Regrouping by Clinical Specialty. PLoS ONE 7(3): e33677. doi:10.1371/journal.pone.0033677)',
+          description: 'Data submitters (study sponsors or their designees) are requested to provide Condition and Keywords data as MeSH terms when registering a study. Additionally, an NLM algorithm also evaluates studies and applies MeSH terms according to the following steps: 1) study records are checked for the presence of a MeSH term, including synonyms and lexical variations; 2) weighted scores are computed for all matches, with exact matches, lexical variations, and synonyms receiving descending proportional weight; 3) very common terms are excluded to avoid confounding; 4) location by data element is considered and weighted in the term scoring process; and 5) terms with scores exceeding the cutoff value are applied to the respective studies.  (Note that the output from steps 1 and 2 is used for both condition and intervention annotations; the field weights are different for each and divert terms into the target annotation type.) This method does not consider the natural-language context for matched terms or ontologically related concepts that would add specificity.'
+        }
+      ]
     end
 
     def self.publications

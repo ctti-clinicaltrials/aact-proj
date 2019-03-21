@@ -1,5 +1,5 @@
 module ProjTagNephrology
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       { name:                 'The Landscape of Clinical Trials in Nephrology: A Systematic Review of ClinicalTrials.gov',

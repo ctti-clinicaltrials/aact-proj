@@ -1,5 +1,5 @@
 module ProjTagPvd
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       { name:                 'Clinical trials in peripheral vascular disease: pipeline and trial designs: an evaluation of the ClinicalTrials.gov database',

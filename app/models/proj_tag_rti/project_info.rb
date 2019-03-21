@@ -1,5 +1,5 @@
 module ProjTagRti
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       { name:                 ' Respiratory tract infection clinical trials from 2007 to 2012. A systematic review of clinicaltrials. gov.',

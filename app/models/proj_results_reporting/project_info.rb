@@ -1,5 +1,5 @@
 module ProjResultsReporting
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
       #  Required:  name, schema_name & migration_file_name

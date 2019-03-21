@@ -1,5 +1,5 @@
 module ProjCdekStandardOrgs
-  class ProjectInfo
+  class ProjectInfo < ProjectInfoTemplate
 
     def self.meta_info
     {
