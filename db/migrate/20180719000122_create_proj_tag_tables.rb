@@ -20,6 +20,12 @@ class CreateProjTagTables < ActiveRecord::Migration[5.2]
     #  When Core AACT restores the Public Database by dumping/restoring the staging database,
     #  it drops all views before hand. When it's done restoring, it runs a function to recreate
     #  the view.
+    #
+    #  The views created below show:
+    #    Interventional trials posted since 10/1/2007 (because prior to that, some data elements (such as studies.has_dmc & studies.number_of_arms
+    #    were not being reported in ct.gov
+    #    Join by term to browse_conditions, browse_interventions & keywords.
+
     execute <<-SQL
         CREATE OR REPLACE FUNCTION proj_tag.create_views() RETURNS void AS
         $BODY$
