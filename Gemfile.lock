@@ -177,9 +177,3 @@ DEPENDENCIES
   roo-xls
   spring
   web-console (>= 3.3.0)
-
-RUBY VERSION
-   ruby 2.4.0p0
-
-BUNDLED WITH
-   1.16.4
