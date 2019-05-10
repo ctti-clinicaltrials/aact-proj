@@ -15,6 +15,7 @@ module AACT
     config.i18n.fallbacks = [I18n.default_locale]
 
     AACT_DB_SUPER_USERNAME = ENV['AACT_DB_SUPER_USERNAME'] || 'ctti'
+    AACT_STATIC_FILE_DIR   = ENV['AACT_STATIC_FILE_DIR'] || '/aact-files'  # directory containing AACT static files such as log files
 
     if Rails.env == 'test'
       APPLICATION_HOST          = 'localhost'

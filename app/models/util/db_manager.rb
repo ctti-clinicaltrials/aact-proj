@@ -51,7 +51,7 @@ module Util
     end
 
     def dump_file_name
-      '/aact-files/other/project.dmp'
+      "#{AACT::Application::AACT_STATIC_FILE_DIR}/other/project.dmp"
     end
 
   end
