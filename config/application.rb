@@ -7,7 +7,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module AactProj
+module AACT
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
@@ -20,14 +20,12 @@ module AactProj
       APPLICATION_HOST          = 'localhost'
       AACT_PUBLIC_HOSTNAME      = 'localhost'
       AACT_BACK_DATABASE_NAME   = 'aact_back_test'
-      AACT_ADMIN_DATABASE_NAME  = 'aact_admin_test'
       AACT_PUBLIC_DATABASE_NAME = 'aact_test'
       AACT_PROJ_DATABASE_NAME   = 'aact_proj_test'
     else
       APPLICATION_HOST          = ENV['APPLICATION_HOST'] || 'localhost'
       AACT_PUBLIC_HOSTNAME      = ENV['AACT_PUBLIC_HOSTNAME'] || 'localhost'
       AACT_BACK_DATABASE_NAME   = ENV['AACT_BACK_DATABASE_NAME'] || 'aact_back'
-      AACT_ADMIN_DATABASE_NAME  = ENV['AACT_ADMIN_DATABASE_NAME'] || 'aact_admin'
       AACT_PUBLIC_DATABASE_NAME = ENV['AACT_PUBLIC_DATABASE_NAME'] || 'aact'
       AACT_PROJ_DATABASE_NAME   = ENV['AACT_PROJ_DATABASE_NAME'] || 'aact_proj'
     end
