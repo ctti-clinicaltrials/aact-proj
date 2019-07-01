@@ -14,9 +14,10 @@ end
 desc 'Finalize the deployment'
 task :finish_up do
   on roles(:app) do
-    # create symlink to /aact-files
+    # create symlink to to the root directory containing aact static files
+    # content of this directory can get big; we create this directory on a separate NAS drive
     target = release_path.join('public/static')
-    source = '/aact-files'
+    source = ENV.fetch('AACT_STATIC_FILE_DIR','/aact-files')
     execute :ln, '-s', source, target
     # restart the website
     execute :touch, release_path.join('tmp/restart.txt')
@@ -30,7 +31,7 @@ end
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
-set :format_options, command_output: true, log_file: "/aact-files/logs/capistrano.log", color: :auto, truncate: :auto
+set :format_options, command_output: true, log_file: "#{ENV.fetch('STATIC_FILE_DIR','/aact-files')}/logs/capistrano_aact_proj.log", color: :auto, truncate: :auto
 
 # Default value for :pty is false
 # set :pty, true
@@ -47,7 +48,7 @@ set :default_env, {
   'PATH'             => ENV['AACT_PATH'],
   'LD_LIBRARY_PATH'  => ENV['AACT_LD_LIBRARY_PATH'],
   'APPLICATION_HOST' => ENV['APPLICATION_HOST'],
-  'RUBY_VERSION'     => 'ruby 2.4.0',
+  'RUBY_VERSION'     => 'ruby 2.4.5',
   'GEM_HOME'         => ENV['AACT_GEM_HOME'],
   'GEM_PATH'         => ENV['AACT_GEM_PATH'],
 }
