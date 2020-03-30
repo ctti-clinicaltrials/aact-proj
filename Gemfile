@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.5'
+ruby '2.6.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
-gem "actionview", ">= 5.2.2.1"
+gem 'rails', '= 6.0.1'
+gem "actionview", ">= 6.0.1"
 # Use pg as the database for Active Record
 gem 'pg'
 #gem 'sqlite3'
@@ -53,7 +53,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "database_cleaner"
-  #gem 'rspec-rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -66,7 +66,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  #gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara', '>= 2.15', '< 4.0'
   #gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   #gem 'chromedriver-helper'
