@@ -5,8 +5,8 @@ module Util
     def refresh_public_db
       File.delete(dump_file_name) if File.exist?(dump_file_name)
       run_command(dump)
-      run_command(restore('aact'))
-      run_command(restore('aact_alt'))
+      run_command(restore(ENV['AACT_PUBLIC_DATABASE_NAME']))
+      run_command(restore(ENV['AACT_ALT_PUBLIC_DATABASE_NAME']))
       grant_privs
     end
 
