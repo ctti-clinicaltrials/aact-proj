@@ -16,6 +16,7 @@ AACT Data Sharing - We are sharing the data from projects that have used AACT as
 * Database initialization:  It does not drop or create the database.  It only drops/creates project-related schemas.
 
 * Deployment instructions
+
 Go into your .bash_profile and uncomment only the section for aact-proj Rails.env = test
 
 Open a new terminal
