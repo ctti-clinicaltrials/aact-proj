@@ -1,4 +1,4 @@
-class CreateProjTagTables < ActiveRecord::Migration[5.2]
+class CreateProjTagTables < ActiveRecord::Migration[6.0]
 
   def up
 

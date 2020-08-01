@@ -1,4 +1,4 @@
-class CreateMeshThesaurus < ActiveRecord::Migration[5.2]
+class CreateMeshThesaurus < ActiveRecord::Migration[6.0]
 
   def up
 

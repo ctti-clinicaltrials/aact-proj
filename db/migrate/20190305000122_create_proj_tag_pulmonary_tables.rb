@@ -1,4 +1,4 @@
-class CreateProjTagPulmonaryTables < ActiveRecord::Migration[5.2]
+class CreateProjTagPulmonaryTables < ActiveRecord::Migration[6.0]
 
   def up
 
