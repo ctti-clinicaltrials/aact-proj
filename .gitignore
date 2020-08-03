@@ -14,3 +14,5 @@ server.env
 /vendor
 .env
 *.secret
+development_secret.txt
+.byebug_history

@@ -1,4 +1,4 @@
-class CreateProjCdekStandardOrgsTables < ActiveRecord::Migration[5.2]
+class CreateProjCdekStandardOrgsTables < ActiveRecord::Migration[6.0]
 
   def up
 

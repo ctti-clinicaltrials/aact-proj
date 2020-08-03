@@ -1,4 +1,4 @@
-class CreateProjTagNephrologyTables < ActiveRecord::Migration[5.2]
+class CreateProjTagNephrologyTables < ActiveRecord::Migration[6.0]
 
   def up
 

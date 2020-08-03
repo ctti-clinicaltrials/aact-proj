@@ -1,4 +1,4 @@
-class CreateProjResultsReportingTables < ActiveRecord::Migration[5.2]
+class CreateProjResultsReportingTables < ActiveRecord::Migration[6.0]
 
   def up
 

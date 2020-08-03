@@ -17,8 +17,26 @@ AACT Data Sharing - We are sharing the data from projects that have used AACT as
 
 * Deployment instructions
 
-** bundle exec rake db:drop
-** bundle exec rake db:create
-** bundle exec rake db:migrate
-** bundle exec rake db:seed
+Go into your .bash_profile and uncomment only the section for aact-proj Rails.env = test
 
+Open a new terminal
+
+```bash
+bundle exec rake db:drop RAILS_ENV=test
+bundle exec rake db:create RAILS_ENV=test
+bundle exec rake db:migrate RAILS_ENV=test
+bundle exec rake db:seed RAILS_ENV=test
+bundle exec rspec
+```
+
+Go into your .bash_profile and uncomment only the section for aact-proj Rails.env != test
+
+Open a new terminal
+
+```bash
+bin/rails db:environment:set RAILS_ENV=development
+bundle exec rake db:drop
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake db:seed
+```

@@ -1,4 +1,4 @@
-class CreateProjTagStudyCharacteristicsTables < ActiveRecord::Migration[5.2]
+class CreateProjTagStudyCharacteristicsTables < ActiveRecord::Migration[6.0]
 
   def up
 
